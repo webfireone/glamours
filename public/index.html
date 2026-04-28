@@ -44,41 +44,76 @@
             color: #000000;
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* Clean Header */
         header {
-            border-bottom: 1px solid #f0f0f0;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
             transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(10px);
         }
 
-        /* Product Cards - Minimalist */
-        .product-card {
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        /* Hero Layout - Overlapping & Delicate */
+        .hero-container {
+            position: relative;
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding-top: 80px;
+        }
+
+        .hero-text-area {
+            z-index: 20;
+            position: relative;
+            pointer-events: none;
+        }
+        .hero-text-area * { pointer-events: auto; }
+
+        .hero-image-container {
+            position: absolute;
+            right: 0;
+            top: 10%;
+            width: 65%;
+            height: 80%;
+            z-index: 10;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* Preserves original format without cropping */
+            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
-        .product-card:hover img {
-            opacity: 0.85;
-            transform: scale(1.02);
+        .hero-container:hover #hero-image {
+            transform: scale(1.05);
         }
 
         .pill-button {
-            border-radius: 0px; /* Sail uses more square/sharp corners or very subtle rounding */
+            border-radius: 0px;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+            letter-spacing: 3px;
+            font-size: 10px;
+            font-weight: 800;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
         .pill-button:hover {
             background-color: #333;
+            letter-spacing: 5px;
         }
 
         .nav-link {
             position: relative;
             text-transform: uppercase;
-            font-size: 11px;
+            font-size: 10px;
             letter-spacing: 2px;
-            font-weight: 600;
+            font-weight: 700;
         }
         
         .nav-link::after {
@@ -95,11 +130,34 @@
             width: 100%;
         }
 
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-size: 9px;
+            letter-spacing: 4px;
+            color: #ccc;
+            text-transform: uppercase;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+            40% {transform: translateY(-5px) translateX(-50%);}
+            60% {transform: translateY(-3px) translateX(-50%);}
+        }
+
         /* Animations */
         .fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
         }
         
         @keyframes fadeInUp {
@@ -108,11 +166,6 @@
                 transform: translateY(0);
             }
         }
-        
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-
     </style>
 </head>
 <body class="antialiased overflow-x-hidden relative">
@@ -121,7 +174,7 @@
     <header class="sticky top-0 z-50 flex justify-between items-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-md shadow-sm fade-in-up w-full">
         <!-- Logo -->
         <div class="flex items-center gap-3">
-            <img src="./logo.png" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50" style="mix-blend-mode: multiply;">
+            <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50" style="mix-blend-mode: multiply;">
             <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
         </div>
 
@@ -165,39 +218,54 @@
     </div>
 
     <!-- Hero Section -->
-    <main class="pt-0 md:pt-16 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[85vh] flex flex-col justify-center relative">
-        <!-- Background -->
-        <div class="absolute inset-0 bg-white -z-20"></div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 md:gap-12 items-center">
+    <!-- Hero Section: Overlapping & Delicate Design -->
+    <main class="hero-container px-6 md:px-16 max-w-7xl mx-auto overflow-visible">
+        
+        <!-- Hero Text Area (Flies over image) -->
+        <div class="hero-text-area w-full lg:w-1/2">
+            <h1 id="hero-title" class="font-serif text-6xl md:text-[120px] leading-[0.8] mb-10 fade-in-up tracking-[-0.05em] uppercase mix-blend-difference">
+                URBAN <br>
+                <span class="italic font-light text-gray-400">ESSENCE</span>
+            </h1>
             
-            <!-- Left Content: Text -->
-            <div class="z-10 mt-10 lg:mt-0 order-2 lg:order-1">
-                <h1 id="hero-title" class="font-serif text-5xl md:text-8xl leading-[0.85] mb-8 fade-in-up tracking-tighter uppercase">
-                    NEW <br>
-                    <span class="italic font-light">COLLECTION</span>
-                </h1>
-                <p id="hero-desc" class="text-gray-500 mb-10 max-w-sm text-xs md:text-sm leading-relaxed fade-in-up delay-100 uppercase tracking-[0.2em]">
-                    Cargando descripción...
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 fade-in-up delay-200">
-                    <button class="pill-button bg-black text-white px-10 py-5 text-[10px] font-bold tracking-[4px] hover:bg-gray-800 transition shadow-sm" onclick="document.getElementById('featured-products').scrollIntoView({behavior:'smooth'})">
-                        VER AHORA
-                    </button>
-                    <button class="pill-button border border-black text-black px-10 py-5 text-[10px] font-bold tracking-[4px] hover:bg-black hover:text-white transition" onclick="location.href='promociones.html'">
-                        OFFERS
-                    </button>
-                </div>
-            </div>
+            <div class="h-1 w-20 bg-black mb-10 fade-in-up delay-100"></div>
 
-            <!-- Right Content: Large Hero Image -->
-            <div class="relative h-[60vh] md:h-[70vh] lg:h-[80vh] w-full order-1 lg:order-2 overflow-hidden fade-in-up">
-                <img id="hero-image" src="/logo.png" alt="Featured" class="w-full h-full object-cover object-center transition-all duration-700 hover:scale-105">
-                <div class="absolute inset-0 bg-black/[0.02]"></div>
+            <p id="hero-desc" class="text-gray-400 mb-12 max-w-xs text-[10px] md:text-xs leading-loose fade-in-up delay-200 uppercase tracking-[0.3em]">
+                Descubre una curaduría de las mejores marcas nacionales. Sail, 47 Street y más.
+            </p>
+            
+            <div class="flex flex-col sm:flex-row gap-6 fade-in-up delay-300">
+                <button class="pill-button bg-black text-white px-12 py-5 shadow-2xl hover:bg-black/90 transition" onclick="document.getElementById('featured-products').scrollIntoView({behavior:'smooth'})">
+                    SHOP THE LOOK
+                </button>
+                <button class="pill-button border border-black/20 text-black px-12 py-5 hover:bg-black hover:text-white transition" onclick="location.href='promociones.html'">
+                    PROMOTIONS
+                </button>
+            </div>
+        </div>
+
+        <!-- Hero Image (Protagonist) -->
+        <div class="hero-image-container fade-in-up">
+            <img id="hero-image" src="/logo.jpg" alt="Featured Season" class="transition-all duration-1000">
+            <!-- Subtle Overlay for text readability if image is too bright -->
+            <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:block hidden"></div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator fade-in-up delay-300">
+            <span>Scroll</span>
+            <div class="w-px h-12 bg-gray-200 relative overflow-hidden">
+                <div class="absolute inset-0 bg-black animate-[scroll-line_2s_infinite]"></div>
             </div>
         </div>
     </main>
+
+    <style>
+        @keyframes scroll-line {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+    </style>
 
     <!-- Manual Featured Products Section -->
     <section id="featured-products" class="py-20 px-6 md:px-16 max-w-7xl mx-auto">
@@ -217,7 +285,7 @@
         <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
             <div class="col-span-1 md:col-span-1">
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="./logo.png" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md hover:scale-105 transition" style="mix-blend-mode: multiply;">
+                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md hover:scale-105 transition" style="mix-blend-mode: multiply;">
                     <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
                 </div>
                 <p class="text-sm text-gray-600 leading-relaxed">
