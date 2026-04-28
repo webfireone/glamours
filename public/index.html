@@ -62,15 +62,27 @@
             overflow: hidden;
         }
 
+        #hero-bg-blur {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.4) blur(20px); /* Fondo desenfocado para llenar el ancho */
+            z-index: 0;
+            transform: scale(1.1); /* Evita bordes blancos por el blur */
+        }
+
         #hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover; /* Asegura que cubra de lado a lado en el espacio de 50vh */
-            filter: brightness(0.6);
-            z-index: 0;
+            object-fit: contain; /* Imagen 100% COMPLETA en el centro */
+            z-index: 5;
+            filter: brightness(0.8);
         }
 
         .hero-content-wrapper {
@@ -87,7 +99,11 @@
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            height: 100%;
         }
 
         .category-card {
@@ -276,23 +292,26 @@
 
     <!-- Hero Section: Editorial Impact -->
     <main class="hero-container">
-        <!-- Background Image (Dynamic) -->
-        <img id="hero-bg" src="" alt="Glamours Hero" class="fade-in">
+        <!-- Background Layer 1: Blurred (fills the space) -->
+        <img id="hero-bg-blur" src="" alt="" class="fade-in" style="pointer-events: none;">
+        
+        <!-- Background Layer 2: Sharp & Complete (No Crop) -->
+        <img id="hero-bg" src="" alt="Glamours Hero" class="fade-in" style="pointer-events: none;">
         
         <!-- Hero Content Overlay -->
         <div class="hero-content-wrapper">
             <div class="hero-content">
-                <h1 id="hero-title" class="font-serif text-3xl md:text-[80px] lg:text-[100px] leading-tight mb-6 fade-in-up uppercase tracking-tighter">
+                <h1 id="hero-title" class="font-serif text-xl md:text-3xl lg:text-5xl leading-tight mb-3 fade-in-up uppercase tracking-tighter shadow-sm">
                     Elegancia <br>
-                    <span class="italic font-light opacity-80">Sustentable</span>
+                    <span class="italic font-light opacity-90">Sustentable</span>
                 </h1>
                 
-                <p id="hero-desc" class="text-white/80 mb-10 max-w-lg mx-auto text-[10px] md:text-sm leading-loose fade-in-up delay-200 uppercase tracking-[0.4em]">
-                    Descubre la nueva colección de temporada en un solo lugar.
+                <p id="hero-desc" class="text-white/90 mb-6 max-w-md mx-auto text-[7px] md:text-[10px] leading-relaxed fade-in-up delay-200 uppercase tracking-[0.3em]">
+                    Colección Exclusiva
                 </p>
                 
-                <div class="flex flex-col md:flex-row gap-4 justify-center fade-in-up delay-300">
-                    <a href="#productos" class="pill-button bg-white text-black px-10 py-4 hover:bg-black hover:text-white">
+                <div class="flex justify-center fade-in-up delay-300">
+                    <a href="novedades.html" class="pill-button bg-white text-black px-6 py-2.5 hover:bg-black hover:text-white text-[9px] shadow-lg">
                         Ver Colección
                     </a>
                 </div>
@@ -464,7 +483,10 @@
 
                 if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
                 if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
-                if (config.heroImage) document.getElementById('hero-bg').src = config.heroImage;
+                if (config.heroImage) {
+                    document.getElementById('hero-bg').src = config.heroImage;
+                    document.getElementById('hero-bg-blur').src = config.heroImage;
+                }
 
                 // Categories
                 if (config.cat1Name) document.getElementById('cat-name-1').innerText = config.cat1Name;
