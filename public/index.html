@@ -54,44 +54,63 @@
             backdrop-filter: blur(10px);
         }
 
-        /* Hero Layout - Overlapping & Delicate */
         .hero-container {
             position: relative;
-            min-height: 90vh;
+            height: 100vh;
+            width: 100%;
             display: flex;
-            align-items: center;
-            padding-top: 80px;
-        }
-
-        .hero-text-area {
-            z-index: 20;
-            position: relative;
-            pointer-events: none;
-        }
-        .hero-text-area * { pointer-events: auto; }
-
-        .hero-image-container {
-            position: absolute;
-            right: 0;
-            top: 10%;
-            width: 65%;
-            height: 80%;
-            z-index: 10;
-            overflow: hidden;
-            display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
+            text-align: center;
+            color: white;
+            overflow: hidden;
         }
 
-        #hero-image {
+        #hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Preserves original format without cropping */
-            transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+            object-fit: cover;
+            z-index: 0;
+            filter: brightness(0.7);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/5;
+            cursor: pointer;
         }
         
-        .hero-container:hover #hero-image {
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .category-card:hover img {
             transform: scale(1.05);
+        }
+
+        .category-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            display: flex;
+            align-items: flex-end;
+            padding: 30px;
+            transition: background 0.3s ease;
         }
 
         .pill-button {
@@ -249,40 +268,91 @@
         </div>
     </div>
 
-    <!-- Hero Section -->
-    <!-- Hero Section: Overlapping & Delicate Design -->
-    <main class="hero-container px-6 md:px-16 max-w-7xl mx-auto overflow-visible">
+    <!-- Hero Section: Editorial Impact -->
+    <main class="hero-container">
+        <!-- Background Image -->
+        <img id="hero-bg" src="/logo.jpg" alt="Glamours Hero" class="fade-in">
         
-        <!-- Hero Text Area (Flies over image) -->
-        <div class="hero-text-area w-full lg:w-1/2">
-            <h1 id="hero-title" class="font-serif text-6xl md:text-[120px] leading-[0.8] mb-10 fade-in-up tracking-[-0.05em] uppercase text-black">
-                URBAN <br>
-                <span class="italic font-light text-gray-400">ESSENCE</span>
+        <!-- Hero Content (Centered) -->
+        <div class="hero-content">
+            <h1 id="hero-title" class="font-serif text-5xl md:text-[100px] leading-tight mb-6 fade-in-up uppercase tracking-tighter">
+                Elegancia <br>
+                <span class="italic font-light opacity-80">Sustentable</span>
             </h1>
             
-            <div class="h-1 w-20 bg-black mb-10 fade-in-up delay-100"></div>
-
-            <p id="hero-desc" class="text-gray-400 mb-12 max-w-xs text-[10px] md:text-xs leading-loose fade-in-up delay-200 uppercase tracking-[0.3em]">
-                Descubre una curaduría de las mejores marcas nacionales. Sail, 47 Street y más.
+            <p id="hero-desc" class="text-white/80 mb-10 max-w-lg mx-auto text-xs md:text-sm leading-loose fade-in-up delay-200 uppercase tracking-[0.4em]">
+                Descubre la nueva colección de temporada en un solo lugar.
             </p>
             
-        </div>
-
-        <!-- Hero Image (Protagonist) -->
-        <div class="hero-image-container fade-in-up">
-            <img id="hero-image" src="/logo.jpg" alt="Featured Season" class="transition-all duration-1000">
-            <!-- Subtle Overlay for text readability if image is too bright -->
-            <div class="absolute inset-0 bg-gradient-to-r from-white via-white/20 to-transparent lg:block hidden"></div>
+            <div class="flex flex-col md:flex-row gap-4 justify-center fade-in-up delay-300">
+                <a href="#productos" class="pill-button bg-white text-black px-10 py-4 hover:bg-black hover:text-white">
+                    Ver Colección
+                </a>
+                <a href="promociones.html" class="pill-button border border-white text-white px-10 py-4 hover:bg-white hover:text-black">
+                    Ofertas
+                </a>
+            </div>
         </div>
 
         <!-- Scroll Indicator -->
         <div class="scroll-indicator fade-in-up delay-300">
             <span>Scroll</span>
-            <div class="w-px h-12 bg-gray-200 relative overflow-hidden">
-                <div class="absolute inset-0 bg-black animate-[scroll-line_2s_infinite]"></div>
+            <div class="w-px h-12 bg-white/30 relative overflow-hidden">
+                <div class="absolute inset-0 bg-white animate-[scroll-line_2s_infinite]"></div>
             </div>
         </div>
     </main>
+
+    <!-- Categories Grid (Visual Impact) -->
+    <section class="py-20 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="flex flex-col items-center mb-16">
+            <h2 class="text-[10px] font-bold tracking-[0.5em] text-gray-400 uppercase mb-2">Explorar</h2>
+            <h3 class="font-serif text-3xl md:text-4xl text-center">Nuestras Categorías</h3>
+        </div>
+        
+        <div id="grid-categorias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- Categoria 1 -->
+            <div class="category-card fade-in-up">
+                <img id="cat-img-1" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="Mujer">
+                <div class="category-overlay">
+                    <div>
+                        <h4 id="cat-name-1" class="text-white font-serif text-2xl mb-2">Mujer</h4>
+                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Categoria 2 -->
+            <div class="category-card fade-in-up delay-100">
+                <img id="cat-img-2" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80" alt="Hombre">
+                <div class="category-overlay">
+                    <div>
+                        <h4 id="cat-name-2" class="text-white font-serif text-2xl mb-2">Hombre</h4>
+                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Categoria 3 -->
+            <div class="category-card fade-in-up delay-200">
+                <img id="cat-img-3" src="https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?w=600&q=80" alt="Niños">
+                <div class="category-overlay">
+                    <div>
+                        <h4 id="cat-name-3" class="text-white font-serif text-2xl mb-2">Niños</h4>
+                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Categoria 4 -->
+            <div class="category-card fade-in-up delay-300">
+                <img id="cat-img-4" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Accesorios">
+                <div class="category-overlay">
+                    <div>
+                        <h4 id="cat-name-4" class="text-white font-serif text-2xl mb-2">Accesorios</h4>
+                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Brands Grid (Separated Blocks) -->
     <section class="w-full px-6 md:px-16 max-w-7xl mx-auto my-20 fade-in-up">
@@ -389,9 +459,19 @@
 
                 if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
                 if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
-                if (config.heroImage) document.getElementById('hero-image').src = config.heroImage;
+                if (config.heroImage) document.getElementById('hero-bg').src = config.heroImage;
 
-                // Load Featured Products (manual selection)
+                // Categories
+                if (config.cat1Name) document.getElementById('cat-name-1').innerText = config.cat1Name;
+                if (config.cat1Img) document.getElementById('cat-img-1').src = config.cat1Img;
+                if (config.cat2Name) document.getElementById('cat-name-2').innerText = config.cat2Name;
+                if (config.cat2Img) document.getElementById('cat-img-2').src = config.cat2Img;
+                if (config.cat3Name) document.getElementById('cat-name-3').innerText = config.cat3Name;
+                if (config.cat3Img) document.getElementById('cat-img-3').src = config.cat3Img;
+                if (config.cat4Name) document.getElementById('cat-name-4').innerText = config.cat4Name;
+                if (config.cat4Img) document.getElementById('cat-img-4').src = config.cat4Img;
+
+                // Featured Products
                 const resP = await fetch('/api/productos');
                 const allP = await resP.json();
                 const grid = document.getElementById('grid-portada');

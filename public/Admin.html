@@ -193,8 +193,43 @@
                     <strong>✅ Correcto:</strong> El link debe terminar en <code>.jpg</code> o <code>.png</code> (ej: <code>i.ibb.co/abcd/imagen.jpg</code>).<br>
                     Usa el botón "Copiar Direct Link" en ImgBB después de subir.</p>
                 </div>
-                <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
-                    <p class="text-xs text-orange-700"><strong>Tip HTML:</strong> Usa <code>&lt;br&gt;</code> para bajar de renglón y <code>&lt;span class="italic font-light text-gray-400"&gt;...&lt;/span&gt;</code> para texto fino.</p>
+                <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 mb-6">
+                    <p class="text-xs text-orange-700"><strong>Tip HTML:</strong> Usa <code>&lt;br&gt;</code> para bajar de renglón y <code>&lt;span class="italic font-light opacity-80"&gt;...&lt;/span&gt;</code> para texto fino.</p>
+                </div>
+
+                <!-- Category Management -->
+                <div class="border-t pt-8 mt-8">
+                    <h3 class="text-lg font-bold mb-4 uppercase tracking-widest text-gray-400">Categorías (Grilla de 4)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Cat 1 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 1: Nombre</label>
+                            <input type="text" id="cat1Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 1: Imagen URL</label>
+                            <input type="url" id="cat1Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                        <!-- Cat 2 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 2: Nombre</label>
+                            <input type="text" id="cat2Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 2: Imagen URL</label>
+                            <input type="url" id="cat2Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                        <!-- Cat 3 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 3: Nombre</label>
+                            <input type="text" id="cat3Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 3: Imagen URL</label>
+                            <input type="url" id="cat3Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                        <!-- Cat 4 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 4: Nombre</label>
+                            <input type="text" id="cat4Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 4: Imagen URL</label>
+                            <input type="url" id="cat4Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                    </div>
                 </div>
                 <div class="p-4 border border-dashed border-gray-200 rounded-xl">
                     <p class="text-[10px] font-bold uppercase text-gray-400 mb-2">Previsualización del Título:</p>
@@ -273,11 +308,19 @@
 
             document.getElementById('config-form').onsubmit = async (e) => {
                 e.preventDefault();
-            const config = {
+                const config = {
                     topBanner: document.getElementById('topBanner').value,
                     heroTitle: document.getElementById('heroTitle').value,
                     heroDesc: document.getElementById('heroDesc').value,
-                    heroImage: document.getElementById('heroImage').value
+                    heroImage: document.getElementById('heroImage').value,
+                    cat1Name: document.getElementById('cat1Name').value,
+                    cat1Img: document.getElementById('cat1Img').value,
+                    cat2Name: document.getElementById('cat2Name').value,
+                    cat2Img: document.getElementById('cat2Img').value,
+                    cat3Name: document.getElementById('cat3Name').value,
+                    cat3Img: document.getElementById('cat3Img').value,
+                    cat4Name: document.getElementById('cat4Name').value,
+                    cat4Img: document.getElementById('cat4Img').value
                 };
                 const res = await fetch('/api/admin/config', {
                     method: 'PUT',
@@ -293,12 +336,22 @@
 
         async function loadConfig() {
             const res = await fetch('/api/config');
-            const config = await res.json();
-            document.getElementById('topBanner').value = config.topBanner || '';
-            document.getElementById('heroTitle').value = config.heroTitle || '';
-            document.getElementById('heroDesc').value = config.heroDesc || '';
-            document.getElementById('heroImage').value = config.heroImage || '';
-            updateHeroPreview();
+            const data = await res.json();
+            if (data) {
+                document.getElementById('topBanner').value = data.topBanner || '';
+                document.getElementById('heroTitle').value = data.heroTitle || '';
+                document.getElementById('heroDesc').value = data.heroDesc || '';
+                document.getElementById('heroImage').value = data.heroImage || '';
+                document.getElementById('cat1Name').value = data.cat1Name || 'Mujer';
+                document.getElementById('cat1Img').value = data.cat1Img || '';
+                document.getElementById('cat2Name').value = data.cat2Name || 'Hombre';
+                document.getElementById('cat2Img').value = data.cat2Img || '';
+                document.getElementById('cat3Name').value = data.cat3Name || 'Niños';
+                document.getElementById('cat3Img').value = data.cat3Img || '';
+                document.getElementById('cat4Name').value = data.cat4Name || 'Accesorios';
+                document.getElementById('cat4Img').value = data.cat4Img || '';
+                updateHeroPreview();
+            }
         }
 
         function updateHeroPreview() {
