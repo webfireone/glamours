@@ -77,8 +77,39 @@ app.get('/api/productos', async (req, res) => {
 app.post('/api/admin/productos', async (req, res) => {
     try {
         const newProduct = { ...req.body, createdAt: new Date().toISOString() };
-        const docRef = await db.collection('products').add(newProduct);
-        res.json({ id: docRef.id, ...newProduct });
+        let result;
+        if (db) {
+            const docRef = await db.collection('products').add(newProduct);
+            result = { id: docRef.id, ...newProduct };
+        } else {
+            const tempId = `temp_${Date.now()}`;
+            newProduct.id = tempId;
+            productosCache.push(newProduct);
+            result = newProduct;
+        }
+        res.json(result);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
+});
+    try {
+    try {
+        const newProduct = { ...req.body, createdAt: new Date().toISOString() };
+        let result;
+        if (db) {
+            const docRef = await db.collection('products').add(newProduct);
+            result = { id: docRef.id, ...newProduct };
+        } else {
+            // Fallback: store in in‑memory cache
+            const tempId = `temp_${Date.now()}`;
+            newProduct.id = tempId;
+            productosCache.push(newProduct);
+            result = newProduct;
+        }
+        res.json(result);
+    } catch (e) {
+        res.status(500).json({ error: e.message });
+    }
     } catch (e) {
         res.status(500).json({ error: e.message });
     }
@@ -87,7 +118,17 @@ app.post('/api/admin/productos', async (req, res) => {
 app.put('/api/admin/productos/:id', async (req, res) => {
     try {
         const id = req.params.id;
-        await db.collection('products').doc(id).update(req.body);
+        if (db) {
+            await db.collection('products').doc(id).update(req.body);
+        } else {
+            // In‑memory fallback
+            const index = productosCache.findIndex(p => p.id === id);
+            if (index !== -1) {
+                productosCache[index] = { ...productosCache[index], ...req.body };
+            } else {
+                return res.status(404).json({ error: 'Producto no encontrado en caché' });
+            }
+        }
         res.json({ success: true });
     } catch (e) {
         res.status(500).json({ error: e.message });
@@ -96,7 +137,17 @@ app.put('/api/admin/productos/:id', async (req, res) => {
 
 app.delete('/api/admin/productos/:id', async (req, res) => {
     try {
-        await db.collection('products').doc(req.params.id).delete();
+        const id = req.params.id;
+        if (db) {
+            await db.collection('products').doc(id).delete();
+        } else {
+            // In‑memory fallback
+            const originalLength = productosCache.length;
+            productosCache = productosCache.filter(p => p.id !== id);
+            if (productosCache.length === originalLength) {
+                return res.status(404).json({ error: 'Producto no encontrado en caché' });
+            }
+        }
         res.json({ success: true });
     } catch (e) {
         res.status(500).json({ error: e.message });
