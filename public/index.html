@@ -118,7 +118,7 @@
 <body class="antialiased overflow-x-hidden relative">
 
     <!-- Navbar -->
-    <header class="fixed top-6 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-16 max-w-7xl mx-auto fade-in-up">
+    <header class="sticky top-0 z-50 flex justify-between items-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-md shadow-sm fade-in-up w-full">
         <!-- Logo -->
         <div class="flex items-center gap-3">
             <img src="./logo.png" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50" style="mix-blend-mode: multiply;">
@@ -167,7 +167,7 @@
     </div>
 
     <!-- Hero Section -->
-    <main class="pt-32 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center relative">
+    <main class="pt-8 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center relative">
         <!-- Background decorative blobs -->
         <div class="absolute top-20 right-10 w-96 h-96 bg-brand-peach/40 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
         <div class="absolute bottom-10 left-10 w-72 h-72 bg-brand-yellow/30 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
@@ -256,12 +256,7 @@
         </div>
     </main>
 
-    <!-- Productos Section -->
-    <section class="py-16 px-6 md:px-16 max-w-7xl mx-auto border-t border-black/5">
-        <div id="featured-products" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Products will be injected here via JS -->
-        </div>
-    </section>
+
 
     <!-- Footer / Contact -->
     <footer id="contacto" class="mt-20 border-t border-black/5 bg-white/30 backdrop-blur-md pt-16 pb-8">
@@ -321,18 +316,7 @@
                 if (config.heroImage) document.getElementById('hero-image').src = config.heroImage;
             } catch (e) { console.error("Error cargando configuración:", e); }
 
-            // Cargar productos en home
-            try {
-                const resProd = await fetch('/api/productos');
-                const products = await resProd.json();
-                const grid = document.getElementById('featured-products');
-                if (grid && products.length > 0) {
-                    grid.innerHTML = products.slice(0, 8).map(p => createProductCard(p, p.oferta)).join('');
-                    allProducts = products;
-                } else if (grid) {
-                    grid.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">No hay productos disponibles.</p>';
-                }
-            } catch (e) { console.error("Error cargando productos:", e); }
+
         });
     </script>
 

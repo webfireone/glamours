@@ -391,8 +391,9 @@ function toggleWishlist(btn) { btn.classList.toggle('text-red-500'); }
  * @param {Boolean} isPromo - If true, displays a promo badge.
  */
 function createProductCard(product, isPromo = false) {
-    const badge = isPromo ? `<span class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">OFERTA</span>` : '';
-    const novedadBadge = product.novedad ? `<span class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">NUEVO</span>` : '';
+    const badgeText = product.descuento ? `-${product.descuento}%` : 'OFERTA';
+    const badge = isPromo ? `<span class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">${badgeText}</span>` : '';
+    const novedadBadge = product.novedad && !isPromo ? `<span class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">NUEVO</span>` : '';
     
     // Fallback image if none exists
     const imgUrl = product.imagenes && product.imagenes.length > 0 ? product.imagenes[0] : 'https://via.placeholder.com/400x500?text=Glamours';
