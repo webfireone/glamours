@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLAMOURS | Panel Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .tab-btn.active { border-bottom: 3px solid black; color: black; font-weight: bold; }
+    </style>
+</head>
+<body class="p-4 md:p-8">
+
+    <div id="admin-login-overlay" class="fixed inset-0 bg-gray-900/95 z-[200] flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-md">
+            <h2 class="text-2xl font-bold mb-6 text-center">Acceso Admin</h2>
+            <form id="admin-login-form" class="space-y-4">
+                <input type="text" id="admin-user" placeholder="Usuario" required class="w-full px-4 py-3 border rounded-xl">
+                <input type="password" id="admin-pass" placeholder="Clave" required class="w-full px-4 py-3 border rounded-xl">
+                <button type="submit" class="w-full bg-black text-white py-4 rounded-xl font-bold">Entrar</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="admin-panel" class="hidden max-w-6xl mx-auto space-y-6">
+        <div class="bg-black text-white p-6 rounded-2xl flex justify-between items-center shadow-xl">
+            <h1 class="text-xl font-bold">GLAMOURS Admin</h1>
+            <button onclick="logoutAdmin()" class="text-red-400 text-sm font-bold">Cerrar Sesión</button>
+        </div>
+
+        <div class="flex border-b border-gray-200">
+            <button onclick="showTab('productos')" id="btn-productos" class="tab-btn active px-6 py-3">Productos</button>
+            <button onclick="showTab('portada')" id="btn-portada" class="tab-btn px-6 py-3 text-orange-600 font-bold">Portada ✨</button>
+            <button onclick="showTab('usuarios')" id="btn-usuarios" class="tab-btn px-6 py-3">Usuarios</button>
+            <button onclick="showTab('ajustes')" id="btn-ajustes" class="tab-btn px-6 py-3">Ajustes</button>
+        </div>
+
+        <div id="tab-productos" class="tab-content grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl shadow p-8">
+                <h2 id="form-title" class="text-xl font-bold mb-6">Nuevo Producto</h2>
+                <form id="productForm" class="space-y-4">
+                    <input type="hidden" id="edit-id">
+                    <input type="text" id="nombre" placeholder="Nombre" required class="w-full px-4 py-2 border rounded-lg">
+                    <input type="number" id="precio" placeholder="Precio ($)" required class="w-full px-4 py-2 border rounded-lg">
+                    <select id="marca" class="w-full px-4 py-2 border rounded-lg">
+                        <option>Sail</option><option>Legacy</option><option>47 Street</option><option>Owoko</option>
+                    </select>
+                    <input type="url" id="imagen" placeholder="URL de Imagen" required class="w-full px-4 py-2 border rounded-lg">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="colores" placeholder="Colores (ej: Rojo, Azul)" class="w-full px-4 py-2 border rounded-lg">
+                        <input type="text" id="talles" placeholder="Talles (ej: S, M, L o 38, 39)" class="w-full px-4 py-2 border rounded-lg">
+                    </div>
+                    <textarea id="descripcion" placeholder="Descripción" class="w-full px-4 py-2 border rounded-lg"></textarea>
+                    <div class="flex gap-4">
+                        <label><input type="checkbox" id="novedad"> Novedad</label>
+                        <label><input type="checkbox" id="oferta"> Oferta</label>
+                    </div>
+                    <button type="submit" id="submit-btn" class="w-full bg-black text-white py-3 rounded-lg font-bold">Guardar</button>
+                    <button type="button" id="cancel-edit" class="hidden w-full border border-gray-200 py-2 rounded-lg text-sm mt-2">Cancelar Edición</button>
+                </form>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-8">
+                <h2 class="text-xl font-bold mb-6">Inventario</h2>
+                <div id="product-list" class="space-y-4 max-h-[500px] overflow-y-auto"></div>
+            </div>
+        </div>
+
+        <div id="tab-usuarios" class="tab-content hidden bg-white rounded-2xl shadow p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Usuarios Registrados</h2>
+                <button onclick="exportUsers()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-xs font-bold">Exportar CSV</button>
+            </div>
+            <div id="user-list-table" class="overflow-x-auto"></div>
+        </div>
+
+        <div id="tab-portada" class="tab-content hidden bg-white rounded-2xl shadow p-8 max-w-2xl mx-auto">
+            <h2 class="text-xl font-bold mb-6">Gestión de Portada (Home)</h2>
+            <p class="text-sm text-gray-500 mb-6">Configura la imagen y textos principales que ven los clientes al entrar.</p>
+            <form id="config-form" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-bold mb-2">Título Hero (acepta HTML)</label>
+                    <input type="text" id="heroTitle" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">Descripción / Subtítulo</label>
+                    <textarea id="heroDesc" required rows="3" class="w-full px-4 py-3 border rounded-xl text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">URL Imagen de Portada</label>
+                    <input type="url" id="heroImage" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
+                </div>
+                <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
+                    <p class="text-xs text-orange-700"><strong>Tip:</strong> Usa <code>&lt;br&gt;</code> para saltos de línea en el título y <code>&lt;span class="italic font-light"&gt;texto&lt;/span&gt;</code> para el estilo elegante.</p>
+                </div>
+                <button type="submit" class="w-full bg-orange-500 text-white py-4 rounded-xl font-bold hover:bg-orange-600 shadow-lg shadow-orange-200 transition">Guardar Cambios en Portada</button>
+            </form>
+        </div>
+
+        <div id="tab-ajustes" class="tab-content hidden bg-white rounded-2xl shadow p-8 max-w-md mx-auto">
+            <h2 class="text-xl font-bold mb-6">Ajustes Admin</h2>
+            <form id="settings-form" class="space-y-4">
+                <input type="text" id="new-admin-user" placeholder="Nuevo Usuario" required class="w-full px-4 py-2 border rounded-lg">
+                <input type="password" id="new-admin-pass" placeholder="Nueva Clave" required class="w-full px-4 py-2 border rounded-lg">
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-lg font-bold">Actualizar</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const AUTH_KEY = 'glamours_admin_auth';
+        let productsData = [];
+        let usersData = [];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem(AUTH_KEY) === 'true') {
+                document.getElementById('admin-login-overlay').classList.add('hidden');
+                document.getElementById('admin-panel').classList.remove('hidden');
+                loadProducts();
+                loadUsers();
+            }
+            
+            document.getElementById('admin-login-form').onsubmit = (e) => {
+                e.preventDefault();
+                const u = document.getElementById('admin-user').value;
+                const p = document.getElementById('admin-pass').value;
+                if (u === 'SILVINA' && p === 'SILVINA') {
+                    localStorage.setItem(AUTH_KEY, 'true');
+                    location.reload();
+                } else alert('Acceso denegado');
+            };
+
+            document.getElementById('productForm').onsubmit = async (e) => {
+                e.preventDefault();
+                const id = document.getElementById('edit-id').value;
+                const p = {
+                    nombre: document.getElementById('nombre').value,
+                    precio: parseFloat(document.getElementById('precio').value),
+                    marca: document.getElementById('marca').value,
+                    imagenes: [document.getElementById('imagen').value],
+                    colores: document.getElementById('colores').value,
+                    talles: document.getElementById('talles').value,
+                    novedad: document.getElementById('novedad').checked,
+                    oferta: document.getElementById('oferta').checked,
+                    descripcion: document.getElementById('descripcion').value
+                };
+                
+                const url = id ? `/api/admin/productos/${id}` : '/api/admin/productos';
+                const method = id ? 'PUT' : 'POST';
+
+                const res = await fetch(url, {
+                    method,
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(p)
+                });
+                if (res.ok) { 
+                    resetForm();
+                    loadProducts(); 
+                }
+            };
+
+            document.getElementById('config-form').onsubmit = async (e) => {
+                e.preventDefault();
+                const config = {
+                    heroTitle: document.getElementById('heroTitle').value,
+                    heroDesc: document.getElementById('heroDesc').value,
+                    heroImage: document.getElementById('heroImage').value
+                };
+                const res = await fetch('/api/admin/config', {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(config)
+                });
+                if (res.ok) alert('Portada actualizada con éxito ✨');
+            };
+
+            document.getElementById('cancel-edit').onclick = resetForm;
+            loadConfig(); // Load initial config
+        });
+
+        async function loadConfig() {
+            const res = await fetch('/api/config');
+            const config = await res.json();
+            document.getElementById('heroTitle').value = config.heroTitle;
+            document.getElementById('heroDesc').value = config.heroDesc;
+            document.getElementById('heroImage').value = config.heroImage;
+        }
+
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + id).classList.remove('hidden');
+            document.getElementById('btn-' + id).classList.add('active');
+        }
+
+        async function loadProducts() {
+            const res = await fetch('/api/productos');
+            productsData = await res.json();
+            const list = document.getElementById('product-list');
+            list.innerHTML = productsData.map(p => `
+                <div class="flex items-center gap-4 p-4 border rounded-xl bg-gray-50">
+                    <img src="${p.imagenes[0]}" class="w-12 h-12 object-cover rounded-lg">
+                    <div class="flex-1 text-sm"><h4 class="font-bold">${p.nombre}</h4><p>$${p.precio}</p></div>
+                    <div class="flex gap-2">
+                        <button onclick="editProduct('${p.id}')" class="text-blue-500 hover:text-blue-700"><i class="fa-solid fa-pen"></i></button>
+                        <button onclick="deleteProduct('${p.id}')" class="text-red-400 hover:text-red-600"><i class="fa-solid fa-trash"></i></button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function editProduct(id) {
+            const p = productsData.find(item => item.id === id);
+            if (!p) return;
+            document.getElementById('form-title').innerText = 'Editar Producto';
+            document.getElementById('edit-id').value = p.id;
+            document.getElementById('nombre').value = p.nombre;
+            document.getElementById('precio').value = p.precio;
+            document.getElementById('marca').value = p.marca;
+            document.getElementById('imagen').value = p.imagenes[0];
+            document.getElementById('colores').value = p.colores || '';
+            document.getElementById('talles').value = p.talles || '';
+            document.getElementById('descripcion').value = p.descripcion || '';
+            document.getElementById('novedad').checked = p.novedad;
+            document.getElementById('oferta').checked = p.oferta;
+            document.getElementById('submit-btn').innerText = 'Actualizar Producto';
+            document.getElementById('cancel-edit').classList.remove('hidden');
+        }
+
+        function resetForm() {
+            document.getElementById('productForm').reset();
+            document.getElementById('edit-id').value = '';
+            document.getElementById('form-title').innerText = 'Nuevo Producto';
+            document.getElementById('submit-btn').innerText = 'Guardar';
+            document.getElementById('cancel-edit').classList.add('hidden');
+        }
+
+        async function deleteProduct(id) {
+            if (confirm('¿Eliminar?')) {
+                await fetch(`/api/admin/productos/${id}`, { method: 'DELETE' });
+                loadProducts();
+            }
+        }
+
+        async function loadUsers() {
+            const res = await fetch('/api/admin/users');
+            usersData = await res.json();
+            document.getElementById('user-list-table').innerHTML = `
+                <table class="w-full text-left text-sm">
+                    <thead><tr class="bg-gray-50"><th class="p-3">Nombre</th><th class="p-3">Email</th></tr></thead>
+                    <tbody>${usersData.map(u => `<tr class="border-b"><td class="p-3">${u.nombre}</td><td class="p-3 text-gray-500">${u.email}</td></tr>`).join('')}</tbody>
+                </table>`;
+        }
+
+        function logoutAdmin() { localStorage.removeItem(AUTH_KEY); location.reload(); }
+        
+        function exportUsers() {
+            if (usersData.length === 0) return alert('No hay usuarios para exportar');
+            let csv = "\uFEFFNombre,Email\n";
+            usersData.forEach(u => {
+                csv += `"${u.nombre}","${u.email}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+            const link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.setAttribute("download", "usuarios_glamours.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

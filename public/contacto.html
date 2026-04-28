@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GLAMOURS | El Futuro de la Venta Inteligente</title>
+    <!-- Tailwind CSS (CDN for prototype) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#ff6b35',
+                            peach: '#ffb5a7',
+                            yellow: '#f4d35e',
+                            dark: '#2d3142',
+                            light: '#f8f9fa'
+                        }
+                    },
+                    backgroundImage: {
+                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Glassmorphism Utilities */
+        body {
+            /* Warm gradient background similar to the reference image */
+            background: linear-gradient(135deg, #fefae0 0%, #faedcd 50%, #f4a261 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            color: #2d3142;
+        }
+
+        /* Glassmorphism Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(255, 107, 53, 0.1);
+            border-radius: 1.5rem;
+        }
+
+        /* Floating Nav */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
+            border-radius: 9999px; /* Pill shape */
+        }
+
+        .pill-button {
+            border-radius: 9999px;
+            transition: all 0.3s ease;
+        }
+        
+        .pill-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 50%;
+            background-color: #ff6b35;
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Smooth reveal animation */
+        .fade-in-up {
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .delay-100 { animation-delay: 100ms; }
+        .delay-200 { animation-delay: 200ms; }
+        .delay-300 { animation-delay: 300ms; }
+
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden relative">
+
+    <!-- Navbar -->
+    <header class="fixed top-6 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-16 max-w-7xl mx-auto fade-in-up">
+        <!-- Logo -->
+        <div class="flex items-center gap-3">
+            <img src="./logo.png" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50" style="mix-blend-mode: multiply;">
+            <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
+        </div>
+
+        <!-- Navigation (Desktop) -->
+        <nav class="hidden md:flex glass-nav px-8 py-3 items-center gap-6 text-sm font-medium">
+            <a href="index.html" class="nav-link text-gray-700 hover:text-black">Home</a>
+            <a href="promociones.html" class="nav-link text-gray-700 hover:text-black">Promociones</a>
+            <a href="novedades.html" class="nav-link text-gray-700 hover:text-black">Novedades</a>
+            <a href="contacto.html" class="nav-link text-brand-orange font-semibold flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-brand-orange block"></span> Contacto
+            </a>
+        </nav>
+
+        <!-- Actions -->
+        <div class="flex items-center gap-4 text-sm font-medium">
+            <button id="cart-btn" onclick="openCartView()" class="relative text-gray-700 hover:text-black transition">
+                <i class="fa-solid fa-cart-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-2 bg-brand-orange text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+            <button id="user-btn" class="text-gray-700 hover:text-black transition flex items-center gap-1">
+                <i class="fa-solid fa-user"></i>
+                <span class="hidden md:inline">Login</span>
+            </button>
+            <button onclick="openAuthModal(); if(document.getElementById('register-section').classList.contains('hidden')) toggleAuthMode();" class="hidden lg:block pill-button bg-brand-orange text-white px-6 py-2.5 font-semibold hover:bg-orange-600">
+                Sign Up
+            </button>
+            <!-- Mobile Menu Toggle -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-brand-orange text-2xl ml-2">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-md z-40 flex flex-col items-center justify-center gap-8 text-xl font-serif font-bold transform translate-x-full transition-transform duration-300 md:hidden">
+        <button id="close-menu-btn" class="absolute top-8 right-8 text-3xl text-gray-500 hover:text-brand-orange">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <a href="index.html" class="hover:text-brand-orange">Home</a>
+        <a href="promociones.html" class="hover:text-brand-orange">Promociones</a>
+        <a href="novedades.html" class="hover:text-brand-orange">Novedades</a>
+        <a href="contacto.html" class="hover:text-brand-orange">Contacto</a>
+    </div>
+
+    <!-- Main Spacing to push footer down -->
+    <main class="pt-32 pb-16 px-6 md:px-16 max-w-7xl mx-auto flex flex-col items-center justify-center min-h-[40vh]">
+        <div class="text-center">
+            <h1 class="font-serif text-4xl md:text-5xl font-bold mb-4">Estamos para ayudarte</h1>
+            <p class="text-gray-600">Encuéntranos en nuestras redes sociales o visítanos en el local.</p>
+        </div>
+    </main>
+
+    <!-- Footer / Contact -->
+    <footer id="contacto" class="mt-20 border-t border-black/5 bg-white/30 backdrop-blur-md pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="col-span-1 md:col-span-1">
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="./logo.png" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md hover:scale-105 transition" style="mix-blend-mode: multiply;">
+                    <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
+                </div>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                    Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana y looks para todos los días en Luján.
+                </p>
+            </div>
+            
+            <div class="md:col-span-1">
+                <h4 class="font-bold mb-4 font-serif text-lg">Visítanos</h4>
+                <ul class="text-sm text-gray-600 space-y-2 mb-4">
+                    <li class="flex gap-2"><i class="fa-solid fa-location-dot mt-1 text-brand-orange"></i> Italia 1037, Luján</li>
+                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-brand-orange"></i> Lun a Vie: 9–13 / 16:30–20:30</li>
+                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-brand-orange opacity-0"></i> Sáb: 10–13 / 16–20</li>
+                </ul>
+                <div class="w-full h-32 rounded-lg overflow-hidden shadow-inner border border-black/5">
+                    <iframe src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=es&amp;q=Italia%201037,%20Luj%C3%A1n,%20Buenos%20Aires&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+
+            <div class="md:col-span-1">
+                <h4 class="font-bold mb-4 font-serif text-lg">Contáctanos</h4>
+                <a href="https://wa.me/5491122618116" target="_blank" class="pill-button w-full bg-[#25D366] text-white px-4 py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#128C7E] shadow-lg shadow-[#25D366]/20 transition">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Consultas por WhatsApp
+                </a>
+                <div class="flex gap-4 mt-6">
+                    <a href="https://www.instagram.com/glamoursok/" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition">
+                        <i class="fa-brands fa-instagram text-lg"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition">
+                        <i class="fa-brands fa-facebook-f text-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-xs text-gray-500 mt-12 pt-8 border-t border-black/5">
+            &copy; 2026 GLAMOURS Multimarcas. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+
+    <!-- Quick View Modal -->
+    <div id="quick-view-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4">
+        <div class="glass-card bg-white/90 w-full max-w-2xl overflow-hidden shadow-2xl relative">
+            <button id="close-quick-view" onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 text-gray-500 hover:bg-black hover:text-white transition z-10">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="h-64 md:h-[450px] bg-white">
+                    <img id="quick-view-image" src="" alt="Product" class="w-full h-full object-cover">
+                </div>
+                <div class="p-8 flex flex-col justify-center">
+                    <p id="quick-view-brand" class="text-xs font-bold text-brand-orange uppercase tracking-widest mb-2">GLAMOURS</p>
+                    <h2 id="quick-view-name" class="font-serif text-3xl font-bold mb-4">Nombre del Producto</h2>
+                    <p id="quick-view-price" class="text-2xl font-bold text-gray-900 mb-6">$0.00</p>
+                    <div class="space-y-4 mb-8">
+                        <h4 class="text-xs font-bold uppercase text-gray-400">Descripción</h4>
+                        <p id="quick-view-description" class="text-gray-600 text-sm leading-relaxed">Cargando descripción...</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <button class="flex-1 pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-lg shadow-black/10" onclick="addToCartFromModal()">
+                            Añadir al Carrito
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] flex items-center justify-center hidden p-4">
+        <div class="glass-card bg-white/95 w-full max-w-md p-8 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            
+            <!-- Login Section -->
+            <div id="login-section">
+                <h2 class="font-serif text-3xl font-bold mb-2">Bienvenido</h2>
+                <p class="text-gray-500 mb-8 text-sm">Inicia sesión para continuar con tu compra.</p>
+                <form id="login-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Contraseña</label>
+                        <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
+                    </div>
+                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">
+                        Ingresar
+                    </button>
+                </form>
+                <p class="text-center mt-6 text-sm text-gray-500">
+                    ¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Regístrate</a>
+                </p>
+            </div>
+            
+            <!-- Register Section -->
+            <div id="register-section" class="hidden">
+                <h2 class="font-serif text-3xl font-bold mb-2">Crear Cuenta</h2>
+                <p class="text-gray-500 mb-8 text-sm">Únete a GLAMOURS y disfruta de beneficios exclusivos.</p>
+                <form id="register-form" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Nombre Completo</label>
+                        <input type="text" name="nombre" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email</label>
+                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Contraseña</label>
+                        <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
+                    </div>
+                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">
+                        Registrarse
+                    </button>
+                </form>
+                <p class="text-center mt-6 text-sm text-gray-500">
+                    ¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Inicia sesión</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] flex items-center justify-end hidden">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col animate-slide-left">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h2 class="font-serif text-2xl font-bold">Tu Carrito</h2>
+                <button onclick="closeCartView()" class="text-gray-400 hover:text-black">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+            
+            <div id="cart-items-list" class="flex-1 overflow-y-auto p-6">
+                <!-- Cart items will be injected here -->
+            </div>
+            
+            <div class="p-8 bg-gray-50 border-t border-gray-100">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-500 font-medium">Total Estimado</span>
+                    <span id="cart-total" class="text-2xl font-bold text-brand-orange">$0.00</span>
+                </div>
+                <button class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-xl">
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        @keyframes slide-left {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+        .animate-slide-left {
+            animation: slide-left 0.3s ease-out;
+        }
+    </style>
+</body>
+</html>
