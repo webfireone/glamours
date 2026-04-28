@@ -156,22 +156,28 @@
             <button onclick="openAuthModal(); if(document.getElementById('register-section').classList.contains('hidden')) toggleAuthMode();" class="hidden lg:block pill-button bg-brand-orange text-white px-6 py-2.5 font-semibold hover:bg-orange-600">
                 Sign Up
             </button>
-            <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-brand-orange text-2xl ml-2">
-                <i class="fa-solid fa-bars"></i>
+            <!-- Mobile Menu Toggle (3 Dots) -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-black text-2xl ml-4 p-2 transition-transform active:scale-90">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
         </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-md z-40 flex flex-col items-center justify-center gap-8 text-xl font-serif font-bold transform translate-x-full transition-transform duration-300 md:hidden">
-        <button id="close-menu-btn" class="absolute top-8 right-8 text-3xl text-gray-500 hover:text-brand-orange">
+    <div id="mobile-menu" class="fixed inset-0 bg-black text-white z-[100] flex flex-col items-center justify-center gap-10 text-2xl font-serif font-bold transform translate-x-full transition-transform duration-500 md:hidden">
+        <button id="close-menu-btn" class="absolute top-8 right-8 text-4xl text-gray-400 hover:text-white transition">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <a href="index.html" class="hover:text-brand-orange">Home</a>
-        <a href="promociones.html" class="hover:text-brand-orange">Promociones</a>
-        <a href="novedades.html" class="hover:text-brand-orange">Novedades</a>
-        <a href="contacto.html" class="hover:text-brand-orange">Contacto</a>
+        <a href="index.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Home</a>
+        <a href="promociones.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Promociones</a>
+        <a href="novedades.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Novedades</a>
+        <a href="contacto.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Contacto</a>
+        
+        <!-- Social Icons in Mobile Menu -->
+        <div class="flex gap-8 mt-10">
+            <a href="https://www.instagram.com/glamoursok/" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/5491122618116" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
     </div>
 
     <!-- Main Spacing -->

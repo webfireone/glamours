@@ -225,21 +225,28 @@
                 Sign Up
             </button>
             <!-- Mobile Menu Toggle -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-brand-orange text-2xl ml-2">
-                <i class="fa-solid fa-bars"></i>
+            <!-- Mobile Menu Toggle (3 Dots) -->
+            <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-black text-2xl ml-4 p-2 transition-transform active:scale-90">
+                <i class="fa-solid fa-ellipsis-vertical"></i>
             </button>
         </div>
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-white/95 backdrop-blur-md z-40 flex flex-col items-center justify-center gap-8 text-xl font-serif font-bold transform translate-x-full transition-transform duration-300 md:hidden">
-        <button id="close-menu-btn" class="absolute top-8 right-8 text-3xl text-gray-500 hover:text-brand-orange">
+    <div id="mobile-menu" class="fixed inset-0 bg-black text-white z-[100] flex flex-col items-center justify-center gap-10 text-2xl font-serif font-bold transform translate-x-full transition-transform duration-500 md:hidden">
+        <button id="close-menu-btn" class="absolute top-8 right-8 text-4xl text-gray-400 hover:text-white transition">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <a href="index.html" class="hover:text-brand-orange">Home</a>
-        <a href="promociones.html" class="hover:text-brand-orange">Promociones</a>
-        <a href="novedades.html" class="hover:text-brand-orange">Novedades</a>
-        <a href="contacto.html" class="hover:text-brand-orange">Contacto</a>
+        <a href="index.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Home</a>
+        <a href="promociones.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Promociones</a>
+        <a href="novedades.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Novedades</a>
+        <a href="contacto.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Contacto</a>
+        
+        <!-- Social Icons in Mobile Menu -->
+        <div class="flex gap-8 mt-10">
+            <a href="https://www.instagram.com/glamoursok/" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://wa.me/5491122618116" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
     </div>
 
     <!-- Hero Section -->
@@ -259,8 +266,28 @@
                 Descubre una curaduría de las mejores marcas nacionales. Sail, 47 Street y más.
             </p>
             
-            <!-- Banner Placeholder (Dynamic) -->
-            <div id="hero-banner-placeholder" class="mt-12 fade-in-up delay-300"></div>
+        </div>
+
+        <!-- Brands Ribbon (Full Width) -->
+        <div class="absolute bottom-0 left-0 w-screen overflow-hidden fade-in-up delay-300">
+            <div class="grid grid-cols-2 md:flex md:flex-nowrap w-full">
+                <!-- SAIL -->
+                <div class="bg-[#003366] text-white py-6 md:py-10 flex items-center justify-center hover:brightness-110 transition-all border-r border-b border-white/10 group">
+                    <span class="text-[10px] md:text-xl font-black tracking-[0.4em] uppercase group-hover:scale-110 transition-transform">SAIL</span>
+                </div>
+                <!-- 47 STREET -->
+                <div class="bg-[#E91E63] text-white py-6 md:py-10 flex items-center justify-center hover:brightness-110 transition-all border-b border-white/10 group">
+                    <span class="text-[10px] md:text-xl font-black tracking-[0.4em] uppercase group-hover:scale-110 transition-transform">47 STREET</span>
+                </div>
+                <!-- LEGACY -->
+                <div class="bg-[#1B5E20] text-white py-6 md:py-10 flex items-center justify-center hover:brightness-110 transition-all border-r border-white/10 group">
+                    <span class="text-[10px] md:text-xl font-black tracking-[0.4em] uppercase group-hover:scale-110 transition-transform">LEGACY</span>
+                </div>
+                <!-- OWOKO -->
+                <div class="bg-[#FBC02D] text-black py-6 md:py-10 flex items-center justify-center hover:brightness-110 transition-all group">
+                    <span class="text-[10px] md:text-xl font-black tracking-[0.4em] uppercase group-hover:scale-110 transition-transform">OWOKO</span>
+                </div>
+            </div>
         </div>
 
         <!-- Hero Image (Protagonist) -->
@@ -358,16 +385,6 @@
                 if (config.topBanner) {
                     document.getElementById('top-banner-text').innerText = config.topBanner;
                     document.getElementById('top-banner-container').classList.remove('hidden');
-                    
-                    // Also clone it to hero if placeholder exists
-                    const heroPlac = document.getElementById('hero-banner-placeholder');
-                    if (heroPlac) {
-                        heroPlac.innerHTML = `
-                            <div class="bg-black text-white py-5 px-8 inline-block w-full md:w-auto animate-shine border-l-4 border-gray-500 shadow-xl">
-                                <p class="text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase">${config.topBanner}</p>
-                            </div>
-                        `;
-                    }
                 }
 
                 if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
