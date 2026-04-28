@@ -305,6 +305,8 @@ function showModal(product) {
     const m = document.getElementById('quick-view-modal');
     if (!m) return;
     document.getElementById('quick-view-image').src = product.imagenes[0];
+    document.getElementById('quick-view-image').style.objectFit = 'contain';
+    document.getElementById('quick-view-image').style.backgroundColor = '#f9f9f9';
     document.getElementById('quick-view-name').innerText = product.nombre;
     document.getElementById('quick-view-price').innerText = '$' + product.precio;
     document.getElementById('quick-view-description').innerText = product.descripcion || 'Elegancia y estilo en cada detalle.';
@@ -394,9 +396,9 @@ function createProductCard(product, isPromo = false) {
     const imgUrl = product.imagenes && product.imagenes.length > 0 ? product.imagenes[0] : 'https://via.placeholder.com/400x500?text=Glamours';
     return `
         <div class="product-card group cursor-pointer" onclick="quickView('${product.id}')">
-            <div class="relative overflow-hidden aspect-[3/4] mb-3">
+            <div class="relative overflow-hidden aspect-[3/4] mb-3 bg-[#f9f9f9]">
                 ${badge}
-                <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+                <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"/>
                 <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                     <button class="bg-white text-black text-[10px] font-bold py-3 px-6 tracking-widest uppercase shadow-sm">Vista Rápida</button>
                 </div>

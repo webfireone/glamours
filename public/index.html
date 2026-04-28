@@ -73,9 +73,10 @@
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Muestra la imagen completa sin recortar */
             z-index: 0;
-            filter: brightness(0.7);
+            filter: brightness(0.6);
+            background-color: #000; /* Fondo negro para que no se vea blanco si la imagen no llena todo */
         }
 
         .hero-content {
@@ -95,8 +96,9 @@
         .category-card img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain; /* Imagen completa en categorías */
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            background-color: #f9f9f9; /* Fondo suave para destacar el producto */
         }
 
         .category-card:hover img {
