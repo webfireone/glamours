@@ -165,93 +165,50 @@
     </div>
 
     <!-- Hero Section -->
-    <main class="pt-8 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[80vh] flex flex-col justify-center relative">
-        <!-- Minimal background -->
-        <div class="absolute inset-0 bg-[#f9f9f9] -z-20"></div>
+    <main class="pt-0 md:pt-16 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[85vh] flex flex-col justify-center relative">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-white -z-20"></div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-0 md:gap-12 items-center">
             
-            <!-- Left Content -->
-            <div class="z-10 mt-10 lg:mt-0">
-                <h1 id="hero-title" class="font-serif text-5xl md:text-8xl leading-[0.9] mb-8 fade-in-up tracking-tighter">
+            <!-- Left Content: Text -->
+            <div class="z-10 mt-10 lg:mt-0 order-2 lg:order-1">
+                <h1 id="hero-title" class="font-serif text-5xl md:text-8xl leading-[0.85] mb-8 fade-in-up tracking-tighter uppercase">
                     NEW <br>
-                    <span class="italic font-light">SEASON</span>
+                    <span class="italic font-light">COLLECTION</span>
                 </h1>
-                <p id="hero-desc" class="text-gray-500 mb-10 max-w-sm text-xs md:text-sm leading-relaxed fade-in-up delay-100 uppercase tracking-widest">
-                    Explora la nueva colección de Sail, Legacy y 47 Street. Diseños exclusivos para elevar tu estilo diario.
+                <p id="hero-desc" class="text-gray-500 mb-10 max-w-sm text-xs md:text-sm leading-relaxed fade-in-up delay-100 uppercase tracking-[0.2em]">
+                    Cargando descripción...
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 fade-in-up delay-200">
-                    <button class="pill-button bg-black text-white px-10 py-4 text-xs font-bold tracking-[3px] hover:bg-gray-800 transition">
-                        VER COLECCIÓN
+                    <button class="pill-button bg-black text-white px-10 py-5 text-[10px] font-bold tracking-[4px] hover:bg-gray-800 transition shadow-sm" onclick="document.getElementById('featured-products').scrollIntoView({behavior:'smooth'})">
+                        VER AHORA
                     </button>
-                    <button class="pill-button border border-black text-black px-10 py-4 text-xs font-bold tracking-[3px] hover:bg-black hover:text-white transition">
-                        PROMOS
+                    <button class="pill-button border border-black text-black px-10 py-5 text-[10px] font-bold tracking-[4px] hover:bg-black hover:text-white transition" onclick="location.href='promociones.html'">
+                        OFFERS
                     </button>
-                </div>
-
-                <div class="flex gap-4 mt-12 fade-in-up delay-300">
-                    <span class="glass-card px-4 py-2 text-xs font-semibold flex items-center gap-2">
-                        <i class="fa-solid fa-wand-magic-sparkles"></i> Colecciones Exclusivas
-                    </span>
-                    <span class="glass-card px-4 py-2 text-xs font-semibold flex items-center gap-2">
-                        <i class="fa-solid fa-chart-simple"></i> Tendencias 2026
-                    </span>
                 </div>
             </div>
 
-            <!-- Right Visuals (Glassmorphism Cards representing features/products) -->
-            <div class="relative h-[500px] lg:h-[600px] fade-in-up delay-200">
-                
-                <!-- Main Product Card -->
-                <div id="prod_1" class="absolute top-10 right-0 lg:right-10 w-64 md:w-72 glass-card p-4 z-20 transition hover:-translate-y-2 duration-300 cursor-pointer" data-name="Chaqueta Urbana" data-price="150" data-image="/hero_model.png" data-description="Nuestra chaqueta urbana insignia de la colección SAIL. Diseñada para resistir el ritmo de la ciudad con un estilo impecable y materiales de primera calidad.">
-                    <div class="bg-white/50 rounded-xl aspect-[3/4] mb-4 overflow-hidden relative group">
-                        <!-- Generated Product Image -->
-                        <img id="hero-image" src="/hero_model.png" alt="Fashion Model" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute top-3 right-3 bg-white/80 backdrop-blur-sm p-2 rounded-full text-brand-orange shadow-sm hover:bg-brand-orange hover:text-white transition">
-                            <i class="fa-regular fa-heart"></i>
-                        </div>
-                    </div>
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <p class="text-xs text-gray-500 font-semibold mb-1">SAIL</p>
-                            <h3 class="font-serif font-bold text-lg leading-tight">Chaqueta Urbana</h3>
-                        </div>
-                        <p class="font-semibold">$150.00</p>
-                    </div>
-                    <button class="w-full mt-4 pill-button bg-brand-orange/10 text-brand-orange font-semibold py-2 text-sm border border-brand-orange/30 hover:bg-brand-orange hover:text-white" onclick="addToCart('prod_1')">
-                        Añadir al Carrito
-                    </button>
-                    <button class="w-full mt-4 pill-button bg-brand-orange/20 text-brand-orange font-semibold py-2 text-sm border border-brand-orange/30 hover:bg-brand-orange hover:text-white" onclick="quickView('prod_1')">Vista rápida</button>
-                </div>
-
-                <!-- Floating Stats/Feature Card 1 -->
-                <div class="absolute bottom-20 left-0 md:left-10 w-48 glass-card p-5 z-30 shadow-xl hidden sm:block">
-                    <h4 class="text-sm font-semibold mb-3">Tallas Disponibles</h4>
-                    <div class="flex gap-2">
-                        <span class="w-8 h-8 rounded bg-white flex items-center justify-center text-xs font-bold shadow-sm">S</span>
-                        <span class="w-8 h-8 rounded bg-brand-orange text-white flex items-center justify-center text-xs font-bold shadow-sm">M</span>
-                        <span class="w-8 h-8 rounded bg-white flex items-center justify-center text-xs font-bold shadow-sm">L</span>
-                    </div>
-                    <div class="mt-4 pt-3 border-t border-white/50 text-xs text-gray-600 flex items-center gap-2">
-                        <i class="fa-solid fa-ruler-horizontal"></i> Ver guía de tallas
-                    </div>
-                </div>
-
-                <!-- Floating Voice/Assistant Card -->
-                <div class="absolute top-1/2 -left-10 md:left-[-60px] transform -translate-y-1/2 glass-card p-3 z-40 flex items-center gap-3 bg-gradient-to-r from-brand-orange to-brand-peach text-white border-white/20 shadow-lg hidden md:flex rotate-[-5deg] hover:rotate-0 transition duration-300">
-                    <div class="w-8 h-8 bg-white text-brand-orange rounded-full flex items-center justify-center">
-                        <i class="fa-solid fa-headset text-sm"></i>
-                    </div>
-                    <div>
-                        <p class="text-xs font-bold">Soporte por WhatsApp</p>
-                        <p class="text-[10px] opacity-80">Respondemos al instante</p>
-                    </div>
-                </div>
-
+            <!-- Right Content: Large Hero Image -->
+            <div class="relative h-[60vh] md:h-[70vh] lg:h-[80vh] w-full order-1 lg:order-2 overflow-hidden fade-in-up">
+                <img id="hero-image" src="/logo.png" alt="Featured" class="w-full h-full object-cover object-center transition-all duration-700 hover:scale-105">
+                <div class="absolute inset-0 bg-black/[0.02]"></div>
             </div>
         </div>
     </main>
+
+    <!-- Manual Featured Products Section -->
+    <section id="featured-products" class="py-20 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="flex flex-col items-center mb-16">
+            <h2 class="text-[10px] font-bold tracking-[0.5em] text-gray-400 uppercase mb-2">Selección Exclusiva</h2>
+            <h3 class="font-serif text-3xl md:text-4xl text-center">Destacados de Temporada</h3>
+        </div>
+        <div id="grid-portada" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12">
+            <!-- Solo productos con 'portada: true' aparecerán aquí -->
+        </div>
+    </section>
 
 
 
@@ -306,14 +263,25 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
+                // Load Portada Content
                 const res = await fetch('/api/config');
                 const config = await res.json();
                 if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
                 if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
                 if (config.heroImage) document.getElementById('hero-image').src = config.heroImage;
-            } catch (e) { console.error("Error cargando configuración:", e); }
 
-
+                // Load Featured Products (manual selection)
+                const resP = await fetch('/api/productos');
+                const allP = await resP.json();
+                const grid = document.getElementById('grid-portada');
+                const featured = allP.filter(p => p.portada === true);
+                
+                if (featured.length > 0) {
+                    grid.innerHTML = featured.map(p => createProductCard(p)).join('');
+                } else {
+                    document.getElementById('featured-products').classList.add('hidden');
+                }
+            } catch (e) { console.error("Error cargando Home:", e); }
         });
     </script>
 

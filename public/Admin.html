@@ -183,8 +183,17 @@
                     <label class="block text-sm font-bold mb-2">URL Imagen de Portada</label>
                     <input type="url" id="heroImage" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
                 </div>
+                <div class="bg-red-50 p-4 rounded-xl border border-red-100 mb-4">
+                    <p class="text-xs text-red-700"><strong>❌ Error común:</strong> No pegues el link de la página de ImgBB (ej: <code>ibb.co/abcd</code>).<br>
+                    <strong>✅ Correcto:</strong> El link debe terminar en <code>.jpg</code> o <code>.png</code> (ej: <code>i.ibb.co/abcd/imagen.jpg</code>).<br>
+                    Usa el botón "Copiar Direct Link" en ImgBB después de subir.</p>
+                </div>
                 <div class="bg-orange-50 p-4 rounded-xl border border-orange-100">
-                    <p class="text-xs text-orange-700"><strong>Tip:</strong> Usa <code>&lt;br&gt;</code> para saltos de línea en el título y <code>&lt;span class="italic font-light"&gt;texto&lt;/span&gt;</code> para el estilo elegante.</p>
+                    <p class="text-xs text-orange-700"><strong>Tip HTML:</strong> Usa <code>&lt;br&gt;</code> para bajar de renglón y <code>&lt;span class="italic font-light text-gray-400"&gt;...&lt;/span&gt;</code> para texto fino.</p>
+                </div>
+                <div class="p-4 border border-dashed border-gray-200 rounded-xl">
+                    <p class="text-[10px] font-bold uppercase text-gray-400 mb-2">Previsualización del Título:</p>
+                    <div id="hero-title-preview" class="font-serif text-2xl leading-tight uppercase tracking-tighter"></div>
                 </div>
                 <button type="submit" class="w-full bg-orange-500 text-white py-4 rounded-xl font-bold hover:bg-orange-600 shadow-lg shadow-orange-200 transition">Guardar Cambios en Portada</button>
             </form>
@@ -279,10 +288,18 @@
         async function loadConfig() {
             const res = await fetch('/api/config');
             const config = await res.json();
-            document.getElementById('heroTitle').value = config.heroTitle;
-            document.getElementById('heroDesc').value = config.heroDesc;
-            document.getElementById('heroImage').value = config.heroImage;
+            document.getElementById('heroTitle').value = config.heroTitle || '';
+            document.getElementById('heroDesc').value = config.heroDesc || '';
+            document.getElementById('heroImage').value = config.heroImage || '';
+            updateHeroPreview();
         }
+
+        function updateHeroPreview() {
+            const val = document.getElementById('heroTitle').value;
+            document.getElementById('hero-title-preview').innerHTML = val || 'Previsualización...';
+        }
+
+        document.getElementById('heroTitle').addEventListener('input', updateHeroPreview);
 
         function showTab(id) {
             document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
