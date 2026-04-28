@@ -270,6 +270,7 @@ app.put('/api/admin/config', async (req, res) => {
 
 app.get('/Admin.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'Admin.html')));
 app.get('/admin.html', (req, res) => res.sendFile(path.join(__dirname, 'public', 'Admin.html')));
+app.get('/admin', (req, res) => res.sendFile(path.join(__dirname, 'public', 'Admin.html')));
 // Health check endpoint - PC para evitar que Render duerma
 app.get('/api/ping', (req, res) => {
     res.json({ status: 'ok', timestamp: new Date().toISOString() });
