@@ -171,6 +171,11 @@
             <h2 class="text-xl font-bold mb-6">Gestión de Portada (Home)</h2>
             <p class="text-sm text-gray-500 mb-6">Configura la imagen y textos principales que ven los clientes al entrar.</p>
             <form id="config-form" class="space-y-6">
+                <div class="bg-black p-6 rounded-xl border border-gray-800 mb-6">
+                    <label class="block text-white text-sm font-bold mb-2">Banner Superior (Anuncio en todo el sitio)</label>
+                    <input type="text" id="topBanner" placeholder="Ej: Envíos GRATIS + $120.000 | 3 CUOTAS SIN INTERÉS" class="w-full px-4 py-3 bg-gray-900 text-white border border-gray-700 rounded-xl font-mono text-sm">
+                    <p class="text-[10px] text-gray-500 mt-2 uppercase tracking-widest">Este mensaje aparecerá arriba de todo en todas las páginas.</p>
+                </div>
                 <div>
                     <label class="block text-sm font-bold mb-2">Título Hero (acepta HTML)</label>
                     <input type="text" id="heroTitle" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
@@ -268,7 +273,8 @@
 
             document.getElementById('config-form').onsubmit = async (e) => {
                 e.preventDefault();
-                const config = {
+            const config = {
+                    topBanner: document.getElementById('topBanner').value,
                     heroTitle: document.getElementById('heroTitle').value,
                     heroDesc: document.getElementById('heroDesc').value,
                     heroImage: document.getElementById('heroImage').value
@@ -288,6 +294,7 @@
         async function loadConfig() {
             const res = await fetch('/api/config');
             const config = await res.json();
+            document.getElementById('topBanner').value = config.topBanner || '';
             document.getElementById('heroTitle').value = config.heroTitle || '';
             document.getElementById('heroDesc').value = config.heroDesc || '';
             document.getElementById('heroImage').value = config.heroImage || '';

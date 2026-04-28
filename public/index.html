@@ -160,15 +160,33 @@
             transform: translateY(30px);
         }
         
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Shine Animation for the Bar */
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            30%, 100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        .animate-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .animate-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 4s infinite linear;
         }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden relative">
+
+    <!-- Top Dynamic Banner -->
+    <div id="top-banner-container" class="hidden bg-black text-white py-2.5 animate-shine relative z-[60]">
+        <p id="top-banner-text" class="text-[9px] md:text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
+    </div>
 
     <!-- Navbar -->
     <header class="sticky top-0 z-50 flex justify-between items-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-md shadow-sm fade-in-up w-full">
@@ -234,14 +252,8 @@
                 Descubre una curaduría de las mejores marcas nacionales. Sail, 47 Street y más.
             </p>
             
-            <div class="flex flex-col sm:flex-row gap-6 fade-in-up delay-300">
-                <button class="pill-button bg-black text-white px-12 py-5 shadow-2xl hover:bg-black/90 transition" onclick="document.getElementById('featured-products').scrollIntoView({behavior:'smooth'})">
-                    SHOP THE LOOK
-                </button>
-                <button class="pill-button border border-black/20 text-black px-12 py-5 hover:bg-black hover:text-white transition" onclick="location.href='promociones.html'">
-                    PROMOTIONS
-                </button>
-            </div>
+            <!-- Banner Placeholder (Dynamic) -->
+            <div id="hero-banner-placeholder" class="mt-12 fade-in-up delay-300"></div>
         </div>
 
         <!-- Hero Image (Protagonist) -->
@@ -334,6 +346,23 @@
                 // Load Portada Content
                 const res = await fetch('/api/config');
                 const config = await res.json();
+                
+                // Top Banner
+                if (config.topBanner) {
+                    document.getElementById('top-banner-text').innerText = config.topBanner;
+                    document.getElementById('top-banner-container').classList.remove('hidden');
+                    
+                    // Also clone it to hero if placeholder exists
+                    const heroPlac = document.getElementById('hero-banner-placeholder');
+                    if (heroPlac) {
+                        heroPlac.innerHTML = `
+                            <div class="bg-black text-white py-5 px-8 inline-block w-full md:w-auto animate-shine border-l-4 border-gray-500 shadow-xl">
+                                <p class="text-[10px] md:text-xs tracking-[0.2em] font-bold uppercase">${config.topBanner}</p>
+                            </div>
+                        `;
+                    }
+                }
+
                 if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
                 if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
                 if (config.heroImage) document.getElementById('hero-image').src = config.heroImage;

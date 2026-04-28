@@ -90,15 +90,33 @@
             transform: translateY(20px);
         }
         
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Shine Animation for the Bar */
+        @keyframes shine {
+            0% { transform: translateX(-100%) skewX(-15deg); }
+            30%, 100% { transform: translateX(200%) skewX(-15deg); }
+        }
+        .animate-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .animate-shine::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
+            animation: shine 4s infinite linear;
         }
     </style>
 </head>
 <body class="antialiased overflow-x-hidden relative">
+
+    <!-- Top Dynamic Banner -->
+    <div id="top-banner-container" class="hidden bg-black text-white py-2.5 animate-shine relative z-[60]">
+        <p id="top-banner-text" class="text-[9px] md:text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
+    </div>
 
     <!-- Navbar -->
     <header class="sticky top-0 z-50 flex justify-between items-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-md shadow-sm fade-in-up w-full">
@@ -278,7 +296,17 @@
     <script>
         let currentFilter = 'all';
         
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Load Banner Content
+            try {
+                const resConfig = await fetch('/api/config');
+                const config = await resConfig.json();
+                if (config.topBanner) {
+                    document.getElementById('top-banner-text').innerText = config.topBanner;
+                    document.getElementById('top-banner-container').classList.remove('hidden');
+                }
+            } catch (e) { console.error("Error cargando banner:", e); }
+
             // Fetch products from the backend API
             fetch('/api/productos')
                 .then(res => res.json())
