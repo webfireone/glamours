@@ -56,34 +56,35 @@
 
         .hero-container {
             position: relative;
-            height: 100vh;
             width: 100%;
+            display: block; /* La imagen define el alto */
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        #hero-bg {
+            width: 100%;
+            height: auto;
+            display: block;
+            filter: brightness(0.6);
+            z-index: 0;
+        }
+
+        .hero-content-wrapper {
+            position: absolute;
+            inset: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
             text-align: center;
             color: white;
-            overflow: hidden;
-        }
-
-        #hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Muestra la imagen completa sin recortar */
-            z-index: 0;
-            filter: brightness(0.6);
-            background-color: #000; /* Fondo negro para que no se vea blanco si la imagen no llena todo */
+            z-index: 10;
+            padding: 20px;
         }
 
         .hero-content {
-            position: relative;
-            z-index: 10;
             max-width: 900px;
-            padding: 0 20px;
         }
 
         .category-card {
@@ -272,27 +273,26 @@
 
     <!-- Hero Section: Editorial Impact -->
     <main class="hero-container">
-        <!-- Background Image -->
+        <!-- Background Image (This defines the height) -->
         <img id="hero-bg" src="/logo.jpg" alt="Glamours Hero" class="fade-in">
         
-        <!-- Hero Content (Centered) -->
-        <div class="hero-content">
-            <h1 id="hero-title" class="font-serif text-5xl md:text-[100px] leading-tight mb-6 fade-in-up uppercase tracking-tighter">
-                Elegancia <br>
-                <span class="italic font-light opacity-80">Sustentable</span>
-            </h1>
-            
-            <p id="hero-desc" class="text-white/80 mb-10 max-w-lg mx-auto text-xs md:text-sm leading-loose fade-in-up delay-200 uppercase tracking-[0.4em]">
-                Descubre la nueva colección de temporada en un solo lugar.
-            </p>
-            
-            <div class="flex flex-col md:flex-row gap-4 justify-center fade-in-up delay-300">
-                <a href="#productos" class="pill-button bg-white text-black px-10 py-4 hover:bg-black hover:text-white">
-                    Ver Colección
-                </a>
-                <a href="promociones.html" class="pill-button border border-white text-white px-10 py-4 hover:bg-white hover:text-black">
-                    Ofertas
-                </a>
+        <!-- Hero Content Overlay -->
+        <div class="hero-content-wrapper">
+            <div class="hero-content">
+                <h1 id="hero-title" class="font-serif text-3xl md:text-[80px] lg:text-[100px] leading-tight mb-6 fade-in-up uppercase tracking-tighter">
+                    Elegancia <br>
+                    <span class="italic font-light opacity-80">Sustentable</span>
+                </h1>
+                
+                <p id="hero-desc" class="text-white/80 mb-10 max-w-lg mx-auto text-[10px] md:text-sm leading-loose fade-in-up delay-200 uppercase tracking-[0.4em]">
+                    Descubre la nueva colección de temporada en un solo lugar.
+                </p>
+                
+                <div class="flex flex-col md:flex-row gap-4 justify-center fade-in-up delay-300">
+                    <a href="#productos" class="pill-button bg-white text-black px-10 py-4 hover:bg-black hover:text-white">
+                        Ver Colección
+                    </a>
+                </div>
             </div>
         </div>
 
