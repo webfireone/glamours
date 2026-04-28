@@ -22,7 +22,11 @@
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background: #fff; }
+        body { 
+            background-color: #f8f8f8;
+            color: #1a1a1a;
+            font-family: 'Inter', sans-serif; 
+        }
         .tab-btn.active { border-bottom: 3px solid black; color: black; font-weight: bold; }
         .vs-button { background: #000; color: #fff; padding: 12px 32px; font-weight: 600; transition: all 0.3s ease; }
         .vs-button:hover { background: #E0007F; }
@@ -74,6 +78,7 @@
                     <div class="flex gap-4">
                         <label><input type="checkbox" id="novedad"> Novedad</label>
                         <label><input type="checkbox" id="oferta" onchange="toggleDiscountField()"> Oferta</label>
+                        <label><input type="checkbox" id="portada"> Portada</label>
                     </div>
                     <div id="discount-container" class="hidden">
                         <label class="block text-sm font-medium mb-1">Porcentaje de Descuento (%)</label>
@@ -231,6 +236,7 @@
                     talles: document.getElementById('talles').value,
                     novedad: document.getElementById('novedad').checked,
                     oferta: esOferta,
+                    portada: document.getElementById('portada').checked,
                     descuento: esOferta ? parseInt(document.getElementById('descuento').value) || 0 : 0,
                     descripcion: document.getElementById('descripcion').value
                 };
@@ -330,6 +336,7 @@
             document.getElementById('descripcion').value = p.descripcion || '';
             document.getElementById('novedad').checked = p.novedad;
             document.getElementById('oferta').checked = p.oferta;
+            document.getElementById('portada').checked = p.portada || false;
             document.getElementById('descuento').value = p.descuento || 0;
             toggleDiscountField();
             document.getElementById('submit-btn').innerText = 'Actualizar Producto';

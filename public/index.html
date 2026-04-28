@@ -38,64 +38,64 @@
         }
     </script>
     <style>
-        /* Custom Styles & Glassmorphism Utilities */
+        /* Minimalist Sail-like Styles */
         body {
-            /* Warm gradient background similar to the reference image */
-            background: linear-gradient(135deg, #fefae0 0%, #faedcd 50%, #f4a261 100%);
-            background-attachment: fixed;
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            color: #2d3142;
         }
 
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(255, 107, 53, 0.1);
-            border-radius: 1.5rem;
+        /* Clean Header */
+        header {
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
         }
 
-        /* Floating Nav */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
-            border-radius: 9999px; /* Pill shape */
+        /* Product Cards - Minimalist */
+        .product-card {
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .product-card:hover img {
+            opacity: 0.85;
+            transform: scale(1.02);
         }
 
         .pill-button {
-            border-radius: 9999px;
+            border-radius: 0px; /* Sail uses more square/sharp corners or very subtle rounding */
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
         
         .pill-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+            background-color: #333;
         }
 
         .nav-link {
             position: relative;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
+        
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 50%;
-            background-color: #ff6b35;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #000;
             transition: all 0.3s ease;
-            transform: translateX(-50%);
         }
         .nav-link:hover::after {
             width: 100%;
         }
 
-        /* Smooth reveal animation */
+        /* Animations */
         .fade-in-up {
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -126,13 +126,11 @@
         </div>
 
         <!-- Navigation (Desktop) -->
-        <nav class="hidden md:flex glass-nav px-8 py-3 items-center gap-6 text-sm font-medium">
-            <a href="index.html" class="nav-link text-brand-orange font-semibold flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-orange block"></span> Home
-            </a>
-            <a href="promociones.html" class="nav-link text-gray-700 hover:text-black">Promociones</a>
-            <a href="novedades.html" class="nav-link text-gray-700 hover:text-black">Novedades</a>
-            <a href="contacto.html" class="nav-link text-gray-700 hover:text-black">Contacto</a>
+        <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-[11px] font-bold tracking-widest uppercase">
+            <a href="index.html" class="nav-link text-black">Home</a>
+            <a href="promociones.html" class="nav-link text-gray-500 hover:text-black">Promociones</a>
+            <a href="novedades.html" class="nav-link text-gray-500 hover:text-black">Novedades</a>
+            <a href="contacto.html" class="nav-link text-gray-500 hover:text-black">Contacto</a>
         </nav>
 
         <!-- Actions -->
@@ -167,30 +165,29 @@
     </div>
 
     <!-- Hero Section -->
-    <main class="pt-8 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center relative">
-        <!-- Background decorative blobs -->
-        <div class="absolute top-20 right-10 w-96 h-96 bg-brand-peach/40 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
-        <div class="absolute bottom-10 left-10 w-72 h-72 bg-brand-yellow/30 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
+    <main class="pt-8 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[80vh] flex flex-col justify-center relative">
+        <!-- Minimal background -->
+        <div class="absolute inset-0 bg-[#f9f9f9] -z-20"></div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             
             <!-- Left Content -->
             <div class="z-10 mt-10 lg:mt-0">
-                <h1 id="hero-title" class="font-serif text-5xl md:text-7xl leading-tight mb-6 fade-in-up">
-                    The Future of <br>
-                    <span class="italic font-light">Intelligent</span> Fashion
+                <h1 id="hero-title" class="font-serif text-5xl md:text-8xl leading-[0.9] mb-8 fade-in-up tracking-tighter">
+                    NEW <br>
+                    <span class="italic font-light">SEASON</span>
                 </h1>
-                <p id="hero-desc" class="text-gray-700 mb-10 max-w-md text-sm md:text-base leading-relaxed fade-in-up delay-100">
-                    Descubre las últimas tendencias en moda urbana. Sail, Legacy, 47 Street y Owoko en un solo lugar. Eleva tu estilo con prendas seleccionadas para todos los días.
+                <p id="hero-desc" class="text-gray-500 mb-10 max-w-sm text-xs md:text-sm leading-relaxed fade-in-up delay-100 uppercase tracking-widest">
+                    Explora la nueva colección de Sail, Legacy y 47 Street. Diseños exclusivos para elevar tu estilo diario.
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-4 fade-in-up delay-200">
-                    <div class="glass-card flex items-center p-2 pl-6 pr-2 max-w-md">
-                        <input type="email" placeholder="Ingresa tu Email" class="bg-transparent border-none outline-none w-full text-sm text-gray-700 placeholder-gray-500">
-                        <button class="pill-button bg-black text-white px-6 py-2.5 text-sm font-semibold flex items-center gap-2 whitespace-nowrap hover:bg-gray-800">
-                            Start for Free <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
+                    <button class="pill-button bg-black text-white px-10 py-4 text-xs font-bold tracking-[3px] hover:bg-gray-800 transition">
+                        VER COLECCIÓN
+                    </button>
+                    <button class="pill-button border border-black text-black px-10 py-4 text-xs font-bold tracking-[3px] hover:bg-black hover:text-white transition">
+                        PROMOS
+                    </button>
                 </div>
 
                 <div class="flex gap-4 mt-12 fade-in-up delay-300">

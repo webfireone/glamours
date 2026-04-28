@@ -38,64 +38,52 @@
         }
     </script>
     <style>
-        /* Custom Styles & Glassmorphism Utilities */
+        /* Minimalist Sail-like Styles */
         body {
-            /* Warm gradient background similar to the reference image */
-            background: linear-gradient(135deg, #fefae0 0%, #faedcd 50%, #f4a261 100%);
-            background-attachment: fixed;
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Inter', sans-serif;
             min-height: 100vh;
-            color: #2d3142;
         }
 
-        /* Glassmorphism Card */
-        .glass-card {
-            background: rgba(255, 255, 255, 0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 8px 32px 0 rgba(255, 107, 53, 0.1);
-            border-radius: 1.5rem;
-        }
-
-        /* Floating Nav */
-        .glass-nav {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.05);
-            border-radius: 9999px; /* Pill shape */
+        header {
+            border-bottom: 1px solid #f0f0f0;
+            transition: all 0.3s ease;
         }
 
         .pill-button {
-            border-radius: 9999px;
+            border-radius: 0px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
         }
         
         .pill-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 15px rgba(255, 107, 53, 0.3);
+            background-color: #333;
         }
 
         .nav-link {
             position: relative;
+            text-transform: uppercase;
+            font-size: 11px;
+            letter-spacing: 2px;
+            font-weight: 600;
         }
+        
         .nav-link::after {
             content: '';
             position: absolute;
             width: 0;
-            height: 2px;
-            bottom: -2px;
-            left: 50%;
-            background-color: #ff6b35;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: #000;
             transition: all 0.3s ease;
-            transform: translateX(-50%);
         }
         .nav-link:hover::after {
             width: 100%;
         }
 
-        /* Smooth reveal animation */
         .fade-in-up {
             animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -108,11 +96,6 @@
                 transform: translateY(0);
             }
         }
-        
-        .delay-100 { animation-delay: 100ms; }
-        .delay-200 { animation-delay: 200ms; }
-        .delay-300 { animation-delay: 300ms; }
-
     </style>
 </head>
 <body class="antialiased overflow-x-hidden relative">
@@ -126,13 +109,13 @@
         </div>
 
         <!-- Navigation (Desktop) -->
-        <nav class="hidden md:flex glass-nav px-8 py-3 items-center gap-6 text-sm font-medium">
-            <a href="index.html" class="nav-link text-gray-700 hover:text-black">Home</a>
-            <a href="promociones.html" class="nav-link text-brand-orange font-semibold flex items-center gap-1">
-                <span class="w-1.5 h-1.5 rounded-full bg-brand-orange block"></span> Promociones
+        <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-[11px] font-bold tracking-widest uppercase">
+            <a href="index.html" class="nav-link text-gray-500 hover:text-black">Home</a>
+            <a href="promociones.html" class="nav-link text-black">
+                Promociones
             </a>
-            <a href="novedades.html" class="nav-link text-gray-700 hover:text-black">Novedades</a>
-            <a href="contacto.html" class="nav-link text-gray-700 hover:text-black">Contacto</a>
+            <a href="novedades.html" class="nav-link text-gray-500 hover:text-black">Novedades</a>
+            <a href="contacto.html" class="nav-link text-gray-500 hover:text-black">Contacto</a>
         </nav>
 
         <!-- Actions -->

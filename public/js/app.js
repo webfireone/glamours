@@ -328,7 +328,7 @@ function showModal(product) {
     if (colorsContainer && colorsList) {
         if (product.colores) {
             const colores = product.colores.split(',').map(c => c.trim());
-            colorsList.innerHTML = colores.map(c => `<span class="px-3 py-1 border rounded-md text-xs font-bold hover:bg-brand-orange hover:text-white transition cursor-pointer">${c}</span>`).join('');
+            colorsList.innerHTML = colores.map(c => `<span class="px-3 py-1 border rounded-md text-xs font-bold hover:bg-black hover:text-white transition cursor-pointer">${c}</span>`).join('');
             colorsContainer.classList.remove('hidden');
         } else {
             colorsContainer.classList.add('hidden');
@@ -387,37 +387,26 @@ function toggleWishlist(btn) { btn.classList.toggle('text-red-500'); }
 
 /**
  * Generates the HTML for a product card with consistent design.
- * @param {Object} product - Product data object.
- * @param {Boolean} isPromo - If true, displays a promo badge.
  */
 function createProductCard(product, isPromo = false) {
-    const badgeText = product.descuento ? `-${product.descuento}%` : 'OFERTA';
-    const badge = isPromo ? `<span class="absolute top-3 left-3 bg-red-500 text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">${badgeText}</span>` : '';
-    const novedadBadge = product.novedad && !isPromo ? `<span class="absolute top-3 left-3 bg-brand-orange text-white text-[10px] font-bold px-2 py-1 rounded-full z-10">NUEVO</span>` : '';
-    
-    // Fallback image if none exists
+    const badgeText = product.descuento ? `-${product.descuento}%` : (isPromo ? 'OFERTA' : '');
+    const badge = badgeText ? `<span class="absolute top-2 left-2 bg-black text-white text-[9px] font-bold px-2 py-0.5 z-10 tracking-widest uppercase">${badgeText}</span>` : '';
     const imgUrl = product.imagenes && product.imagenes.length > 0 ? product.imagenes[0] : 'https://via.placeholder.com/400x500?text=Glamours';
-
     return `
-        <div class="glass-card p-4 transition hover:-translate-y-2 duration-300 cursor-pointer group relative h-full flex flex-col">
-            ${isPromo ? badge : novedadBadge}
-            <div class="bg-white/50 rounded-xl aspect-[3/4] mb-4 overflow-hidden relative">
-                <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                <div class="absolute top-3 right-3 bg-white/80 backdrop-blur-sm p-2 rounded-full text-brand-orange shadow-sm hover:bg-brand-orange hover:text-white transition" onclick="event.stopPropagation(); toggleWishlist(this)">
-                    <i class="fa-regular fa-heart"></i>
+        <div class="product-card group cursor-pointer" onclick="quickView('${product.id}')">
+            <div class="relative overflow-hidden aspect-[3/4] mb-3">
+                ${badge}
+                <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"/>
+                <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <button class="bg-white text-black text-[10px] font-bold py-3 px-6 tracking-widest uppercase shadow-sm">Vista Rápida</button>
                 </div>
             </div>
-            <div class="flex justify-between items-start mb-auto">
-                <div>
-                    <p class="text-[10px] text-gray-500 font-bold uppercase mb-1">${product.marca || 'Glamours'}</p>
-                    <h3 class="font-serif font-bold text-base leading-tight h-10 overflow-hidden line-clamp-2">${product.nombre}</h3>
-                </div>
-                <p class="font-bold text-brand-orange">$${product.precio}</p>
-            </div>
-            <div class="grid grid-cols-2 gap-2 mt-4">
-                <button class="pill-button bg-brand-orange/10 text-brand-orange font-bold py-2 text-xs border border-brand-orange/20 hover:bg-brand-orange hover:text-white transition" onclick="event.stopPropagation(); quickView('${product.id}')">Vista Rápida</button>
-                <button class="pill-button bg-black text-white font-bold py-2 text-xs hover:bg-brand-orange transition" onclick="event.stopPropagation(); addToCart('${product.id}')">Añadir</button>
+            <div class="text-center px-1">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1 font-bold">${product.marca || 'Glamours'}</p>
+                <h3 class="text-xs font-medium uppercase tracking-tight mb-1 truncate">${product.nombre}</h3>
+                <p class="text-sm font-bold">$${product.precio}</p>
             </div>
         </div>
     `;
 }
+
