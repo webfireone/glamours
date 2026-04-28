@@ -57,53 +57,74 @@
         .hero-container {
             position: relative;
             width: 100%;
-            height: 50vh; /* Altura fija a la mitad de la pantalla */
-            background-color: #000;
-            overflow: hidden;
+            padding-top: 60px;
+            padding-bottom: 100px;
+            display: block;
+            background-color: transparent;
         }
 
-        #hero-bg-blur {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .hero-layout {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        .hero-image-wrapper {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            filter: brightness(0.4) blur(20px); /* Fondo desenfocado para llenar el ancho */
-            z-index: 0;
-            transform: scale(1.1); /* Evita bordes blancos por el blur */
+            margin-left: auto;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-image-wrapper {
+                width: 75%;
+            }
         }
 
         #hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            object-fit: contain; /* Imagen 100% COMPLETA en el centro */
-            z-index: 5;
-            filter: brightness(0.8);
+            height: auto;
+            display: block;
+            object-fit: contain;
+            filter: brightness(1);
         }
 
-        .hero-content-wrapper {
-            position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            z-index: 10;
-            padding: 20px;
+        .hero-title-wrapper {
+            position: relative;
+            z-index: 20;
+            width: 100%;
+            margin-top: -30px; /* Overlap on mobile */
         }
 
-        .hero-content {
-            max-width: 800px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
+        @media (min-width: 1024px) {
+            .hero-title-wrapper {
+                position: absolute;
+                top: 50%;
+                left: 0;
+                transform: translateY(-50%);
+                width: 50%;
+                margin-top: 0;
+            }
+        }
+
+        #hero-title {
+            color: black;
+            text-align: left;
+            text-shadow: none;
+        }
+
+        .hero-info-footer {
+            width: 100%;
+            margin-left: auto;
+            margin-top: 40px;
+            text-align: left;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-info-footer {
+                width: 75%;
+            }
         }
 
         .category-card {
@@ -291,38 +312,33 @@
     </div>
 
     <!-- Hero Section: Editorial Impact -->
-    <main class="hero-container">
-        <!-- Background Layer 1: Blurred (fills the space) -->
-        <img id="hero-bg-blur" src="" alt="" class="fade-in" style="pointer-events: none;">
-        
-        <!-- Background Layer 2: Sharp & Complete (No Crop) -->
-        <img id="hero-bg" src="" alt="Glamours Hero" class="fade-in" style="pointer-events: none;">
-        
-        <!-- Hero Content Overlay -->
-        <div class="hero-content-wrapper">
-            <div class="hero-content">
-                <h1 id="hero-title" class="font-serif text-xl md:text-3xl lg:text-5xl leading-tight mb-3 fade-in-up uppercase tracking-tighter shadow-sm">
+    <main class="hero-container px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="hero-layout">
+            <!-- Title (Overlapping) -->
+            <div class="hero-title-wrapper">
+                <h1 id="hero-title" class="font-serif text-4xl md:text-7xl lg:text-9xl leading-[0.9] fade-in-up uppercase tracking-tighter">
                     Elegancia <br>
-                    <span class="italic font-light opacity-90">Sustentable</span>
+                    <span class="italic font-light text-gray-400">Sustentable</span>
                 </h1>
-                
-                <p id="hero-desc" class="text-white/90 mb-6 max-w-md mx-auto text-[7px] md:text-[10px] leading-relaxed fade-in-up delay-200 uppercase tracking-[0.3em]">
-                    Colección Exclusiva
-                </p>
-                
-                <div class="flex justify-center fade-in-up delay-300">
-                    <a href="novedades.html" class="pill-button bg-white text-black px-6 py-2.5 hover:bg-black hover:text-white text-[9px] shadow-lg">
-                        Ver Colección
-                    </a>
-                </div>
             </div>
-        </div>
 
-        <!-- Scroll Indicator -->
-        <div class="scroll-indicator fade-in-up delay-300">
-            <span>Scroll</span>
-            <div class="w-px h-12 bg-white/30 relative overflow-hidden">
-                <div class="absolute inset-0 bg-white animate-[scroll-line_2s_infinite]"></div>
+            <!-- Image (3/4 width on Desktop) -->
+            <div class="hero-image-wrapper">
+                <img id="hero-bg" src="" alt="Glamours Hero" class="fade-in shadow-2xl">
+            </div>
+
+            <!-- Description (Below image) -->
+            <div class="hero-info-footer">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+                    <p id="hero-desc" class="text-gray-400 max-w-md text-[10px] md:text-xs leading-loose fade-in-up delay-200 uppercase tracking-[0.3em]">
+                        Descubre la nueva curaduría de temporada. Una selección exclusiva para quienes buscan lo mejor del diseño nacional.
+                    </p>
+                    <div class="fade-in-up delay-300">
+                        <a href="novedades.html" class="pill-button bg-black text-white px-10 py-4 hover:bg-gray-800 transition shadow-xl text-[10px]">
+                            Ver Colección
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -485,7 +501,6 @@
                 if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
                 if (config.heroImage) {
                     document.getElementById('hero-bg').src = config.heroImage;
-                    document.getElementById('hero-bg-blur').src = config.heroImage;
                 }
 
                 // Categories
