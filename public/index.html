@@ -57,15 +57,18 @@
         .hero-container {
             position: relative;
             width: 100%;
-            display: block; /* La imagen define el alto */
+            height: 50vh; /* Altura fija a la mitad de la pantalla */
             background-color: #000;
             overflow: hidden;
         }
 
         #hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            height: auto;
-            display: block;
+            height: 100%;
+            object-fit: cover; /* Asegura que cubra de lado a lado en el espacio de 50vh */
             filter: brightness(0.6);
             z-index: 0;
         }
@@ -273,8 +276,8 @@
 
     <!-- Hero Section: Editorial Impact -->
     <main class="hero-container">
-        <!-- Background Image (This defines the height) -->
-        <img id="hero-bg" src="/logo.jpg" alt="Glamours Hero" class="fade-in">
+        <!-- Background Image (Dynamic) -->
+        <img id="hero-bg" src="" alt="Glamours Hero" class="fade-in">
         
         <!-- Hero Content Overlay -->
         <div class="hero-content-wrapper">
