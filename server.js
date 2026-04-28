@@ -92,28 +92,6 @@ app.post('/api/admin/productos', async (req, res) => {
         res.status(500).json({ error: e.message });
     }
 });
-    try {
-    try {
-        const newProduct = { ...req.body, createdAt: new Date().toISOString() };
-        let result;
-        if (db) {
-            const docRef = await db.collection('products').add(newProduct);
-            result = { id: docRef.id, ...newProduct };
-        } else {
-            // Fallback: store in in‑memory cache
-            const tempId = `temp_${Date.now()}`;
-            newProduct.id = tempId;
-            productosCache.push(newProduct);
-            result = newProduct;
-        }
-        res.json(result);
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-    } catch (e) {
-        res.status(500).json({ error: e.message });
-    }
-});
 
 app.put('/api/admin/productos/:id', async (req, res) => {
     try {
