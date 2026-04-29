@@ -285,11 +285,16 @@ const DEFAULT_CONFIG = {
 
 app.get('/api/config', async (req, res) => {
     try {
+        if (!firebaseOk || !db) {
+            console.log("Firebase no disponible, devolviendo configuración por defecto");
+            return res.json(DEFAULT_CONFIG);
+        }
         const configDoc = await db.collection('settings').doc('config').get();
         if (!configDoc.exists) return res.json(DEFAULT_CONFIG);
         res.json(configDoc.data());
     } catch (e) {
-        res.status(500).json({ error: e.message });
+        console.error("Error en /api/config:", e);
+        res.json(DEFAULT_CONFIG);
     }
 });
 
