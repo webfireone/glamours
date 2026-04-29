@@ -1,6 +1,5 @@
-
 // Global state
-let allProducts = [];
+window.allProducts = [];
 let currentUser = JSON.parse(localStorage.getItem('glamours_user')) || null;
 let cart = []; 
 
@@ -42,8 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
 async function fetchProducts() {
     try {
         const res = await fetch('/api/productos');
-        allProducts = await res.json();
-        console.log("Products loaded:", allProducts.length);
+        window.allProducts = await res.json();
+        console.log("Products loaded:", window.allProducts.length);
     } catch (err) { console.error("Error cargando productos:", err); }
 }
 
@@ -313,10 +312,13 @@ function setupHeaderScroll() {
 }
 
 // --- MODALS ---
-function quickView(id) {
-    let p = allProducts.find(x => x.id === id);
+// Forzar quickView al scope global para que los botones lo encuentren siempre
+window.quickView = function(id) {
+    console.log("Abriendo Vista Rápida para ID:", id);
+    let p = window.allProducts.find(x => x.id === id);
     if (p) showModal(p);
-}
+    else console.error("Producto no encontrado:", id);
+};
 
 function showModal(product) {
     window.currentViewedId = product.id;
@@ -413,12 +415,15 @@ function createProductCard(product, isPromo = false) {
     const badge = badgeText ? `<span class="absolute top-4 left-4 bg-[#0c1c4d] text-white text-[9px] font-bold px-3 py-1 z-20 tracking-widest uppercase rounded-full shadow-lg">${badgeText}</span>` : '';
     const imgUrl = product.imagenes && product.imagenes.length > 0 ? product.imagenes[0] : 'https://via.placeholder.com/400x500?text=Glamours';
     return `
-        <div class="product-card group cursor-pointer fade-in-up" onclick="quickView('${product.id}')">
+        <div class="product-card group cursor-pointer fade-in-up" onclick="window.quickView('${product.id}')">
             <div class="image-frame relative overflow-hidden aspect-[3/4] mb-4">
                 ${badge}
                 <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
-                <div class="absolute inset-0 bg-[#0c1c4d]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-30">
-                    <button class="bg-white text-[#0c1c4d] text-[10px] font-bold py-3 px-6 tracking-widest uppercase rounded-full shadow-xl" onclick="event.stopPropagation(); quickView('${product.id}')">Ver Detalle</button>
+                <div class="absolute inset-0 bg-[#0c1c4d]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-50">
+                    <button class="bg-white text-[#0c1c4d] text-[10px] font-bold py-3 px-6 tracking-widest uppercase rounded-full shadow-xl hover:scale-110 transition-transform" 
+                            onclick="event.stopPropagation(); window.quickView('${product.id}')">
+                        Ver Detalle
+                    </button>
                 </div>
             </div>
             <div class="text-center px-1">

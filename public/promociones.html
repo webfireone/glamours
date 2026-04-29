@@ -209,13 +209,36 @@
         </div>
     </footer>
 
+    <!-- Quick View Modal -->
+    <div id="quick-view-modal" class="fixed inset-0 bg-[#0c1c4d]/60 backdrop-blur-sm z-[200] flex items-center justify-center hidden p-4">
+        <div class="bg-white w-full max-w-2xl overflow-hidden rounded-[40px] shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-blue-50 text-[#0c1c4d] hover:bg-[#0c1c4d] hover:text-white transition-all z-50">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="grid grid-cols-1 md:grid-cols-2">
+                <div class="h-64 md:h-[500px] bg-white p-4">
+                    <img id="quick-view-image" src="" alt="Product" class="w-full h-full object-contain rounded-[30px]">
+                </div>
+                <div class="p-10 flex flex-col justify-center">
+                    <p id="quick-view-brand" class="text-[10px] font-bold text-[#0c1c4d]/40 uppercase tracking-[0.3em] mb-2">GLAMOURS</p>
+                    <h2 id="quick-view-name" class="font-serif text-3xl font-bold text-[#0c1c4d] mb-4">Producto</h2>
+                    <p id="quick-view-price" class="text-3xl font-black text-[#00d2ff] mb-6">$0.00</p>
+                    <p id="quick-view-description" class="text-[#0c1c4d]/60 text-sm leading-relaxed mb-8">Oferta exclusiva por tiempo limitado.</p>
+                    <button class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition-all" onclick="addToCartFromModal()">
+                        Añadir al Carrito
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="js/app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             fetch('/api/productos')
                 .then(res => res.json())
                 .then(products => {
-                    allProducts = products;
+                    window.allProducts = products;
                     const grid = document.getElementById('promociones-grid');
                     grid.innerHTML = '';
                     const ofertas = products.filter(p => p.oferta);
