@@ -62,8 +62,14 @@ async function fetchProducts() {
         // Renderizar si estamos en la home
         const gridPortada = document.getElementById('grid-portada');
         if (gridPortada) {
-            const featured = window.allProducts.filter(p => p.portada);
-            gridPortada.innerHTML = featured.map(p => createProductCard(p)).join('');
+            let featured = window.allProducts.filter(p => p.portada);
+            if (featured.length === 0) {
+                // Fallback: show the first 8 products if none are marked as 'portada'
+                featured = window.allProducts.slice(0, 8);
+            }
+            gridPortada.innerHTML = featured.length > 0 ? 
+                featured.map(p => createProductCard(p)).join('') : 
+                '<p class="col-span-full text-center py-20 text-gray-500 font-bold">Próximamente más ingresos...</p>';
         }
     } catch (err) { console.error("Error cargando productos:", err); }
 }
