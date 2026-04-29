@@ -1,4 +1,3 @@
-// Verificar si ya hay sesión activa
 async function checkSession() {
     const res = await fetch('/api/check-session');
     const data = await res.json();
@@ -13,7 +12,6 @@ async function checkSession() {
     }
 }
 
-// Login
 document.getElementById('loginBtnAdmin')?.addEventListener('click', async () => {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
@@ -30,13 +28,11 @@ document.getElementById('loginBtnAdmin')?.addEventListener('click', async () => 
     }
 });
 
-// Logout
 document.getElementById('logoutBtnAdmin')?.addEventListener('click', async () => {
     await fetch('/api/logout', { method: 'POST' });
     checkSession();
 });
 
-// Tabs
 document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
         const tabId = btn.dataset.tab;
@@ -49,7 +45,6 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
     });
 });
 
-// Subir imagen
 document.getElementById('uploadImageForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -72,7 +67,6 @@ document.getElementById('uploadImageForm')?.addEventListener('submit', async (e)
     }
 });
 
-// Subir comentario
 document.getElementById('uploadCommentForm')?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const payload = {
@@ -95,7 +89,6 @@ document.getElementById('uploadCommentForm')?.addEventListener('submit', async (
     }
 });
 
-// Vista previa imagen
 document.getElementById('imageFile')?.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -173,5 +166,4 @@ function escapeHtml(str) {
     return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
 }
 
-// Iniciar
 checkSession();

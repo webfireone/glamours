@@ -17,7 +17,6 @@ body {
     padding: 2rem;
 }
 
-/* Barra de navegación */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -66,7 +65,6 @@ body {
     background: #155a4b;
 }
 
-/* Hero */
 .hero-section {
     background: linear-gradient(135deg, #1e6f5c, #289672);
     color: white;
@@ -81,7 +79,6 @@ body {
     margin-bottom: 1rem;
 }
 
-/* Secciones */
 section {
     margin-bottom: 3rem;
     scroll-margin-top: 2rem;
@@ -94,7 +91,6 @@ h2 {
     padding-left: 1rem;
 }
 
-/* Galería */
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -138,7 +134,6 @@ h2 {
     font-size: 0.75rem;
 }
 
-/* Comentarios */
 .comments-list {
     display: flex;
     flex-direction: column;
@@ -193,7 +188,6 @@ h2 {
     color: #888;
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .container {
         padding: 1rem;

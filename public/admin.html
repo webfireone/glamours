@@ -10,7 +10,6 @@
 </head>
 <body>
     <div class="admin-container" id="app">
-        <!-- Vista de login -->
         <div id="loginView" class="login-container">
             <div class="login-card">
                 <h2>🔐 Acceso al Panel</h2>
@@ -21,7 +20,6 @@
             </div>
         </div>
 
-        <!-- Vista del panel (solo se muestra tras login) -->
         <div id="panelView" style="display:none;">
             <header class="admin-header">
                 <h1>📤 Panel de Carga</h1>
@@ -37,7 +35,6 @@
                 <button class="tab-btn" data-tab="users">Usuarios (Admin)</button>
             </div>
 
-            <!-- Tab Subir -->
             <div class="tab-content active" id="upload-tab">
                 <div class="upload-form-container">
                     <h2>➕ Subir nueva imagen</h2>
@@ -83,13 +80,11 @@
                 </div>
             </div>
 
-            <!-- Tab Gestionar -->
             <div class="tab-content" id="manage-tab">
                 <h2>📋 Contenido publicado</h2>
                 <div id="contenidoList" class="contenido-list"></div>
             </div>
 
-            <!-- Tab Usuarios -->
             <div class="tab-content" id="users-tab">
                 <h2>👥 Administrar usuarios</h2>
                 <div id="usersList" class="users-list"></div>

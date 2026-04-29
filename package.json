@@ -1,23 +1,17 @@
 {
-  "name": "glamours",
+  "name": "colegio-amigos-web",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Web con panel de carga para amigos del colegio",
+  "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
+  "engines": {
+    "node": ">=20.0.0 <21.0.0"
+  },
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.4.2",
-    "express": "^5.2.1",
-    "firebase-admin": "^13.8.0",
-    "jimp": "^1.6.1",
-    "stripe": "^22.1.0",
-    "twilio": "^6.0.0"
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1",
+    "express-session": "^1.18.0"
   }
 }
