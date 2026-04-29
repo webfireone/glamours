@@ -28,29 +28,11 @@
             color: #2d3142;
             font-family: 'Inter', sans-serif; 
             min-height: 100vh;
-            padding-top: 80px; /* Espacio para el header fijo */
         }
         .tab-btn.active { border-bottom: 3px solid #ff6b35; color: #ff6b35; font-weight: bold; }
         .vs-button { background: #2d3142; color: #fff; padding: 12px 32px; font-weight: 600; transition: all 0.3s ease; }
         .vs-button:hover { background: #ff6b35; }
-        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.5); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        
-        /* Header fijo para admin */
-        .admin-fixed-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: black;
-            border-radius: 0 0 1rem 1rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Contenedor principal con padding superior */
-        .admin-content-container {
-            padding-top: 20px;
-        }
+        .glass-card { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(10px); border-radius: 1.5rem; border: 1px solid rgba(255,255,255,0.5); shadow: 0 10px 30px rgba(0,0,0,0.05); }
     </style>
 </head>
 <body class="p-4 md:p-8">
@@ -67,209 +49,206 @@
     </div>
 
     <div id="admin-panel" class="hidden max-w-6xl mx-auto space-y-6">
-        <!-- Header fijo -->
-        <div class="admin-fixed-header bg-black text-white p-5 rounded-b-2xl flex justify-between items-center shadow-xl">
+        <div class="bg-black text-white p-6 rounded-2xl flex justify-between items-center shadow-xl">
             <h1 class="text-xl font-bold">GLAMOURS Admin</h1>
-            <button onclick="logoutAdmin()" class="text-red-400 text-sm font-bold hover:text-red-300 transition">Cerrar Sesión</button>
+            <button onclick="logoutAdmin()" class="text-red-400 text-sm font-bold">Cerrar Sesión</button>
         </div>
 
-        <!-- Contenido con padding para evitar que el header tape -->
-        <div class="admin-content-container">
-            <div class="flex border-b border-gray-200 bg-white/50 backdrop-blur-sm rounded-t-xl p-1">
-                <button onclick="showTab('productos')" id="btn-productos" class="tab-btn active px-6 py-3 rounded-lg transition">Productos</button>
-                <button onclick="showTab('imagenes')" id="btn-imagenes" class="tab-btn px-6 py-3 rounded-lg transition">Imágenes 📷</button>
-                <button onclick="showTab('portada')" id="btn-portada" class="tab-btn px-6 py-3 rounded-lg transition text-orange-600 font-bold">Portada ✨</button>
-                <button onclick="showTab('usuarios')" id="btn-usuarios" class="tab-btn px-6 py-3 rounded-lg transition">Usuarios</button>
-                <button onclick="showTab('ajustes')" id="btn-ajustes" class="tab-btn px-6 py-3 rounded-lg transition">Ajustes</button>
-            </div>
+        <div class="flex border-b border-gray-200">
+            <button onclick="showTab('productos')" id="btn-productos" class="tab-btn active px-6 py-3">Productos</button>
+            <button onclick="showTab('imagenes')" id="btn-imagenes" class="tab-btn px-6 py-3">Imágenes 📷</button>
+            <button onclick="showTab('portada')" id="btn-portada" class="tab-btn px-6 py-3 text-orange-600 font-bold">Portada ✨</button>
+            <button onclick="showTab('usuarios')" id="btn-usuarios" class="tab-btn px-6 py-3">Usuarios</button>
+            <button onclick="showTab('ajustes')" id="btn-ajustes" class="tab-btn px-6 py-3">Ajustes</button>
+        </div>
 
-            <div id="tab-productos" class="tab-content grid grid-cols-1 lg:grid-cols-2 gap-8 mt-6">
-                <div class="bg-white rounded-2xl shadow p-8">
-                    <h2 id="form-title" class="text-xl font-bold mb-6">Nuevo Producto</h2>
-                    <form id="productForm" class="space-y-4">
-                        <input type="hidden" id="edit-id">
-                        <input type="text" id="nombre" placeholder="Nombre" required class="w-full px-4 py-2 border rounded-lg">
-                        <input type="number" id="precio" placeholder="Precio ($)" required class="w-full px-4 py-2 border rounded-lg">
-                        <select id="marca" class="w-full px-4 py-2 border rounded-lg">
-                            <option>Sail</option><option>Legacy</option><option>47 Street</option><option>Owoko</option>
-                        </select>
-                        <input type="url" id="imagen" placeholder="URL de Imagen" required class="w-full px-4 py-2 border rounded-lg">
-                        <div class="grid grid-cols-2 gap-4">
-                            <input type="text" id="colores" placeholder="Colores (ej: Rojo, Azul)" class="w-full px-4 py-2 border rounded-lg">
-                            <input type="text" id="talles" placeholder="Talles (ej: S, M, L o 38, 39)" class="w-full px-4 py-2 border rounded-lg">
-                        </div>
-                        <textarea id="descripcion" placeholder="Descripción" class="w-full px-4 py-2 border rounded-lg"></textarea>
-                        <div class="flex gap-4">
-                            <label><input type="checkbox" id="novedad"> Novedad</label>
-                            <label><input type="checkbox" id="oferta" onchange="toggleDiscountField()"> Oferta</label>
-                            <label><input type="checkbox" id="portada"> Portada</label>
-                        </div>
-                        <div id="discount-container" class="hidden">
-                            <label class="block text-sm font-medium mb-1">Porcentaje de Descuento (%)</label>
-                            <input type="number" id="descuento" placeholder="ej: 20" min="1" max="99" class="w-full px-4 py-2 border rounded-lg">
-                        </div>
-                        <button type="submit" id="submit-btn" class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition">Guardar</button>
-                        <button type="button" id="cancel-edit" class="hidden w-full border border-gray-200 py-2 rounded-lg text-sm mt-2 hover:bg-gray-50 transition">Cancelar Edición</button>
-                    </form>
-                </div>
-                <div class="bg-white rounded-2xl shadow p-8">
-                    <h2 class="text-xl font-bold mb-6">Inventario</h2>
-                    <div id="product-list" class="space-y-4 max-h-[500px] overflow-y-auto"></div>
-                </div>
+        <div id="tab-productos" class="tab-content grid grid-cols-1 lg:grid-cols-2 gap-8">
+            <div class="bg-white rounded-2xl shadow p-8">
+                <h2 id="form-title" class="text-xl font-bold mb-6">Nuevo Producto</h2>
+                <form id="productForm" class="space-y-4">
+                    <input type="hidden" id="edit-id">
+                    <input type="text" id="nombre" placeholder="Nombre" required class="w-full px-4 py-2 border rounded-lg">
+                    <input type="number" id="precio" placeholder="Precio ($)" required class="w-full px-4 py-2 border rounded-lg">
+                    <select id="marca" class="w-full px-4 py-2 border rounded-lg">
+                        <option>Sail</option><option>Legacy</option><option>47 Street</option><option>Owoko</option>
+                    </select>
+                    <input type="url" id="imagen" placeholder="URL de Imagen" required class="w-full px-4 py-2 border rounded-lg">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="text" id="colores" placeholder="Colores (ej: Rojo, Azul)" class="w-full px-4 py-2 border rounded-lg">
+                        <input type="text" id="talles" placeholder="Talles (ej: S, M, L o 38, 39)" class="w-full px-4 py-2 border rounded-lg">
+                    </div>
+                    <textarea id="descripcion" placeholder="Descripción" class="w-full px-4 py-2 border rounded-lg"></textarea>
+                    <div class="flex gap-4">
+                        <label><input type="checkbox" id="novedad"> Novedad</label>
+                        <label><input type="checkbox" id="oferta" onchange="toggleDiscountField()"> Oferta</label>
+                        <label><input type="checkbox" id="portada"> Portada</label>
+                    </div>
+                    <div id="discount-container" class="hidden">
+                        <label class="block text-sm font-medium mb-1">Porcentaje de Descuento (%)</label>
+                        <input type="number" id="descuento" placeholder="ej: 20" min="1" max="99" class="w-full px-4 py-2 border rounded-lg">
+                    </div>
+                    <button type="submit" id="submit-btn" class="w-full bg-black text-white py-3 rounded-lg font-bold">Guardar</button>
+                    <button type="button" id="cancel-edit" class="hidden w-full border border-gray-200 py-2 rounded-lg text-sm mt-2">Cancelar Edición</button>
+                </form>
             </div>
+            <div class="bg-white rounded-2xl shadow p-8">
+                <h2 class="text-xl font-bold mb-6">Inventario</h2>
+                <div id="product-list" class="space-y-4 max-h-[500px] overflow-y-auto"></div>
+            </div>
+        </div>
 
-            <!-- TAB: IMAGENES -->
-            <div id="tab-imagenes" class="tab-content hidden bg-white rounded-2xl shadow p-8 mt-6">
-                <h2 class="text-xl font-bold mb-2">Subir Imágenes a Internet</h2>
-                <p class="text-sm text-gray-500 mb-6">Seguí estos pasos para obtener una URL pública de tu imagen.</p>
-                
-                <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
-                    <input type="file" id="image-upload" accept="image/*" class="hidden" onchange="previewImage(event)">
-                    <label for="image-upload" class="cursor-pointer block">
-                        <div id="image-preview-area" class="py-6">
-                            <i class="fa-solid fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
-                            <p class="text-gray-500">Click para seleccionar una imagen de tu computadora</p>
-                        </div>
-                        <img id="preview-img" class="hidden max-h-48 mx-auto rounded-lg mb-4">
-                    </label>
-                </div>
-                
-                <div id="image-result" class="hidden mt-6">
-                    <div class="bg-blue-50 rounded-lg p-4 mb-4">
-                        <h3 class="font-bold text-blue-800 mb-3">📋 Pasos para obtener la URL:</h3>
-                        
-                        <div class="flex items-start gap-3 mb-4">
-                            <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
-                            <div>
-                                <p class="text-sm">Hacé click en el botón de abajo para ir a imgbb.com</p>
-                                <a href="https://imgbb.com" target="_blank" class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition">
-                                    <i class="fa-solid fa-external-link-alt mr-2"></i>Ir a imgbb.com
-                                </a>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-3 mb-4">
-                            <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
-                            <div>
-                                <p class="text-sm">Arrastrá tu imagen en la página de imgbb</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-3 mb-4">
-                            <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
-                            <div>
-                                <p class="text-sm">Copiá la URL que aparece (comienza con <strong>https://i.ibb.co/</strong>)</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-3">
-                            <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
-                            <div>
-                                <p class="text-sm">Pegala en "URL de Imagen" del producto</p>
-                            </div>
+        <!-- TAB: IMAGENES -->
+        <div id="tab-imagenes" class="tab-content hidden bg-white rounded-2xl shadow p-8">
+            <h2 class="text-xl font-bold mb-2">Subir Imágenes a Internet</h2>
+            <p class="text-sm text-gray-500 mb-6">Seguí estos pasos para obtener unaURL pública de tu imagen.</p>
+            
+            <div class="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center">
+                <input type="file" id="image-upload" accept="image/*" class="hidden" onchange="previewImage(event)">
+                <label for="image-upload" class="cursor-pointer">
+                    <div id="image-preview-area" class="py-6">
+                        <i class="fa-solid fa-cloud-upload-alt text-4xl text-gray-400 mb-4"></i>
+                        <p class="text-gray-500">Click para seleccionar una imagen de tu computadora</p>
+                    </div>
+                    <img id="preview-img" class="hidden max-h-48 mx-auto rounded-lg mb-4">
+                </label>
+            </div>
+            
+            <div id="image-result" class="hidden mt-6">
+                <!-- Instrucciones paso a paso -->
+                <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                    <h3 class="font-bold text-blue-800 mb-3">📋 Pasos para obtener la URL:</h3>
+                    
+                    <div class="flex items-start gap-3 mb-4">
+                        <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">1</span>
+                        <div>
+                            <p class="text-sm">Hacé click en el botón de abajo para ir a imgbb.com</p>
+                            <a href="https://imgbb.com" target="_blank" class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700">
+                                <i class="fa-solid fa-external-link-alt mr-2"></i>Ir a imgbb.com
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="bg-yellow-50 rounded-lg p-4 mb-4">
-                        <p class="text-sm font-bold text-yellow-800">⚠️ Importante:</p>
-                        <p class="text-xs text-yellow-700 mt-1">Usá URL que termina en PNG/JPG/GIF/WEBP, ejemplo:<br><code>https://i.ibb.co/Z6tgM2SK/camisa1.png</code></p>
-                    </div>
-                    
-                    <div class="bg-green-50 rounded-lg p-4">
-                        <p class="text-sm font-bold text-green-700 mb-2">✅ Después de pegar la URL en el producto:</p>
-                        <p class="text-xs text-green-600">La imagen se verá en tu tienda automáticamente.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="tab-usuarios" class="tab-content hidden bg-white rounded-2xl shadow p-8 mt-6">
-                <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-xl font-bold">Usuarios Registrados</h2>
-                    <button onclick="exportUsers()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-xs font-bold hover:bg-green-700 transition">Exportar CSV</button>
-                </div>
-                <div id="user-list-table" class="overflow-x-auto"></div>
-            </div>
-
-            <div id="tab-portada" class="tab-content hidden bg-white rounded-2xl shadow p-8 max-w-2xl mx-auto mt-6">
-                <h2 class="text-xl font-bold mb-6">Gestión de Portada (Home)</h2>
-                <p class="text-sm text-gray-500 mb-6">Configura la imagen y textos principales que ven los clientes al entrar.</p>
-                <form id="config-form" class="space-y-6">
-                    <div class="bg-black p-6 rounded-xl border border-gray-800 mb-6">
-                        <label class="block text-white text-sm font-bold mb-2">Banner Superior (Anuncio en todo el sitio)</label>
-                        <input type="text" id="topBanner" placeholder="Ej: Envíos GRATIS + $120.000 | 3 CUOTAS SIN INTERÉS" class="w-full px-4 py-3 bg-gray-900 text-white border border-gray-700 rounded-xl font-mono text-sm">
-                        <p class="text-[10px] text-gray-500 mt-2 uppercase tracking-widest">Este mensaje aparecerá arriba de todo en todas las páginas.</p>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Título Hero (acepta HTML)</label>
-                        <input type="text" id="heroTitle" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2">Descripción / Subtítulo</label>
-                        <textarea id="heroDesc" required rows="3" class="w-full px-4 py-3 border rounded-xl text-sm"></textarea>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold mb-2">URL Imagen de Portada</label>
-                        <input type="url" id="heroImage" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
-                    </div>
-                    <div class="bg-red-50 p-4 rounded-xl border border-red-100 mb-4">
-                        <p class="text-xs text-red-700"><strong>❌ Error común:</strong> No pegues el link de la página de ImgBB (ej: <code>ibb.co/abcd</code>).<br>
-                        <strong>✅ Correcto:</strong> El link debe terminar en <code>.jpg</code> o <code>.png</code> (ej: <code>i.ibb.co/abcd/imagen.jpg</code>).<br>
-                        Usa el botón "Copiar Direct Link" en ImgBB después de subir.</p>
-                    </div>
-                    <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 mb-6">
-                        <p class="text-xs text-orange-700"><strong>Tip HTML:</strong> Usa <code>&lt;br&gt;</code> para bajar de renglón y <code>&lt;span class="italic font-light opacity-80"&gt;...&lt;/span&gt;</code> para texto fino.</p>
-                    </div>
-
-                    <!-- Category Management -->
-                    <div class="border-t pt-8 mt-8">
-                        <h3 class="text-lg font-bold mb-4 uppercase tracking-widest text-gray-400">Categorías (Grilla de 4)</h3>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <!-- Cat 1 -->
-                            <div class="p-4 bg-gray-50 rounded-xl">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 1: Nombre</label>
-                                <input type="text" id="cat1Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 1: Imagen URL</label>
-                                <input type="url" id="cat1Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
-                            </div>
-                            <!-- Cat 2 -->
-                            <div class="p-4 bg-gray-50 rounded-xl">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 2: Nombre</label>
-                                <input type="text" id="cat2Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 2: Imagen URL</label>
-                                <input type="url" id="cat2Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
-                            </div>
-                            <!-- Cat 3 -->
-                            <div class="p-4 bg-gray-50 rounded-xl">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 3: Nombre</label>
-                                <input type="text" id="cat3Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 3: Imagen URL</label>
-                                <input type="url" id="cat3Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
-                            </div>
-                            <!-- Cat 4 -->
-                            <div class="p-4 bg-gray-50 rounded-xl">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 4: Nombre</label>
-                                <input type="text" id="cat4Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
-                                <label class="block text-[10px] font-bold uppercase mb-1">Cat 4: Imagen URL</label>
-                                <input type="url" id="cat4Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
-                            </div>
+                    <div class="flex items-start gap-3 mb-4">
+                        <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">2</span>
+                        <div>
+                            <p class="text-sm">Arrastrá tu imagen en la página de imgbb</p>
                         </div>
                     </div>
-                    <div class="p-4 border border-dashed border-gray-200 rounded-xl">
-                        <p class="text-[10px] font-bold uppercase text-gray-400 mb-2">Previsualización del Título:</p>
-                        <div id="hero-title-preview" class="font-serif text-2xl leading-tight uppercase tracking-tighter"></div>
+                    
+                    <div class="flex items-start gap-3 mb-4">
+                        <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">3</span>
+                        <div>
+                            <p class="text-sm">Copiá la URL que aparece (comienza con <strong>https://i.ibb.co/</strong>)</p>
+                        </div>
                     </div>
-                    <button type="submit" class="w-full bg-orange-500 text-white py-4 rounded-xl font-bold hover:bg-orange-600 shadow-lg shadow-orange-200 transition">Guardar Cambios en Portada</button>
-                </form>
+                    
+                    <div class="flex items-start gap-3">
+                        <span class="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold flex-shrink-0">4</span>
+                        <div>
+                            <p class="text-sm">Pegala en "URL de Imagen" del producto</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-yellow-50 rounded-lg p-4 mb-4">
+                    <p class="text-sm font-bold text-yellow-800">⚠️ Importante:</p>
+                    <p class="text-xs text-yellow-700 mt-1">使用URL que termina en PNG/JPG/GIF/WEBP, ejemplo:<br><code>https://i.ibb.co/Z6tgM2SK/camisa1.png</code></p>
+                </div>
+                
+                <div class="bg-green-50 rounded-lg p-4">
+                    <p class="text-sm font-bold text-green-700 mb-2">✅ Después de pegar la URL en el producto:</p>
+                    <p class="text-xs text-green-600">La imagen se verá en tu tienda automáticamente.</p>
+                </div>
             </div>
+        </div>
 
-            <div id="tab-ajustes" class="tab-content hidden bg-white rounded-2xl shadow p-8 max-w-md mx-auto mt-6">
-                <h2 class="text-xl font-bold mb-6">Ajustes Admin</h2>
-                <form id="settings-form" class="space-y-4">
-                    <input type="text" id="new-admin-user" placeholder="Nuevo Usuario" required class="w-full px-4 py-2 border rounded-lg">
-                    <input type="password" id="new-admin-pass" placeholder="Nueva Clave" required class="w-full px-4 py-2 border rounded-lg">
-                    <button type="submit" class="w-full bg-black text-white py-3 rounded-lg font-bold hover:bg-gray-800 transition">Actualizar</button>
-                </form>
+        <div id="tab-usuarios" class="tab-content hidden bg-white rounded-2xl shadow p-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-bold">Usuarios Registrados</h2>
+                <button onclick="exportUsers()" class="bg-green-600 text-white px-4 py-2 rounded-lg text-xs font-bold">Exportar CSV</button>
             </div>
+            <div id="user-list-table" class="overflow-x-auto"></div>
+        </div>
+
+        <div id="tab-portada" class="tab-content hidden bg-white rounded-2xl shadow p-8 max-w-2xl mx-auto">
+            <h2 class="text-xl font-bold mb-6">Gestión de Portada (Home)</h2>
+            <p class="text-sm text-gray-500 mb-6">Configura la imagen y textos principales que ven los clientes al entrar.</p>
+            <form id="config-form" class="space-y-6">
+                <div class="bg-black p-6 rounded-xl border border-gray-800 mb-6">
+                    <label class="block text-white text-sm font-bold mb-2">Banner Superior (Anuncio en todo el sitio)</label>
+                    <input type="text" id="topBanner" placeholder="Ej: Envíos GRATIS + $120.000 | 3 CUOTAS SIN INTERÉS" class="w-full px-4 py-3 bg-gray-900 text-white border border-gray-700 rounded-xl font-mono text-sm">
+                    <p class="text-[10px] text-gray-500 mt-2 uppercase tracking-widest">Este mensaje aparecerá arriba de todo en todas las páginas.</p>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">Título Hero (acepta HTML)</label>
+                    <input type="text" id="heroTitle" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">Descripción / Subtítulo</label>
+                    <textarea id="heroDesc" required rows="3" class="w-full px-4 py-3 border rounded-xl text-sm"></textarea>
+                </div>
+                <div>
+                    <label class="block text-sm font-bold mb-2">URL Imagen de Portada</label>
+                    <input type="url" id="heroImage" required class="w-full px-4 py-3 border rounded-xl font-mono text-sm">
+                </div>
+                <div class="bg-red-50 p-4 rounded-xl border border-red-100 mb-4">
+                    <p class="text-xs text-red-700"><strong>❌ Error común:</strong> No pegues el link de la página de ImgBB (ej: <code>ibb.co/abcd</code>).<br>
+                    <strong>✅ Correcto:</strong> El link debe terminar en <code>.jpg</code> o <code>.png</code> (ej: <code>i.ibb.co/abcd/imagen.jpg</code>).<br>
+                    Usa el botón "Copiar Direct Link" en ImgBB después de subir.</p>
+                </div>
+                <div class="bg-orange-50 p-4 rounded-xl border border-orange-100 mb-6">
+                    <p class="text-xs text-orange-700"><strong>Tip HTML:</strong> Usa <code>&lt;br&gt;</code> para bajar de renglón y <code>&lt;span class="italic font-light opacity-80"&gt;...&lt;/span&gt;</code> para texto fino.</p>
+                </div>
+
+                <!-- Category Management -->
+                <div class="border-t pt-8 mt-8">
+                    <h3 class="text-lg font-bold mb-4 uppercase tracking-widest text-gray-400">Categorías (Grilla de 4)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Cat 1 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 1: Nombre</label>
+                            <input type="text" id="cat1Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 1: Imagen URL</label>
+                            <input type="url" id="cat1Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                        <!-- Cat 2 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 2: Nombre</label>
+                            <input type="text" id="cat2Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 2: Imagen URL</label>
+                            <input type="url" id="cat2Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                        <!-- Cat 3 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 3: Nombre</label>
+                            <input type="text" id="cat3Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 3: Imagen URL</label>
+                            <input type="url" id="cat3Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                        <!-- Cat 4 -->
+                        <div class="p-4 bg-gray-50 rounded-xl">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 4: Nombre</label>
+                            <input type="text" id="cat4Name" class="w-full px-3 py-2 border rounded-lg text-sm mb-3">
+                            <label class="block text-[10px] font-bold uppercase mb-1">Cat 4: Imagen URL</label>
+                            <input type="url" id="cat4Img" class="w-full px-3 py-2 border rounded-lg text-sm font-mono">
+                        </div>
+                    </div>
+                </div>
+                <div class="p-4 border border-dashed border-gray-200 rounded-xl">
+                    <p class="text-[10px] font-bold uppercase text-gray-400 mb-2">Previsualización del Título:</p>
+                    <div id="hero-title-preview" class="font-serif text-2xl leading-tight uppercase tracking-tighter"></div>
+                </div>
+                <button type="submit" class="w-full bg-orange-500 text-white py-4 rounded-xl font-bold hover:bg-orange-600 shadow-lg shadow-orange-200 transition">Guardar Cambios en Portada</button>
+            </form>
+        </div>
+
+        <div id="tab-ajustes" class="tab-content hidden bg-white rounded-2xl shadow p-8 max-w-md mx-auto">
+            <h2 class="text-xl font-bold mb-6">Ajustes Admin</h2>
+            <form id="settings-form" class="space-y-4">
+                <input type="text" id="new-admin-user" placeholder="Nuevo Usuario" required class="w-full px-4 py-2 border rounded-lg">
+                <input type="password" id="new-admin-pass" placeholder="Nueva Clave" required class="w-full px-4 py-2 border rounded-lg">
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-lg font-bold">Actualizar</button>
+            </form>
         </div>
     </div>
 
@@ -375,7 +354,7 @@
                 }
             };
 
-            loadConfig();
+            loadConfig(); // Load initial config
         });
 
         async function loadConfig() {
@@ -421,7 +400,7 @@
                 return;
             }
             list.innerHTML = productsData.map(p => `
-                <div class="flex items-center gap-4 p-4 border rounded-xl bg-gray-50 hover:bg-gray-100 transition">
+                <div class="flex items-center gap-4 p-4 border rounded-xl bg-gray-50 hover:bg-gray-100">
                     <img src="${p.imagenes[0]}" class="w-16 h-16 object-cover rounded-lg">
                     <div class="flex-1 text-sm">
                         <h4 class="font-bold">${p.nombre}</h4>
@@ -432,10 +411,10 @@
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <button onclick="editProduct('${p.id}')" class="w-8 h-8 rounded bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center transition" title="Editar">
+                        <button onclick="editProduct('${p.id}')" class="w-8 h-8 rounded bg-blue-500 text-white hover:bg-blue-600 flex items-center justify-center" title="Editar">
                             <i class="fa-solid fa-pen text-xs"></i>
                         </button>
-                        <button onclick="deleteProduct('${p.id}')" class="w-8 h-8 rounded bg-red-500 text-white hover:bg-red-600 flex items-center justify-center transition" title="Eliminar">
+                        <button onclick="deleteProduct('${p.id}')" class="w-8 h-8 rounded bg-red-500 text-white hover:bg-red-600 flex items-center justify-center" title="Eliminar">
                             <i class="fa-solid fa-trash text-xs"></i>
                         </button>
                     </div>
@@ -531,7 +510,7 @@
             if (!file) return;
             
             if (file.size > 20 * 1024 * 1024) {
-                alert('La imagen debe ser menor a 20MB');
+                alert('La imagen debe ser menor a 5MB');
                 return;
             }
             
@@ -543,6 +522,31 @@
                 document.getElementById('image-result').classList.remove('hidden');
             };
             reader.readAsDataURL(file);
+        }
+
+        function copyImageUrl() {
+            const urlInput = document.getElementById('image-url-result');
+            urlInput.select();
+            document.execCommand('copy');
+            
+            const btn = document.querySelector('#image-result button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-check"></i> Copiado!';
+            setTimeout(() => btn.innerHTML = originalText, 2000);
+        }
+
+        function copyImageCode() {
+            const codeInput = document.getElementById('image-code-result');
+            codeInput.select();
+            document.execCommand('copy');
+        }
+
+        function resetImageUpload() {
+            document.getElementById('image-upload').value = '';
+            document.getElementById('preview-img').src = '';
+            document.getElementById('preview-img').classList.add('hidden');
+            document.getElementById('image-preview-area').classList.remove('hidden');
+            document.getElementById('image-result').classList.add('hidden');
         }
     </script>
 </body>
