@@ -20,6 +20,23 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         updateCartCount(); 
     }
+
+    // Dynamic Header Adjustment for Top Banner
+    const banner = document.getElementById('top-banner-container');
+    const header = document.getElementById('main-header');
+    if (banner && header) {
+        const updateHeaderPos = () => {
+            if (!banner.classList.contains('hidden')) {
+                header.style.top = banner.offsetHeight + 'px';
+            } else {
+                header.style.top = '0px';
+            }
+        };
+        updateHeaderPos();
+        // Watch for changes in banner visibility
+        const observer = new MutationObserver(updateHeaderPos);
+        observer.observe(banner, { attributes: true, attributeFilter: ['class'] });
+    }
 });
 
 async function fetchProducts() {
@@ -400,8 +417,8 @@ function createProductCard(product, isPromo = false) {
             <div class="image-frame relative overflow-hidden aspect-[3/4] mb-4">
                 ${badge}
                 <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
-                <div class="absolute inset-0 bg-[#0c1c4d]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
-                    <button class="bg-white text-[#0c1c4d] text-[10px] font-bold py-3 px-6 tracking-widest uppercase rounded-full shadow-xl">Ver Detalle</button>
+                <div class="absolute inset-0 bg-[#0c1c4d]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-30">
+                    <button class="bg-white text-[#0c1c4d] text-[10px] font-bold py-3 px-6 tracking-widest uppercase rounded-full shadow-xl" onclick="event.stopPropagation(); quickView('${product.id}')">Ver Detalle</button>
                 </div>
             </div>
             <div class="text-center px-1">

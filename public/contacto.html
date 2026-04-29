@@ -36,6 +36,7 @@
             background: #0c1c4d !important;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
             padding: 10px 0;
+            transition: top 0.3s ease;
         }
 
         .nav-link {
@@ -85,7 +86,7 @@
         .contact-card {
             background: rgba(255, 255, 255, 0.2);
             backdrop-filter: blur(20px);
-            border: 2px solid rgba(12, 28, 77, 0.1);
+            border: none !important;
             border-radius: 40px;
             padding: 40px;
             box-shadow: 0 20px 50px rgba(12, 28, 77, 0.05);
@@ -100,6 +101,11 @@
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Top Dynamic Banner -->
+    <div id="top-banner-container" class="hidden bg-[#0c1c4d] text-white py-2 animate-shine relative z-[60]">
+        <p id="top-banner-text" class="text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
+    </div>
 
     <!-- Header -->
     <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-header px-6 md:px-16 flex items-center justify-between">
