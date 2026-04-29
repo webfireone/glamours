@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Administración</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+    <div class="admin-container" id="app">
+        <!-- Vista de login -->
+        <div id="loginView" class="login-container">
+            <div class="login-card">
+                <h2>🔐 Acceso al Panel</h2>
+                <input type="text" id="username" placeholder="Usuario" autocomplete="off">
+                <input type="password" id="password" placeholder="Contraseña">
+                <button id="loginBtnAdmin">Iniciar sesión</button>
+                <div id="loginError" class="error-message"></div>
+            </div>
+        </div>
+
+        <!-- Vista del panel (solo se muestra tras login) -->
+        <div id="panelView" style="display:none;">
+            <header class="admin-header">
+                <h1>📤 Panel de Carga</h1>
+                <div class="user-info">
+                    <span id="userName">Administrador</span>
+                    <button id="logoutBtnAdmin" class="btn-logout">Cerrar sesión</button>
+                </div>
+            </header>
+
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="upload">Subir contenido</button>
+                <button class="tab-btn" data-tab="manage">Gestionar contenido</button>
+                <button class="tab-btn" data-tab="users">Usuarios (Admin)</button>
+            </div>
+
+            <!-- Tab Subir -->
+            <div class="tab-content active" id="upload-tab">
+                <div class="upload-form-container">
+                    <h2>➕ Subir nueva imagen</h2>
+                    <form id="uploadImageForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label>Título</label>
+                            <input type="text" id="imageTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Descripción</label>
+                            <textarea id="imageDesc" rows="3"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Autor</label>
+                            <input type="text" id="imageAuthor" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Imagen</label>
+                            <input type="file" id="imageFile" accept="image/*" required>
+                            <div id="imagePreview" class="image-preview"></div>
+                        </div>
+                        <button type="submit" class="btn-submit">Subir imagen</button>
+                    </form>
+                </div>
+
+                <div class="upload-form-container">
+                    <h2>💬 Subir comentario destacado</h2>
+                    <form id="uploadCommentForm">
+                        <div class="form-group">
+                            <label>Título (opcional)</label>
+                            <input type="text" id="commentTitle">
+                        </div>
+                        <div class="form-group">
+                            <label>Comentario</label>
+                            <textarea id="commentText" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Autor</label>
+                            <input type="text" id="commentAuthor" required>
+                        </div>
+                        <button type="submit" class="btn-submit">Publicar comentario</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Tab Gestionar -->
+            <div class="tab-content" id="manage-tab">
+                <h2>📋 Contenido publicado</h2>
+                <div id="contenidoList" class="contenido-list"></div>
+            </div>
+
+            <!-- Tab Usuarios -->
+            <div class="tab-content" id="users-tab">
+                <h2>👥 Administrar usuarios</h2>
+                <div id="usersList" class="users-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/admin-simple.js"></script>
+</body>
+</html>
