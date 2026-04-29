@@ -3,85 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLAMOURS | El Futuro de la Venta Inteligente</title>
-    <!-- Tailwind CSS (CDN for prototype) -->
+    <title>Novedades | GLAMOURS</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            orange: '#ff6b35',
-                            peach: '#ffb5a7',
-                            yellow: '#f4d35e',
-                            dark: '#2d3142',
-                            light: '#f8f9fa'
-                        }
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        /* Minimalist Sail-like Styles */
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background: linear-gradient(180deg, #bae6fd 0%, #7dd3fc 100%);
+            background-attachment: fixed;
+            color: #0c1c4d; 
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
+            overflow-x: hidden;
+            margin: 0;
         }
 
-        header {
-            border-bottom: 1px solid #f0f0f0;
-            transition: all 0.3s ease;
+        @keyframes rotateSphere {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
         }
 
-        .pill-button {
-            border-radius: 0px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
+        .logo-sphere {
+            animation: rotateSphere 8s infinite linear;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
-        
-        .pill-button:hover {
-            background-color: #333;
+
+        .glass-header {
+            background: #0c1c4d !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 10px 0;
         }
 
         .nav-link {
-            position: relative;
+            color: rgba(255, 255, 255, 0.7) !important;
             text-transform: uppercase;
             font-size: 11px;
             letter-spacing: 2px;
             font-weight: 600;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #000;
             transition: all 0.3s ease;
         }
-        .nav-link:hover::after {
+        .nav-link:hover { color: #ffffff !important; }
+
+        .brand-marquee-container {
             width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .brand-marquee-track {
+            display: inline-flex;
+            gap: 20px;
+            animation: scroll 40s linear infinite;
+        }
+
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+
+        .brand-block {
+            flex: 0 0 auto;
+            min-width: 150px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 100px;
+            color: #0c1c4d;
+            padding: 0 20px;
+        }
+
+        .image-frame {
+            position: relative;
+            border: 2px solid rgba(12, 28, 77, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 40px rgba(12, 28, 77, 0.1);
+            overflow: hidden;
+        }
+
+        .image-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 40px;
+            box-shadow: inset 0 0 100px 60px #bae6fd; 
+            pointer-events: none;
+            z-index: 2;
         }
 
         .fade-in-up {
@@ -89,376 +108,145 @@
             opacity: 0;
             transform: translateY(20px);
         }
-        
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        /* Shine Animation for the Bar */
-        @keyframes shine {
-            0% { transform: translateX(-100%) skewX(-15deg); }
-            30%, 100% { transform: translateX(200%) skewX(-15deg); }
-        }
-        .animate-shine {
-            position: relative;
-            overflow: hidden;
-        }
-        .animate-shine::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 30%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 4s infinite linear;
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        .filter-btn {
+            border-radius: 100px;
+            padding: 10px 25px;
+            font-size: 12px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden relative">
+<body class="antialiased">
 
-    <!-- Top Dynamic Banner -->
-    <div id="top-banner-container" class="hidden bg-black text-white py-2.5 animate-shine relative z-[60]">
-        <p id="top-banner-text" class="text-[9px] md:text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
-    </div>
-
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 flex justify-between items-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-md shadow-sm fade-in-up w-full">
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-            <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50" style="mix-blend-mode: multiply;">
-            <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
+    <!-- Header -->
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-header px-6 md:px-16 flex items-center justify-between">
+        <div class="flex items-center gap-4">
+            <div class="logo-sphere">
+                <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-20 w-20 rounded-full object-cover border-2 border-white/50 bg-white">
+            </div>
+            <span class="font-serif font-bold text-3xl tracking-tight text-white">Glamour's</span>
         </div>
 
-        <!-- Navigation (Desktop) -->
-        <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-[11px] font-bold tracking-widest uppercase">
-            <a href="index.html" class="nav-link text-gray-500 hover:text-black">Home</a>
-            <a href="promociones.html" class="nav-link text-gray-500 hover:text-black">Promociones</a>
-            <a href="novedades.html" class="nav-link text-black">
-                Novedades
-            </a>
-            <a href="contacto.html" class="nav-link text-gray-500 hover:text-black">Contacto</a>
+        <nav class="hidden md:flex px-8 py-3 items-center gap-8">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="promociones.html" class="nav-link">Promociones</a>
+            <a href="novedades.html" class="nav-link !text-white border-b border-white/30">Novedades</a>
+            <a href="contacto.html" class="nav-link">Contacto</a>
         </nav>
 
-        <!-- Actions -->
-        <div class="flex items-center gap-4 text-sm font-medium">
-            <button id="cart-btn" onclick="openCartView()" class="relative text-gray-700 hover:text-black transition">
-                <i class="fa-solid fa-cart-shopping text-xl"></i>
-                <span id="cart-count" class="absolute -top-1 -right-2 bg-brand-orange text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
-            <button id="user-btn" class="text-gray-700 hover:text-black transition flex items-center gap-1">
+        <div class="flex items-center gap-6">
+            <div class="relative cursor-pointer" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping text-[#00d2ff] text-xl"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-[#00d2ff] text-[#0c1c4d] text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center border-2 border-[#0c1c4d]">0</span>
+            </div>
+            <button onclick="openAuthModal()" class="text-[#00d2ff] text-sm font-medium flex items-center gap-2">
                 <i class="fa-solid fa-user"></i>
-                <span class="hidden md:inline">Login</span>
-            </button>
-            <button onclick="openAuthModal(); if(document.getElementById('register-section').classList.contains('hidden')) toggleAuthMode();" class="hidden lg:block pill-button bg-brand-orange text-white px-6 py-2.5 font-semibold hover:bg-orange-600">
-                Sign Up
-            </button>
-            <!-- Mobile Menu Toggle (3 Dots) -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-black text-2xl ml-4 p-2 transition-transform active:scale-90">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
+                <span class="hidden sm:inline">Login</span>
             </button>
         </div>
     </header>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black text-white z-[100] flex flex-col items-center justify-center gap-10 text-2xl font-serif font-bold transform translate-x-full transition-transform duration-500 md:hidden">
-        <button id="close-menu-btn" class="absolute top-8 right-8 text-4xl text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <a href="index.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Home</a>
-        <a href="promociones.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Promociones</a>
-        <a href="novedades.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Novedades</a>
-        <a href="contacto.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition">Contacto</a>
-        
-        <!-- Social Icons in Mobile Menu -->
-        <div class="flex gap-8 mt-10">
-            <a href="https://www.instagram.com/glamoursok/" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://wa.me/5491122618116" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
+    <!-- Marquee -->
+    <div class="pt-16">
+        <section class="w-full py-1 overflow-hidden bg-white/5 border-b border-white/10">
+            <div class="brand-marquee-container">
+                <div class="brand-marquee-track">
+                    <div class="brand-block">SAIL</div>
+                    <div class="brand-block">47 STREET</div>
+                    <div class="brand-block">LEGACY</div>
+                    <div class="brand-block">OWOKO</div>
+                    <div class="brand-block">SAIL</div>
+                    <div class="brand-block">47 STREET</div>
+                    <div class="brand-block">LEGACY</div>
+                    <div class="brand-block">OWOKO</div>
+                </div>
+            </div>
+        </section>
     </div>
 
-    <!-- Main Spacing -->
-    <main class="pt-8 pb-8 px-6 md:px-16 max-w-7xl mx-auto"></main>
-
-    <!-- Novedades Section (API Driven) -->
-    <section id="novedades" class="py-16 px-6 md:px-16 max-w-7xl mx-auto border-t border-black/5">
-        <div class="flex justify-between items-end mb-10">
-            <div>
-                <h2 class="font-serif text-3xl md:text-4xl font-bold">Nuevos Ingresos</h2>
-                <p class="text-gray-600 mt-2">Las últimas tendencias seleccionadas para ti.</p>
-            </div>
+    <main class="py-12 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="text-center mb-12 fade-in-up">
+            <h1 class="font-serif text-5xl font-bold mb-4">Nuevos Ingresos</h1>
+            <p class="text-blue-900/60 max-w-2xl mx-auto">Explora las últimas tendencias que acaban de llegar a nuestra tienda. Selección curada de nuestras mejores marcas.</p>
         </div>
-        
+
         <!-- Filters -->
-        <div class="flex flex-wrap gap-3 mb-8">
-            <button onclick="filterByMarca('all')" class="filter-btn pill-button bg-black text-white px-5 py-2 text-sm font-semibold" data-marca="all">Todos</button>
-            <button onclick="filterByMarca('Sail')" class="filter-btn pill-button glass-card px-5 py-2 text-sm font-semibold hover:bg-white/60" data-marca="Sail">Sail</button>
-            <button onclick="filterByMarca('Legacy')" class="filter-btn pill-button glass-card px-5 py-2 text-sm font-semibold hover:bg-white/60" data-marca="Legacy">Legacy</button>
-            <button onclick="filterByMarca('47 Street')" class="filter-btn pill-button glass-card px-5 py-2 text-sm font-semibold hover:bg-white/60" data-marca="47 Street">47 Street</button>
+        <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in-up delay-200">
+            <button onclick="filterByMarca('all')" class="filter-btn bg-[#0c1c4d] text-white" data-marca="all">Todos</button>
+            <button onclick="filterByMarca('Sail')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="Sail">Sail</button>
+            <button onclick="filterByMarca('Legacy')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="Legacy">Legacy</button>
+            <button onclick="filterByMarca('47 Street')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="47 Street">47 Street</button>
         </div>
 
         <!-- Product Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Products will be injected here via JS -->
-            <div class="col-span-full py-10 text-center text-gray-500">
-                <i class="fa-solid fa-spinner fa-spin text-2xl mb-3 text-brand-orange"></i>
-                <p>Cargando catálogo...</p>
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="col-span-full py-20 text-center">
+                <i class="fa-solid fa-spinner fa-spin text-3xl mb-3 text-[#00d2ff]"></i>
+                <p>Sincronizando catálogo...</p>
             </div>
         </div>
-    </section>
+    </main>
 
-    <!-- Footer / Contact -->
-    <footer id="contacto" class="mt-20 border-t border-black/5 bg-white/30 backdrop-blur-md pt-16 pb-8">
+    <!-- Footer -->
+    <footer id="contacto" class="border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="col-span-1 md:col-span-1">
+            <div class="col-span-1">
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md hover:scale-105 transition" style="mix-blend-mode: multiply;">
+                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover border-2 border-white/20">
                     <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
                 </div>
-                <p class="text-sm text-gray-600 leading-relaxed">
-                    Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana y looks para todos los días en Luján.
-                </p>
+                <p class="text-white/60 text-sm leading-relaxed">Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana en Luján.</p>
             </div>
-            
-            <div class="md:col-span-1">
-                <h4 class="font-bold mb-4 font-serif text-lg">Visítanos</h4>
-                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                    <li class="flex gap-2"><i class="fa-solid fa-location-dot mt-1 text-brand-orange"></i> Italia 1037, Luján</li>
-                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-brand-orange"></i> Lun a Vie: 9–13 / 16:30–20:30</li>
-                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-brand-orange opacity-0"></i> Sáb: 10–13 / 16–20</li>
+            <div class="col-span-1">
+                <h4 class="font-bold mb-4 text-white">Visítanos</h4>
+                <ul class="text-sm text-white/60 space-y-2">
+                    <li><i class="fa-solid fa-location-dot mr-2"></i> Italia 1037, Luján</li>
+                    <li><i class="fa-regular fa-clock mr-2"></i> Lun a Sáb: 9–20:30</li>
                 </ul>
-                <div class="w-full h-32 rounded-lg overflow-hidden shadow-inner border border-black/5">
-                    <iframe src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=es&amp;q=Italia%201037,%20Luj%C3%A1n,%20Buenos%20Aires&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
             </div>
-
-            <div class="md:col-span-1">
-                <h4 class="font-bold mb-4 font-serif text-lg">Contáctanos</h4>
-                <a href="https://wa.me/5491122618116" target="_blank" class="pill-button w-full bg-[#25D366] text-white px-4 py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#128C7E] shadow-lg shadow-[#25D366]/20 transition">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Consultas por WhatsApp
+            <div class="col-span-1">
+                <h4 class="font-bold mb-4 text-white">Contacto</h4>
+                <a href="https://wa.me/5491122618116" class="bg-[#25D366] text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 font-bold hover:scale-105 transition">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
                 </a>
-                <div class="flex gap-4 mt-6">
-                    <a href="https://www.instagram.com/glamoursok/" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition">
-                        <i class="fa-brands fa-instagram text-lg"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition">
-                        <i class="fa-brands fa-facebook-f text-lg"></i>
-                    </a>
-                </div>
             </div>
         </div>
-        <div class="text-center text-xs text-gray-500 mt-12 pt-8 border-t border-black/5">
-            &copy; 2026 GLAMOURS Multimarcas. Todos los derechos reservados.
+        <div class="text-center text-white/40 text-[10px] mt-12 border-t border-white/5 pt-8">
+            &copy; 2026 GLAMOURS. Todos los derechos reservados.
         </div>
     </footer>
 
-    <!-- App JS -->
     <script src="js/app.js"></script>
-
-    <!-- Quick View Modal -->
-    <div id="quick-view-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4">
-        <div class="glass-card bg-white/90 w-full max-w-2xl overflow-hidden shadow-2xl relative">
-            <button id="close-quick-view" onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 text-gray-500 hover:bg-black hover:text-white transition z-10">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2">
-                <!-- Image Side -->
-                <div class="h-64 md:h-[450px] bg-white">
-                    <img id="quick-view-image" src="" alt="Product" class="w-full h-full object-cover">
-                </div>
-                <!-- Content Side -->
-                <div class="p-8 flex flex-col justify-center">
-                    <p id="quick-view-brand" class="text-xs font-bold text-brand-orange uppercase tracking-widest mb-2">GLAMOURS</p>
-                    <h2 id="quick-view-name" class="font-serif text-3xl font-bold mb-4">Nombre del Producto</h2>
-                    <p id="quick-view-price" class="text-2xl font-bold text-gray-900 mb-6">$0.00</p>
-                    
-                    <div class="space-y-4 mb-8">
-                        <h4 class="text-xs font-bold uppercase text-gray-400">Descripción</h4>
-                        <p id="quick-view-description" class="text-gray-600 text-sm leading-relaxed">
-                            Cargando descripción...
-                        </p>
-                    </div>
-
-                    <div id="quick-view-sizes-container" class="mb-6 hidden">
-                        <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Talles Disponibles</h4>
-                        <div id="quick-view-sizes" class="flex flex-wrap gap-2"></div>
-                    </div>
-
-                    <div id="quick-view-colors-container" class="mb-8 hidden">
-                        <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Colores</h4>
-                        <div id="quick-view-colors" class="flex flex-wrap gap-2"></div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <button class="flex-1 pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-lg shadow-black/10" onclick="addToCartFromModal()">
-                            Añadir al Carrito
-                        </button>
-                        <button class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-brand-orange hover:border-brand-orange transition" onclick="toggleWishlist(this)">
-                            <i class="fa-solid fa-heart"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <script>
-        let currentFilter = 'all';
-        
-        document.addEventListener('DOMContentLoaded', async () => {
-            // Load Banner Content
-            try {
-                const resConfig = await fetch('/api/config');
-                const config = await resConfig.json();
-                if (config.topBanner) {
-                    document.getElementById('top-banner-text').innerText = config.topBanner;
-                    document.getElementById('top-banner-container').classList.remove('hidden');
-                }
-            } catch (e) { console.error("Error cargando banner:", e); }
-
-            // Fetch products from the backend API
+        document.addEventListener('DOMContentLoaded', () => {
             fetch('/api/productos')
                 .then(res => res.json())
                 .then(products => {
-                    allProducts = products; // Store in shared global array
+                    allProducts = products;
                     renderProducts(products);
-                })
-                .catch(err => {
-                    document.getElementById('product-grid').innerHTML = '<p class="col-span-full text-center text-red-500 py-10">Error cargando el catálogo.</p>';
                 });
         });
 
         function renderProducts(products) {
-            const gridNovedades = document.getElementById('product-grid');
-            gridNovedades.innerHTML = '';
-            
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = '';
             const novedades = products.filter(p => p.novedad);
-
-            if (novedades.length === 0) {
-                gridNovedades.innerHTML = '<p class="col-span-full text-center text-gray-500 py-10">No hay productos disponibles.</p>';
-            } else {
-                novedades.forEach(product => gridNovedades.insertAdjacentHTML('beforeend', createProductCard(product, product.oferta)));
-            }
+            novedades.forEach(product => grid.insertAdjacentHTML('beforeend', createProductCard(product)));
         }
 
         function filterByMarca(marca) {
-            currentFilter = marca;
-            
-            // Actualizar botones activos
             document.querySelectorAll('.filter-btn').forEach(btn => {
-                if (btn.dataset.marca === marca) {
-                    btn.classList.remove('glass-card', 'hover:bg-white/60');
-                    btn.classList.add('bg-black', 'text-white');
-                } else {
-                    btn.classList.remove('bg-black', 'text-white');
-                    btn.classList.add('glass-card', 'hover:bg-white/60');
-                }
+                btn.classList.toggle('bg-[#0c1c4d]', btn.dataset.marca === marca);
+                btn.classList.toggle('text-white', btn.dataset.marca === marca);
             });
-
-            // Filtrar productos
-            const filtered = marca === 'all' 
-                ? allProducts 
-                : allProducts.filter(p => p.marca === marca);
-            
+            const filtered = marca === 'all' ? allProducts : allProducts.filter(p => p.marca === marca);
             renderProducts(filtered);
         }
     </script>
-
-    <!-- Auth Modal -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] flex items-center justify-center hidden p-4">
-        <div class="glass-card bg-white/95 w-full max-w-md p-8 shadow-2xl relative">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            
-            <!-- Login Section -->
-            <div id="login-section">
-                <h2 class="font-serif text-3xl font-bold mb-2">Bienvenido</h2>
-                <p class="text-gray-500 mb-8 text-sm">Inicia sesión para continuar con tu compra.</p>
-                <form id="login-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Contraseña</label>
-                        <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">
-                        Ingresar
-                    </button>
-                </form>
-                <p class="text-center mt-6 text-sm text-gray-500">
-                    ¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Regístrate</a>
-                </p>
-            </div>
-            
-            <!-- Register Section -->
-            <div id="register-section" class="hidden">
-                <h2 class="font-serif text-3xl font-bold mb-2">Crear Cuenta</h2>
-                <p class="text-gray-500 mb-8 text-sm">Únete a GLAMOURS y disfruta de beneficios exclusivos.</p>
-                <form id="register-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Nombre Completo</label>
-                        <input type="text" name="nombre" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Contraseña</label>
-                        <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">
-                        Registrarse
-                    </button>
-                </form>
-                <p class="text-center mt-6 text-sm text-gray-500">
-                    ¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Inicia sesión</a>
-                </p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cart Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] flex items-center justify-end hidden">
-        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col animate-slide-left">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h2 class="font-serif text-2xl font-bold">Tu Carrito</h2>
-                <button onclick="closeCartView()" class="text-gray-400 hover:text-black">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-            
-            <div id="cart-items-list" class="flex-1 overflow-y-auto p-6">
-                <!-- Cart items will be injected here -->
-            </div>
-            
-            <div class="p-8 bg-gray-50 border-t border-gray-100">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-gray-500 font-medium">Total Estimado</span>
-                    <span id="cart-total" class="text-2xl font-bold text-brand-orange">$0.00</span>
-                </div>
-                <button class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-xl">
-                    Finalizar Compra
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <style>
-        @keyframes slide-left {
-            from { transform: translateX(100%); }
-            to { transform: translateX(0); }
-        }
-        .animate-slide-left {
-            animation: slide-left 0.3s ease-out;
-        }
-    </style>
 </body>
 </html>

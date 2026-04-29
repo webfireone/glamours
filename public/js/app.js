@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupModalClosing();
     setupAuthLogic();
     updateUIForUser();
+    setupScrollAnimations();
     
     // Load products on start
     fetchProducts();
@@ -111,7 +112,7 @@ function updateUIForUser() {
     
     if (currentUser) {
         if (userBtn) {
-            userBtn.innerHTML = `<i class="fa-solid fa-user-check text-brand-orange"></i> <span class="hidden md:inline ml-1">${currentUser.nombre.split(' ')[0]}</span>`;
+            userBtn.innerHTML = `<i class="fa-solid fa-user-check text-[#00d2ff]"></i> <span class="hidden md:inline ml-1 text-white">${currentUser.nombre.split(' ')[0]}</span>`;
             userBtn.onclick = () => { if(confirm("¿Cerrar sesión?")) logoutUser(); };
         }
         if (signupBtn) {
@@ -121,7 +122,7 @@ function updateUIForUser() {
         }
     } else {
         if (userBtn) {
-            userBtn.innerHTML = `<i class="fa-solid fa-user"></i> <span class="hidden md:inline ml-1">Login</span>`;
+            userBtn.innerHTML = `<i class="fa-solid fa-user text-[#00d2ff]"></i> <span class="hidden md:inline ml-1 text-white">Login</span>`;
             userBtn.onclick = openAuthModal;
         }
         if (signupBtn) {
@@ -212,18 +213,18 @@ function openCartView() {
         cart.forEach(item => {
             total += item.precio * item.cantidad;
             listEl.innerHTML += `
-                <div class="flex items-center gap-4 py-4 border-b border-gray-100">
-                    <img src="${item.imagenes[0]}" class="w-16 h-16 object-cover rounded-lg">
+                <div class="flex items-center gap-4 py-4 border-b border-blue-900/10">
+                    <img src="${item.imagenes[0]}" class="w-16 h-16 object-cover rounded-xl border border-blue-900/5">
                     <div class="flex-1">
-                        <h4 class="font-bold text-sm leading-tight">${item.nombre}</h4>
-                        <p class="text-brand-orange font-bold text-sm">$${item.precio}</p>
+                        <h4 class="font-bold text-sm text-[#0c1c4d] leading-tight">${item.nombre}</h4>
+                        <p class="text-[#00d2ff] font-black text-sm">$${item.precio}</p>
                         <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateQuantity('${item.id}', ${item.cantidad - 1})" class="w-6 h-6 rounded bg-gray-100 hover:bg-gray-200">-</button>
-                            <span class="text-xs font-bold w-4 text-center">${item.cantidad}</span>
-                            <button onclick="updateQuantity('${item.id}', ${item.cantidad + 1})" class="w-6 h-6 rounded bg-gray-100 hover:bg-gray-200">+</button>
+                            <button onclick="updateQuantity('${item.id}', ${item.cantidad - 1})" class="w-6 h-6 rounded-full bg-[#0c1c4d] text-white hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition">-</button>
+                            <span class="text-xs font-bold w-4 text-center text-[#0c1c4d]">${item.cantidad}</span>
+                            <button onclick="updateQuantity('${item.id}', ${item.cantidad + 1})" class="w-6 h-6 rounded-full bg-[#0c1c4d] text-white hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition">+</button>
                         </div>
                     </div>
-                    <button onclick="removeFromCart('${item.id}')" class="text-gray-300 hover:text-red-500 transition">
+                    <button onclick="removeFromCart('${item.id}')" class="text-blue-900/30 hover:text-red-500 transition">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>`;
@@ -392,23 +393,48 @@ function toggleWishlist(btn) { btn.classList.toggle('text-red-500'); }
  */
 function createProductCard(product, isPromo = false) {
     const badgeText = product.descuento ? `-${product.descuento}%` : (isPromo ? 'OFERTA' : '');
-    const badge = badgeText ? `<span class="absolute top-2 left-2 bg-black text-white text-[9px] font-bold px-2 py-0.5 z-10 tracking-widest uppercase">${badgeText}</span>` : '';
+    const badge = badgeText ? `<span class="absolute top-4 left-4 bg-[#0c1c4d] text-white text-[9px] font-bold px-3 py-1 z-20 tracking-widest uppercase rounded-full shadow-lg">${badgeText}</span>` : '';
     const imgUrl = product.imagenes && product.imagenes.length > 0 ? product.imagenes[0] : 'https://via.placeholder.com/400x500?text=Glamours';
     return `
-        <div class="product-card group cursor-pointer" onclick="quickView('${product.id}')">
-            <div class="relative overflow-hidden aspect-[3/4] mb-3 bg-[#f9f9f9]">
+        <div class="product-card group cursor-pointer fade-in-up" onclick="quickView('${product.id}')">
+            <div class="image-frame relative overflow-hidden aspect-[3/4] mb-4">
                 ${badge}
-                <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"/>
-                <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                    <button class="bg-white text-black text-[10px] font-bold py-3 px-6 tracking-widest uppercase shadow-sm">Vista Rápida</button>
+                <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
+                <div class="absolute inset-0 bg-[#0c1c4d]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-10">
+                    <button class="bg-white text-[#0c1c4d] text-[10px] font-bold py-3 px-6 tracking-widest uppercase rounded-full shadow-xl">Ver Detalle</button>
                 </div>
             </div>
             <div class="text-center px-1">
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-1 font-bold">${product.marca || 'Glamours'}</p>
-                <h3 class="text-xs font-medium uppercase tracking-tight mb-1 truncate">${product.nombre}</h3>
-                <p class="text-sm font-bold">$${product.precio}</p>
+                <p class="text-[10px] text-[#0c1c4d]/50 uppercase tracking-widest mb-1 font-bold">${product.marca || 'Glamours'}</p>
+                <h3 class="text-sm font-bold text-[#0c1c4d] mb-1 truncate">${product.nombre}</h3>
+                <p class="text-lg font-black text-[#0c1c4d]">$${product.precio}</p>
             </div>
         </div>
     `;
 }
 
+function setupScrollAnimations() {
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animationPlayState = 'running';
+                entry.target.style.opacity = '1';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Seleccionar elementos que no sean del Hero (que ya se animan solos al cargar)
+    // Para el resto del sitio (Categorías, Productos), pausamos la animación hasta que se vean.
+    const scrollElements = document.querySelectorAll('.fade-in-up:not(.hero-container .fade-in-up)');
+    scrollElements.forEach(el => {
+        el.style.animationPlayState = 'paused';
+        el.style.opacity = '0';
+        observer.observe(el);
+    });
+}

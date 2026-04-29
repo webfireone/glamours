@@ -40,46 +40,146 @@
     <style>
         /* Minimalist Sail-like Styles */
         body {
-            background-color: #ffffff;
-            color: #000000;
+            background: linear-gradient(180deg, #bae6fd 0%, #7dd3fc 100%);
+            background-attachment: fixed;
+            color: #0c1c4d; 
             font-family: 'Inter', sans-serif;
             min-height: 100vh;
             overflow-x: hidden;
+            margin: 0;
+        }
+
+        .image-frame {
+            position: relative;
+            border: 2px solid rgba(12, 28, 77, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 40px;
+            padding: 12px;
+            box-shadow: 0 20px 40px rgba(12, 28, 77, 0.1);
+            transition: all 0.4s ease;
+            overflow: hidden;
+        }
+
+        /* Efecto de fusión profunda con el fondo */
+        .image-frame::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 40px;
+            /* Sombra interna masiva para fundir la imagen */
+            box-shadow: inset 0 0 100px 60px #bae6fd; 
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .image-frame img {
+            display: block;
+            position: relative;
+            z-index: 1;
+            filter: saturate(1.1); /* Un poco más de color para compensar la fusión */
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(12, 28, 77, 0.1);
+            border-radius: 40px;
+            box-shadow: 0 20px 50px rgba(12, 28, 77, 0.05);
         }
 
         header {
-            border-bottom: 1px solid rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
             transition: all 0.3s ease;
-            background: rgba(255,255,255,0.8);
+            background: rgba(0,0,0,0.2);
             backdrop-filter: blur(10px);
         }
 
         .hero-container {
             position: relative;
             width: 100%;
-            padding-top: 60px;
-            padding-bottom: 100px;
-            display: block;
-            background-color: transparent;
-        }
-
-        .hero-layout {
+            padding-top: 20px; /* Al límite superior */
+            padding-bottom: 20px;
             display: flex;
             flex-direction: column;
-            position: relative;
+            align-items: center;
+            text-align: center;
+            background: transparent !important;
         }
 
-        .hero-image-wrapper {
+        .hero-badge {
+            background: rgba(12, 28, 77, 0.05);
+            color: #0c1c4d;
+            border: 1px solid rgba(12, 28, 77, 0.2);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+            display: inline-block;
+        }
+
+        .hero-title {
+            font-family: 'Inter', sans-serif;
+            font-weight: 900;
+            font-size: clamp(2.5rem, 8vw, 6rem);
+            line-height: 1.1;
+            letter-spacing: -0.04em;
+            color: #0c1c4d; /* Azul marino */
+            margin-bottom: 25px;
+            text-transform: none;
+        }
+
+        .hero-desc {
+            max-width: 700px;
+            font-size: 18px;
+            line-height: 1.5;
+            color: #4b5563; /* Gris oscuro legible */
+            margin-bottom: 40px;
+            text-transform: none;
+            letter-spacing: -0.01em;
+        }
+
+        /* Botón Estilo Lissr Light */
+        .lissr-button {
+            background: #0c1c4d;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 100px;
+            font-weight: 600;
+            font-size: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(12, 28, 77, 0.3);
+        }
+
+        .lissr-button:hover {
+            transform: translateY(-5px);
+            background: #1e3a8a;
+        }
+
+        .lissr-button i {
+            font-size: 14px;
+        }
+
+        .hero-image-card {
             width: 100%;
-            margin-left: auto;
-            position: relative;
-            z-index: 10;
+            max-width: 1100px;
+            margin-top: 60px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            background: #f4f4f4;
+            transition: transform 0.5s ease;
         }
 
-        @media (min-width: 1024px) {
-            .hero-image-wrapper {
-                width: 75%;
-            }
+        .hero-image-card:hover {
+            transform: translateY(-10px);
         }
 
         #hero-bg {
@@ -87,44 +187,31 @@
             height: auto;
             display: block;
             object-fit: contain;
-            filter: brightness(1);
         }
 
-        .hero-title-wrapper {
-            position: relative;
-            z-index: 20;
-            width: 100%;
-            margin-top: -30px; /* Overlap on mobile */
+        /* Animación de Esfera para el Logo */
+        @keyframes rotateSphere {
+            from { transform: rotateY(0deg); }
+            to { transform: rotateY(360deg); }
         }
 
-        @media (min-width: 1024px) {
-            .hero-title-wrapper {
-                position: absolute;
-                top: 50%;
-                left: 0;
-                transform: translateY(-50%);
-                width: 50%;
-                margin-top: 0;
-            }
+        .logo-sphere {
+            animation: rotateSphere 8s infinite linear;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
-        #hero-title {
-            color: black;
-            text-align: left;
-            text-shadow: none;
+        .glass-header {
+            background: #0c1c4d !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+            padding: 10px 0; /* Más angosto */
         }
-
-        .hero-info-footer {
-            width: 100%;
-            margin-left: auto;
-            margin-top: 40px;
-            text-align: left;
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.8) !important;
         }
-
-        @media (min-width: 1024px) {
-            .hero-info-footer {
-                width: 75%;
-            }
+        .nav-link:hover {
+            color: #ffffff !important;
         }
 
         .category-card {
@@ -132,14 +219,18 @@
             overflow: hidden;
             aspect-ratio: 4/5;
             cursor: pointer;
+            border-radius: 40px;
+            background: rgba(255,255,255,0.5);
+            border: 1px solid rgba(255,255,255,0.4);
+            transition: all 0.5s ease;
         }
         
         .category-card img {
             width: 100%;
             height: 100%;
-            object-fit: contain; /* Imagen completa en categorías */
+            object-fit: contain;
             transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            background-color: #f9f9f9; /* Fondo suave para destacar el producto */
+            padding: 20px;
         }
 
         .category-card:hover img {
@@ -215,7 +306,6 @@
             60% {transform: translateY(-3px) translateX(-50%);}
         }
 
-        /* Animations */
         .fade-in-up {
             animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
             opacity: 0;
@@ -223,11 +313,38 @@
         }
 
         @keyframes fadeInUp {
-            to {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.98);
+            }
+            100% {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
+
+        .hero-image-card {
+            width: 100%;
+            max-width: 1100px;
+            margin-top: 60px;
+            border-radius: 40px;
+            overflow: hidden;
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
+            background: #f4f4f4;
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(0);
+        }
+
+        .hero-image-card:hover {
+            transform: translateY(-15px) scale(1.01);
+            box-shadow: 0 50px 120px rgba(0,0,0,0.15);
+        }
+
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
         
         /* Shine Animation for the Bar */
         @keyframes shine {
@@ -258,41 +375,56 @@
     </div>
 
     <!-- Navbar -->
-    <header class="sticky top-0 z-50 flex justify-between items-center px-8 md:px-16 py-4 bg-white/95 backdrop-blur-md shadow-sm fade-in-up w-full">
-        <!-- Logo -->
-        <div class="flex items-center gap-3">
-            <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50" style="mix-blend-mode: multiply;">
-            <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-header px-6 md:px-16 flex items-center justify-between">
+        <!-- Logo Esférico 3D -->
+        <div class="flex items-center gap-4">
+            <div class="logo-sphere">
+                <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-20 w-20 rounded-full object-cover shadow-2xl border-2 border-white/50 bg-white">
+            </div>
+            <span class="font-serif font-bold text-3xl tracking-tight text-white">Glamour's</span>
         </div>
 
         <!-- Navigation (Desktop) -->
         <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-[11px] font-bold tracking-widest uppercase">
-            <a href="index.html" class="nav-link text-black">Home</a>
-            <a href="promociones.html" class="nav-link text-gray-500 hover:text-black">Promociones</a>
-            <a href="novedades.html" class="nav-link text-gray-500 hover:text-black">Novedades</a>
-            <a href="contacto.html" class="nav-link text-gray-500 hover:text-black">Contacto</a>
+            <a href="index.html" class="nav-link text-white">Home</a>
+            <a href="promociones.html" class="nav-link text-white/50 hover:text-white">Promociones</a>
+            <a href="novedades.html" class="nav-link text-white/50 hover:text-white">Novedades</a>
+            <a href="contacto.html" class="nav-link text-white/50 hover:text-white">Contacto</a>
         </nav>
 
-        <!-- Actions -->
-        <div class="flex items-center gap-4 text-sm font-medium">
-            <button id="cart-btn" onclick="openCartView()" class="relative text-gray-700 hover:text-black transition">
-                <i class="fa-solid fa-cart-shopping text-xl"></i>
-                <span id="cart-count" class="absolute -top-1 -right-2 bg-brand-orange text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
-            </button>
-            <button id="user-btn" class="text-gray-700 hover:text-black transition flex items-center gap-1">
-                <i class="fa-solid fa-user"></i>
-                <span class="hidden md:inline">Login</span>
-            </button>
-            <button onclick="openAuthModal(); if(document.getElementById('register-section').classList.contains('hidden')) toggleAuthMode();" class="hidden lg:block pill-button bg-brand-orange text-white px-6 py-2.5 font-semibold hover:bg-orange-600">
-                Sign Up
-            </button>
-            <!-- Mobile Menu Toggle -->
-            <!-- Mobile Menu Toggle (3 Dots) -->
-            <button id="mobile-menu-btn" class="md:hidden text-gray-800 hover:text-black text-2xl ml-4 p-2 transition-transform active:scale-90">
-                <i class="fa-solid fa-ellipsis-vertical"></i>
-            </button>
+        <!-- Icons -->
+        <div class="flex items-center gap-6">
+            <div class="relative cursor-pointer group" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping text-[#00d2ff] text-xl group-hover:scale-110 transition"></i>
+                <span id="cart-count" class="absolute -top-2 -right-2 bg-[#00d2ff] text-[#0c1c4d] text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center border-2 border-[#0c1c4d]">0</span>
+            </div>
+            <div id="user-menu" class="flex items-center gap-4">
+                <button onclick="openAuthModal()" class="text-[#00d2ff] hover:text-white transition text-sm font-medium flex items-center gap-2">
+                    <i class="fa-solid fa-user"></i>
+                    <span class="hidden sm:inline">Login</span>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Brands Infinite Carousel (Top Position) -->
+    <div class="pt-16"> <!-- Reducido al máximo -->
+        <section class="w-full py-1 overflow-hidden fade-in-up bg-white/5 border-b border-white/10">
+            <div class="brand-marquee-container">
+                <div class="brand-marquee-track">
+                    <div class="brand-block text-blue-900">SAIL</div>
+                    <div class="brand-block text-blue-900">47 STREET</div>
+                    <div class="brand-block text-blue-900">LEGACY</div>
+                    <div class="brand-block text-blue-900">OWOKO</div>
+                    <!-- Duplicados para el loop -->
+                    <div class="brand-block text-blue-900">SAIL</div>
+                    <div class="brand-block text-blue-900">47 STREET</div>
+                    <div class="brand-block text-blue-900">LEGACY</div>
+                    <div class="brand-block text-blue-900">OWOKO</div>
+                </div>
+            </div>
+        </section>
+    </div>
 
     <!-- Mobile Menu Overlay -->
     <div id="mobile-menu" class="fixed inset-0 bg-black text-white z-[100] flex flex-col items-center justify-center gap-10 text-2xl font-serif font-bold transform translate-x-full transition-transform duration-500 md:hidden">
@@ -312,48 +444,44 @@
     </div>
 
     <!-- Hero Section: Editorial Impact -->
-    <main class="hero-container px-6 md:px-16 max-w-7xl mx-auto">
-        <div class="hero-layout">
-            <!-- Title (Overlapping) -->
-            <div class="hero-title-wrapper">
-                <h1 id="hero-title" class="font-serif text-4xl md:text-7xl lg:text-9xl leading-[0.9] fade-in-up uppercase tracking-tighter">
-                    Elegancia <br>
-                    <span class="italic font-light text-gray-400">Sustentable</span>
-                </h1>
-            </div>
+    <main class="hero-container px-6 md:px-16">
+        <!-- Badge Superior con Glow -->
+        <div class="hero-badge fade-in-up bg-white/50 backdrop-blur-md border border-white/40 shadow-sm">Colección Exclusiva 2026</div>
 
-            <!-- Image (3/4 width on Desktop) -->
-            <div class="hero-image-wrapper">
-                <img id="hero-bg" src="" alt="Glamours Hero" class="fade-in shadow-2xl">
-            </div>
+        <!-- Título Monumental -->
+        <h1 id="hero-title" class="hero-title fade-in-up delay-100">
+            Elegancia<br>Absoluta
+        </h1>
 
-            <!-- Description (Below image) -->
-            <div class="hero-info-footer">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
-                    <p id="hero-desc" class="text-gray-400 max-w-md text-[10px] md:text-xs leading-loose fade-in-up delay-200 uppercase tracking-[0.3em]">
-                        Descubre la nueva curaduría de temporada. Una selección exclusiva para quienes buscan lo mejor del diseño nacional.
-                    </p>
-                    <div class="fade-in-up delay-300">
-                        <a href="novedades.html" class="pill-button bg-black text-white px-10 py-4 hover:bg-gray-800 transition shadow-xl text-[10px]">
-                            Ver Colección
-                        </a>
-                    </div>
-                </div>
+        <!-- Descripción Centrada -->
+        <p id="hero-desc" class="hero-desc fade-in-up delay-200">
+            Explora una selección curada de las mejores marcas nacionales. Diseño atemporal para quienes buscan destacar con sofisticación.
+        </p>
+
+        <!-- Texto Editorial (Sin botones) -->
+        <div class="fade-in-up delay-300">
+            <span class="text-blue-900/40 font-bold tracking-[0.3em] uppercase text-[10px]">Colección Verano 2026</span>
+        </div>
+
+        <!-- Imagen Card con Glassmorphism -->
+        <div class="hero-image-card fade-in-up delay-500 image-frame">
+            <div class="rounded-[32px] overflow-hidden bg-white/20">
+                <img id="hero-bg" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" alt="Glamours Showcase" class="w-full h-auto">
             </div>
         </div>
     </main>
 
     <!-- Categories Grid (Visual Impact) -->
-    <section class="py-20 px-6 md:px-16 max-w-7xl mx-auto">
+    <section class="py-8 px-6 md:px-16 max-w-7xl mx-auto bg-transparent">
         <div class="flex flex-col items-center mb-16">
-            <h2 class="text-[10px] font-bold tracking-[0.5em] text-gray-400 uppercase mb-2">Explorar</h2>
-            <h3 class="font-serif text-3xl md:text-4xl text-center">Nuestras Categorías</h3>
+            <h2 class="text-[10px] font-bold tracking-[0.5em] text-blue-900/60 uppercase mb-2">Explorar</h2>
+            <h3 class="font-serif text-3xl md:text-4xl text-center text-blue-900">Nuestras Categorías</h3>
         </div>
         
-        <div id="grid-categorias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div id="grid-categorias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <!-- Categoria 1 -->
-            <div class="category-card fade-in-up">
-                <img id="cat-img-1" src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80" alt="Mujer">
+            <div class="category-card fade-in-up image-frame">
+                <img id="cat-img-1" src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&q=80" alt="Mujer">
                 <div class="category-overlay">
                     <div>
                         <h4 id="cat-name-1" class="text-white font-serif text-2xl mb-2">Mujer</h4>
@@ -362,7 +490,7 @@
                 </div>
             </div>
             <!-- Categoria 2 -->
-            <div class="category-card fade-in-up delay-100">
+            <div class="category-card fade-in-up delay-100 image-frame">
                 <img id="cat-img-2" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80" alt="Hombre">
                 <div class="category-overlay">
                     <div>
@@ -372,8 +500,8 @@
                 </div>
             </div>
             <!-- Categoria 3 -->
-            <div class="category-card fade-in-up delay-200">
-                <img id="cat-img-3" src="https://images.unsplash.com/photo-1514090458221-65bb69cf63e6?w=600&q=80" alt="Niños">
+            <div class="category-card fade-in-up delay-200 image-frame">
+                <img id="cat-img-3" src="https://images.unsplash.com/photo-1519234221762-f9e2786961ee?w=600&q=80" alt="Niños">
                 <div class="category-overlay">
                     <div>
                         <h4 id="cat-name-3" class="text-white font-serif text-2xl mb-2">Niños</h4>
@@ -382,8 +510,8 @@
                 </div>
             </div>
             <!-- Categoria 4 -->
-            <div class="category-card fade-in-up delay-300">
-                <img id="cat-img-4" src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&q=80" alt="Accesorios">
+            <div class="category-card fade-in-up delay-300 image-frame">
+                <img id="cat-img-4" src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?w=600&q=80" alt="Accesorios">
                 <div class="category-overlay">
                     <div>
                         <h4 id="cat-name-4" class="text-white font-serif text-2xl mb-2">Accesorios</h4>
@@ -394,29 +522,50 @@
         </div>
     </section>
 
-    <!-- Brands Grid (Separated Blocks) -->
-    <section class="w-full px-6 md:px-16 max-w-7xl mx-auto my-20 fade-in-up">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-            <!-- SAIL -->
-            <div class="bg-[#003366] text-white py-10 md:py-16 flex items-center justify-center rounded-sm shadow-sm hover:scale-[1.02] transition-transform group cursor-pointer">
-                <span class="text-xs md:text-2xl font-black tracking-[0.4em] uppercase">SAIL</span>
-            </div>
-            <!-- 47 STREET -->
-            <div class="bg-[#E91E63] text-white py-10 md:py-16 flex items-center justify-center rounded-sm shadow-sm hover:scale-[1.02] transition-transform group cursor-pointer">
-                <span class="text-xs md:text-2xl font-black tracking-[0.4em] uppercase">47 STREET</span>
-            </div>
-            <!-- LEGACY -->
-            <div class="bg-[#1B5E20] text-white py-10 md:py-16 flex items-center justify-center rounded-sm shadow-sm hover:scale-[1.02] transition-transform group cursor-pointer">
-                <span class="text-xs md:text-2xl font-black tracking-[0.4em] uppercase">LEGACY</span>
-            </div>
-            <!-- OWOKO -->
-            <div class="bg-[#FBC02D] text-black py-10 md:py-16 flex items-center justify-center rounded-sm shadow-sm hover:scale-[1.02] transition-transform group cursor-pointer">
-                <span class="text-xs md:text-2xl font-black tracking-[0.4em] uppercase">OWOKO</span>
-            </div>
-        </div>
-    </section>
+
 
     <style>
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-33.33%); }
+        }
+
+        .brand-marquee-container {
+            width: 100%;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+
+        .brand-marquee-track {
+            display: inline-flex;
+            gap: 20px;
+            animation: scroll 40s linear infinite;
+        }
+
+        .brand-block {
+            flex: 0 0 auto;
+            min-width: 150px;
+            height: 40px; /* Más angosta */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px; /* Tamaño de letra */
+            font-weight: 800;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            border-radius: 100px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 0 20px;
+        }
+
+        .brand-block:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+            border-color: rgba(12, 28, 77, 0.2);
+        }
+
         @keyframes scroll-line {
             0% { transform: translateY(-100%); }
             100% { transform: translateY(100%); }
@@ -437,24 +586,24 @@
 
 
     <!-- Footer / Contact -->
-    <footer id="contacto" class="mt-20 border-t border-black/5 bg-white/30 backdrop-blur-md pt-16 pb-8">
+    <footer id="contacto" class="mt-20 border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
         <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
             <div class="col-span-1 md:col-span-1">
                 <div class="flex items-center gap-3 mb-4">
-                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md hover:scale-105 transition" style="mix-blend-mode: multiply;">
-                    <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
+                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/20 hover:scale-105 transition">
+                    <span class="font-serif font-bold text-2xl tracking-tight text-white">Glamour's</span>
                 </div>
-                <p class="text-sm text-gray-600 leading-relaxed">
+                <p class="text-sm text-white/70 leading-relaxed">
                     Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana y looks para todos los días en Luján.
                 </p>
             </div>
             
             <div class="md:col-span-1">
-                <h4 class="font-bold mb-4 font-serif text-lg">Visítanos</h4>
-                <ul class="text-sm text-gray-600 space-y-2 mb-4">
-                    <li class="flex gap-2"><i class="fa-solid fa-location-dot mt-1 text-brand-orange"></i> Italia 1037, Luján</li>
-                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-brand-orange"></i> Lun a Vie: 9–13 / 16:30–20:30</li>
-                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-brand-orange opacity-0"></i> Sáb: 10–13 / 16–20</li>
+                <h4 class="font-bold mb-4 font-serif text-lg text-white">Visítanos</h4>
+                <ul class="text-sm text-white/70 space-y-2 mb-4">
+                    <li class="flex gap-2"><i class="fa-solid fa-location-dot mt-1 text-white"></i> Italia 1037, Luján</li>
+                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-white"></i> Lun a Vie: 9–13 / 16:30–20:30</li>
+                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-white opacity-0"></i> Sáb: 10–13 / 16–20</li>
                 </ul>
                 <div class="w-full h-32 rounded-lg overflow-hidden shadow-inner border border-black/5">
                     <iframe src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=es&amp;q=Italia%201037,%20Luj%C3%A1n,%20Buenos%20Aires&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
