@@ -203,12 +203,18 @@ function closeCartView() {
 // --- AUTH ---
 function openAuthModal() {
     const m = document.getElementById('auth-modal');
-    if (m) m.classList.remove('hidden');
+    if (m) {
+        m.classList.remove('hidden');
+        m.style.display = 'flex';
+    }
 }
 
 function closeAuthModal() {
     const m = document.getElementById('auth-modal');
-    if (m) m.classList.add('hidden');
+    if (m) {
+        m.classList.add('hidden');
+        m.style.display = 'none';
+    }
 }
 
 function toggleAuthMode() {
@@ -246,8 +252,9 @@ function logoutUser() {
 
 // --- MODALS ---
 window.quickView = function(id) {
-    let p = window.allProducts.find(x => x.id === id);
+    let p = window.allProducts.find(x => String(x.id) === String(id));
     if (p) showModal(p);
+    else console.warn("Producto no encontrado para quickView:", id);
 };
 
 function showModal(product) {
@@ -267,7 +274,7 @@ function showModal(product) {
     if (sizesList) {
         if (product.talles) {
             sizesList.innerHTML = product.talles.split(',').map(t => `
-                <span class="px-3 py-1 border border-blue-900/10 rounded-lg text-[10px] font-bold uppercase text-[#0c1c4d]">${t.trim()}</span>
+                <span class="px-3 py-1 border border-brand-orange/20 bg-brand-orange/5 rounded-lg text-[10px] font-bold uppercase text-brand-orange">${t.trim()}</span>
             `).join('');
             if(sizesCont) sizesCont.classList.remove('hidden');
         } else {
@@ -276,6 +283,7 @@ function showModal(product) {
     }
 
     m.classList.remove('hidden');
+    m.style.display = 'flex'; // Reset display in case it was hidden by JS
     document.body.style.overflow = 'hidden';
 }
 
