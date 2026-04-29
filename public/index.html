@@ -3,224 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLAMOURS | Editorial Tech Fashion</title>
+    <title>GLAMOURS | El Futuro de la Venta Inteligente</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     
-    <style>
-        body {
-            background: linear-gradient(180deg, #bae6fd 0%, #7dd3fc 100%);
-            background-attachment: fixed;
-            color: #0c1c4d; 
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            overflow-x: hidden;
-            margin: 0;
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                    },
+                    colors: {
+                        brand: {
+                            orange: '#ff6b35',
+                            peach: '#ffb5a7',
+                            yellow: '#f4d35e',
+                            dark: '#2d3142',
+                            light: '#f8f9fa'
+                        }
+                    }
+                }
+            }
         }
-
-        @keyframes rotateSphere {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
-        }
-
-        .logo-sphere {
-            animation: rotateSphere 8s infinite linear;
-            transform-style: preserve-3d;
-            perspective: 1000px;
-        }
-
-        .glass-header {
-            background: #0c1c4d !important;
-            border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
-            padding: 10px 0;
-            transition: top 0.3s ease;
-        }
-
-        .nav-link {
-            color: rgba(255, 255, 255, 0.7) !important;
-            text-transform: uppercase;
-            font-size: 11px;
-            letter-spacing: 2px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .nav-link:hover { color: #ffffff !important; }
-
-        .image-frame {
-            position: relative;
-            background: transparent !important;
-            border: none !important;
-            border-radius: 40px;
-            overflow: hidden;
-        }
-
-        .image-frame::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 40px;
-            box-shadow: inset 0 0 40px 20px #bae6fd; 
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
-
-        @keyframes slide-left { from { transform: translateX(100%); } to { transform: translateX(0); } }
-        .animate-slide-left { animation: slide-left 0.3s ease-out; }
-    </style>
+    </script>
 </head>
-<body class="antialiased">
+<body class="antialiased overflow-x-hidden relative">
 
-    <div id="top-banner-container" class="hidden bg-[#0c1c4d] text-white py-2 relative z-[60]">
-        <p id="top-banner-text" class="text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
-    </div>
-
-    <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-header px-6 md:px-16 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-            <div class="logo-sphere">
-                <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-20 w-20 rounded-full object-cover border-2 border-white/50 bg-white">
-            </div>
-            <span class="font-serif font-bold text-3xl tracking-tight text-white">Glamour's</span>
+    <!-- Header -->
+    <header class="fixed top-6 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-16 max-w-7xl mx-auto fade-in-up">
+        <div class="flex items-center gap-3">
+            <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50 bg-white">
+            <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
         </div>
 
-        <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-white">
-            <a href="index.html" class="nav-link !text-white border-b border-white/30">Home</a>
-            <a href="promociones.html" class="nav-link">Promociones</a>
-            <a href="novedades.html" class="nav-link">Novedades</a>
-            <a href="contacto.html" class="nav-link">Contacto</a>
+        <nav class="hidden md:flex glass-nav px-8 py-3 items-center gap-6 text-sm font-medium">
+            <a href="index.html" class="nav-link active">Home</a>
+            <a href="promociones.html" class="nav-link text-gray-700 hover:text-black">Promociones</a>
+            <a href="novedades.html" class="nav-link text-gray-700 hover:text-black">Novedades</a>
+            <a href="contacto.html" class="nav-link text-gray-700 hover:text-black">Contacto</a>
         </nav>
 
-        <div class="flex items-center gap-6">
-            <div class="relative cursor-pointer" onclick="toggleCart()">
-                <i class="fa-solid fa-cart-shopping text-[#00d2ff] text-xl"></i>
-                <span id="cart-count" class="absolute -top-2 -right-2 bg-[#00d2ff] text-[#0c1c4d] text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center border-2 border-[#0c1c4d]">0</span>
-            </div>
-            <button id="user-btn" onclick="openAuthModal()" class="text-[#00d2ff] text-sm font-medium flex items-center gap-2">
+        <div class="flex items-center gap-4 text-sm font-medium">
+            <button id="cart-btn" onclick="openCartView()" class="relative text-gray-700 hover:text-black transition">
+                <i class="fa-solid fa-cart-shopping text-xl"></i>
+                <span id="cart-count" class="absolute -top-1 -right-2 bg-brand-orange text-white text-[10px] w-4 h-4 rounded-full flex items-center justify-center font-bold">0</span>
+            </button>
+            <button id="user-btn" class="text-gray-700 hover:text-black transition flex items-center gap-1">
                 <i class="fa-solid fa-user"></i>
-                <span class="hidden sm:inline">Login</span>
+                <span class="hidden md:inline">Login</span>
+            </button>
+            <button onclick="openAuthModal(); if(document.getElementById('register-section').classList.contains('hidden')) toggleAuthMode();" class="hidden lg:block pill-button bg-brand-orange text-white px-6 py-2.5 font-semibold hover:bg-orange-600">
+                Sign Up
             </button>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="pt-32 pb-20">
-        <!-- Hero Section -->
-        <section class="px-6 md:px-16 max-w-7xl mx-auto mb-20">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                <div class="fade-in-up">
-                    <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-blue-900/40">Exclusividad 2026</span>
-                    <h1 class="font-serif text-6xl md:text-8xl font-bold mt-4 leading-[0.9]">Elegancia<br><span class="text-white">Absoluta</span></h1>
-                    <p class="mt-8 text-blue-900/60 max-w-md leading-relaxed">Moda multimarcas seleccionada para quienes buscan el equilibrio entre lo urbano y lo sofisticado.</p>
-                </div>
-                <div class="image-frame fade-in-up delay-300">
-                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" class="w-full h-[600px] object-cover rounded-[40px]">
-                </div>
-            </div>
-        </section>
+    <!-- Hero Section -->
+    <main class="pt-32 pb-16 px-6 md:px-16 max-w-7xl mx-auto min-h-[90vh] flex flex-col justify-center relative">
+        <div class="absolute top-20 right-10 w-96 h-96 bg-brand-peach/40 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
+        <div class="absolute bottom-10 left-10 w-72 h-72 bg-brand-yellow/30 rounded-full blur-3xl -z-10 mix-blend-multiply"></div>
 
-        <!-- Portada Products -->
-        <section class="px-6 md:px-16 max-w-7xl mx-auto">
-            <div class="flex flex-col items-center mb-16">
-                <h2 class="text-[10px] font-bold tracking-[0.5em] text-blue-900/40 uppercase mb-2">Selección</h2>
-                <h3 class="font-serif text-4xl text-blue-900">Destacados de Temporada</h3>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="z-10 mt-10 lg:mt-0">
+                <h1 id="hero-title" class="font-serif text-5xl md:text-7xl leading-tight mb-6 fade-in-up">
+                    The Future of <br>
+                    <span class="italic font-light">Intelligent</span> Fashion
+                </h1>
+                <p id="hero-desc" class="text-gray-700 mb-10 max-w-md text-sm md:text-base leading-relaxed fade-in-up delay-100">
+                    Descubre las últimas tendencias en moda urbana. Sail, Legacy, 47 Street y Owoko en un solo lugar.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 fade-in-up delay-200">
+                    <div class="glass-card flex items-center p-2 pl-6 pr-2 max-w-md">
+                        <input type="email" placeholder="Ingresa tu Email" class="bg-transparent border-none outline-none w-full text-sm text-gray-700 placeholder-gray-500">
+                        <button class="pill-button bg-black text-white px-6 py-2.5 text-sm font-semibold flex items-center gap-2 whitespace-nowrap hover:bg-gray-800">
+                            Start for Free <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div id="grid-portada" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                <!-- Portada items -->
+
+            <div class="relative h-[500px] lg:h-[600px] fade-in-up delay-200">
+                <div id="hero-product-card" class="absolute top-10 right-0 lg:right-10 w-64 md:w-72 glass-card p-4 z-20 transition hover:-translate-y-2 duration-300 cursor-pointer">
+                    <div class="bg-white/50 rounded-xl aspect-[3/4] mb-4 overflow-hidden relative group">
+                        <img id="hero-image" src="/hero_model.png" alt="Fashion Model" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                    </div>
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <p class="text-xs text-gray-500 font-semibold mb-1">DESTACADO</p>
+                            <h3 class="font-serif font-bold text-lg leading-tight">Nueva Temporada</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-20 left-0 md:left-10 w-48 glass-card p-5 z-30 shadow-xl hidden sm:block">
+                    <h4 class="text-sm font-semibold mb-3">Soporte Express</h4>
+                    <div class="flex items-center gap-3 bg-brand-orange text-white p-3 rounded-xl">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <div>
+                            <p class="text-[10px] font-bold">WhatsApp</p>
+                            <p class="text-[8px] opacity-80">En línea ahora</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </section>
+        </div>
     </main>
 
+    <!-- Product Grid -->
+    <section class="py-16 px-6 md:px-16 max-w-7xl mx-auto border-t border-black/5">
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold">Nuestra Selección</h2>
+                <p class="text-gray-600 mt-2">Las mejores prendas seleccionadas para vos.</p>
+            </div>
+            <a href="novedades.html" class="text-brand-orange font-semibold hover:underline">Ver todo <i class="fa-solid fa-arrow-right text-sm ml-1"></i></a>
+        </div>
+        <div id="grid-portada" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <!-- Inyectado por JS -->
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
-            <div><span class="font-serif font-bold text-2xl">Glamour's</span><p class="text-white/40 text-sm mt-2">Italia 1037, Luján.</p></div>
-            <div><h4 class="font-bold mb-4">Secciones</h4><div class="flex flex-col gap-2 text-white/60 text-sm"><a href="novedades.html">Novedades</a><a href="promociones.html">Ofertas</a></div></div>
-            <div><h4 class="font-bold mb-4">Canales</h4><a href="https://wa.me/5491122618116" class="bg-[#25D366] text-white px-6 py-2 rounded-full inline-block font-bold">WhatsApp</a></div>
+    <footer class="mt-20 border-t border-black/5 bg-white/30 backdrop-blur-md pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div>
+                <div class="flex items-center gap-3 mb-4">
+                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/50 bg-white">
+                    <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
+                </div>
+                <p class="text-sm text-gray-600 leading-relaxed">Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana en Luján.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 font-serif text-lg">Visítanos</h4>
+                <ul class="text-sm text-gray-600 space-y-2">
+                    <li>Italia 1037, Luján</li>
+                    <li>Lun a Vie: 9–13 / 16:30–20:30</li>
+                    <li>Sáb: 10–13 / 16–20</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6 font-serif text-lg">Síguenos</h4>
+                <div class="flex gap-4">
+                    <a href="https://www.instagram.com/glamoursok/" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://wa.me/5491122618116" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-xs text-gray-500 mt-12 pt-8 border-t border-black/5">
+            &copy; 2026 GLAMOURS. Todos los derechos reservados.
         </div>
     </footer>
 
     <!-- Modals -->
     <!-- Cart Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] flex items-center justify-end hidden">
+    <div id="cart-modal" class="fixed inset-0 modal-overlay z-[120] flex items-center justify-end hidden">
         <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col animate-slide-left">
             <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h2 class="font-serif text-2xl font-bold text-[#0c1c4d]">Tu Carrito</h2>
-                <button onclick="closeCartView()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+                <h2 class="font-serif text-2xl font-bold">Tu Carrito</h2>
+                <button onclick="closeCartView()" class="text-gray-400 hover:text-black">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
             </div>
             <div id="cart-items-list" class="flex-1 overflow-y-auto p-6"></div>
-            <div class="p-8 bg-gray-50 border-t border-blue-900/10">
+            <div class="p-8 bg-gray-50 border-t border-gray-100">
                 <div class="flex justify-between items-center mb-6">
-                    <span class="text-blue-900/40 font-medium">Total Estimado</span>
-                    <span id="cart-total" class="text-2xl font-black text-[#00d2ff]">$0.00</span>
+                    <span class="text-gray-500 font-medium">Total Estimado</span>
+                    <span id="cart-total" class="text-2xl font-bold text-brand-orange">$0.00</span>
                 </div>
-                <button onclick="checkout()" class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition shadow-xl">Finalizar Compra</button>
+                <button onclick="checkout()" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-xl">Finalizar Compra</button>
             </div>
         </div>
     </div>
 
     <!-- Quick View Modal -->
-    <div id="quick-view-modal" class="fixed inset-0 bg-[#0c1c4d]/60 backdrop-blur-sm z-[200] flex items-center justify-center hidden p-4">
-        <div class="bg-white w-full max-w-4xl overflow-hidden rounded-[40px] shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-blue-50 text-[#0c1c4d] hover:bg-[#0c1c4d] hover:text-white transition-all z-50"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <div id="quick-view-modal" class="fixed inset-0 modal-overlay z-[100] flex items-center justify-center hidden p-4">
+        <div class="glass-card bg-white/90 w-full max-w-2xl overflow-hidden shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 text-gray-500 hover:bg-black hover:text-white transition z-10"><i class="fa-solid fa-xmark text-lg"></i></button>
             <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="h-64 md:h-[600px] bg-white p-8"><img id="quick-view-image" src="" class="w-full h-full object-contain rounded-[30px]"></div>
-                <div class="p-10 flex flex-col justify-center bg-gray-50/50">
-                    <p id="quick-view-brand" class="text-[10px] font-bold text-[#0c1c4d]/40 uppercase tracking-[0.4em] mb-3">GLAMOURS</p>
-                    <h2 id="quick-view-name" class="font-serif text-4xl font-bold text-[#0c1c4d] mb-4Leading-tight">Producto</h2>
-                    <p id="quick-view-price" class="text-4xl font-black text-[#00d2ff] mb-8">$0.00</p>
-                    <div class="space-y-6 mb-8">
-                        <div id="quick-view-sizes-container"><p class="text-[10px] font-bold text-[#0c1c4d]/60 uppercase mb-2">Talles</p><div id="quick-view-sizes" class="flex flex-wrap gap-2"></div></div>
-                        <div id="quick-view-colors-container"><p class="text-[10px] font-bold text-[#0c1c4d]/60 uppercase mb-2">Colores</p><div id="quick-view-colors" class="flex flex-wrap gap-2"></div></div>
-                        <p id="quick-view-description" class="text-[#0c1c4d]/60 text-sm leading-relaxed"></p>
+                <div class="h-64 md:h-[450px] bg-white"><img id="quick-view-image" src="" class="w-full h-full object-cover"></div>
+                <div class="p-8 flex flex-col justify-center">
+                    <p id="quick-view-brand" class="text-xs font-bold text-brand-orange uppercase mb-2"></p>
+                    <h2 id="quick-view-name" class="font-serif text-3xl font-bold mb-4"></h2>
+                    <p id="quick-view-price" class="text-2xl font-bold text-gray-900 mb-6"></p>
+                    <p id="quick-view-description" class="text-gray-600 text-sm leading-relaxed mb-6"></p>
+                    <div id="quick-view-sizes-container" class="mb-6 hidden">
+                        <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Talles</h4>
+                        <div id="quick-view-sizes" class="flex flex-wrap gap-2"></div>
                     </div>
-                    <button class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition-all" onclick="addToCartFromModal()">Añadir al Carrito</button>
+                    <button class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition" onclick="addToCartFromModal()">Añadir al Carrito</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Auth Modal -->
-    <div id="auth-modal" class="fixed inset-0 bg-[#0c1c4d]/90 backdrop-blur-md z-[300] flex items-center justify-center hidden p-4">
-        <div class="bg-white w-full max-w-md rounded-[40px] p-10 shadow-2xl relative">
-            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+    <div id="auth-modal" class="fixed inset-0 modal-overlay z-[110] flex items-center justify-center hidden p-4">
+        <div class="glass-card bg-white/95 w-full max-w-md p-8 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div id="login-section">
-                <h2 class="font-serif text-3xl font-bold text-[#0c1c4d] mb-6">Ingresar</h2>
+                <h2 class="font-serif text-3xl font-bold mb-2">Bienvenido</h2>
+                <p class="text-gray-500 mb-8 text-sm">Inicia sesión para continuar.</p>
                 <form id="login-form" class="space-y-4">
-                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
-                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
-                    <button type="submit" class="w-full bg-[#0c1c4d] text-white py-4 rounded-xl font-bold">Ingresar</button>
+                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none">
+                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none">
+                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">Ingresar</button>
                 </form>
-                <p class="text-center mt-6 text-sm">¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-[#00d2ff] font-bold">Regístrate</a></p>
+                <p class="text-center mt-6 text-sm text-gray-500">¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Regístrate</a></p>
             </div>
             <div id="register-section" class="hidden">
-                <h2 class="font-serif text-3xl font-bold text-[#0c1c4d] mb-6">Crear Cuenta</h2>
+                <h2 class="font-serif text-3xl font-bold mb-2">Crear Cuenta</h2>
+                <p class="text-gray-500 mb-8 text-sm">Únete a nosotros.</p>
                 <form id="register-form" class="space-y-4">
-                    <input type="text" name="nombre" placeholder="Nombre" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
-                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
-                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
-                    <button type="submit" class="w-full bg-[#0c1c4d] text-white py-4 rounded-xl font-bold">Registrarse</button>
+                    <input type="text" name="nombre" placeholder="Nombre" required class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none">
+                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none">
+                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-200 rounded-lg outline-none">
+                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">Registrarse</button>
                 </form>
-                <p class="text-center mt-6 text-sm">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-[#00d2ff] font-bold">Inicia sesión</a></p>
+                <p class="text-center mt-6 text-sm text-gray-500">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Inicia sesión</a></p>
             </div>
         </div>
     </div>
 
     <script src="js/app.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            fetch('/api/productos').then(res => res.json()).then(products => {
-                window.allProducts = products;
-                const grid = document.getElementById('grid-portada');
-                if(grid) {
-                    const featured = products.filter(p => p.portada);
-                    grid.innerHTML = featured.map(p => createProductCard(p)).join('');
-                }
-            });
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const res = await fetch('/api/config');
+                const config = await res.json();
+                if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
+                if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
+                if (config.heroImage) document.getElementById('hero-image').src = config.heroImage;
+            } catch (e) { console.error("Error cargando configuración:", e); }
         });
     </script>
 </body>
