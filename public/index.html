@@ -80,17 +80,36 @@
                 <p id="hero-desc" class="text-gray-700 mb-10 max-w-md text-sm md:text-base leading-relaxed fade-in-up delay-100">
                     Descubre las últimas tendencias en moda urbana. Sail, Legacy, 47 Street y Owoko en un solo lugar.
                 </p>
+                <div class="flex flex-col sm:flex-row gap-4 fade-in-up delay-200">
+                    <div class="glass-card flex items-center p-2 pl-6 pr-2 max-w-md">
+                        <input type="email" placeholder="Ingresa tu Email" class="bg-transparent border-none outline-none w-full text-sm text-gray-700 placeholder-gray-500">
+                        <button class="pill-button bg-black text-white px-6 py-2.5 text-sm font-semibold flex items-center gap-2 whitespace-nowrap hover:bg-gray-800">
+                            Start for Free <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
             </div>
 
-            <div class="relative h-[600px] lg:h-[700px] fade-in-up delay-200">
-                <div id="hero-product-card" class="absolute top-10 right-0 lg:right-10 w-80 md:w-96 glass-card p-4 z-20 transition hover:-translate-y-2 duration-300 cursor-pointer">
+            <div class="relative h-[500px] lg:h-[600px] fade-in-up delay-200">
+                <div id="hero-product-card" class="absolute top-10 right-0 lg:right-10 w-64 md:w-72 glass-card p-4 z-20 transition hover:-translate-y-2 duration-300 cursor-pointer">
                     <div class="bg-white/50 rounded-xl aspect-[3/4] mb-4 overflow-hidden relative group">
                         <img id="hero-image" src="/hero_model.png" alt="Fashion Model" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                     </div>
                     <div class="flex justify-between items-start">
                         <div>
                             <p class="text-xs text-gray-500 font-semibold mb-1">DESTACADO</p>
-                            <h3 class="font-serif font-bold text-xl leading-tight">Nueva Temporada</h3>
+                            <h3 class="font-serif font-bold text-lg leading-tight">Nueva Temporada</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-20 left-0 md:left-10 w-48 glass-card p-5 z-30 shadow-xl hidden sm:block">
+                    <h4 class="text-sm font-semibold mb-3">Soporte Express</h4>
+                    <div class="flex items-center gap-3 bg-brand-orange text-white p-3 rounded-xl">
+                        <i class="fa-brands fa-whatsapp text-xl"></i>
+                        <div>
+                            <p class="text-[10px] font-bold">WhatsApp</p>
+                            <p class="text-[8px] opacity-80">En línea ahora</p>
                         </div>
                     </div>
                 </div>
@@ -99,30 +118,30 @@
     </main>
 
     <!-- Categories Section -->
-    <section class="w-full">
-        <div class="flex flex-col w-full">
-            <div id="cat1-container" class="category-card hidden w-full !rounded-none !h-[400px]">
-                <img id="cat1-img" src="" alt="" class="w-full h-full object-cover">
-                <div class="category-overlay !bg-black/40 flex items-center justify-center">
-                    <h3 id="cat1-name" class="font-serif text-5xl font-bold text-white tracking-wider"></h3>
+    <section class="py-16 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="cat1-container" class="category-card hidden">
+                <img id="cat1-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat1-name" class="font-serif text-2xl font-bold"></h3>
                 </div>
             </div>
-            <div id="cat2-container" class="category-card hidden w-full !rounded-none !h-[400px]">
-                <img id="cat2-img" src="" alt="" class="w-full h-full object-cover">
-                <div class="category-overlay !bg-black/40 flex items-center justify-center">
-                    <h3 id="cat2-name" class="font-serif text-5xl font-bold text-white tracking-wider"></h3>
+            <div id="cat2-container" class="category-card hidden">
+                <img id="cat2-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat2-name" class="font-serif text-2xl font-bold"></h3>
                 </div>
             </div>
-            <div id="cat3-container" class="category-card hidden w-full !rounded-none !h-[400px]">
-                <img id="cat3-img" src="" alt="" class="w-full h-full object-cover">
-                <div class="category-overlay !bg-black/40 flex items-center justify-center">
-                    <h3 id="cat3-name" class="font-serif text-5xl font-bold text-white tracking-wider"></h3>
+            <div id="cat3-container" class="category-card hidden">
+                <img id="cat3-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat3-name" class="font-serif text-2xl font-bold"></h3>
                 </div>
             </div>
-            <div id="cat4-container" class="category-card hidden w-full !rounded-none !h-[400px]">
-                <img id="cat4-img" src="" alt="" class="w-full h-full object-cover">
-                <div class="category-overlay !bg-black/40 flex items-center justify-center">
-                    <h3 id="cat4-name" class="font-serif text-5xl font-bold text-white tracking-wider"></h3>
+            <div id="cat4-container" class="category-card hidden">
+                <img id="cat4-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat4-name" class="font-serif text-2xl font-bold"></h3>
                 </div>
             </div>
         </div>
@@ -130,6 +149,13 @@
 
     <!-- Product Grid -->
     <section class="py-16 px-6 md:px-16 max-w-7xl mx-auto border-t border-black/5">
+        <div class="flex justify-between items-end mb-10">
+            <div>
+                <h2 class="font-serif text-3xl md:text-4xl font-bold">Nuestra Selección</h2>
+                <p class="text-gray-600 mt-2">Las mejores prendas seleccionadas para vos.</p>
+            </div>
+            <a href="novedades.html" class="text-brand-orange font-semibold hover:underline">Ver todo <i class="fa-solid fa-arrow-right text-sm ml-1"></i></a>
+        </div>
         <div id="grid-portada" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
             <!-- Inyectado por JS -->
         </div>
