@@ -51,24 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchProducts();
     updateCartCount();
     updateUIForUser();
-    
-    // Banner rotativo
-    const banner = document.getElementById('top-banner-container');
-    const bannerText = document.getElementById('top-banner-text');
-    if (banner && bannerText) {
-        const ads = [
-            "✨ 3 CUOTAS SIN INTERÉS EN TODA LA TIENDA ✨",
-            "🚀 ENVÍOS GRATIS EN COMPRAS MAYORES A $50.000 🚀",
-            "💎 NUEVA COLECCIÓN SAIL & LEGACY YA DISPONIBLE 💎"
-        ];
-        let i = 0;
-        bannerText.innerText = ads[0];
-        banner.classList.remove('hidden');
-        setInterval(() => {
-            i = (i + 1) % ads.length;
-            bannerText.innerText = ads[i];
-        }, 5000);
-    }
 });
 
 async function fetchProducts() {
