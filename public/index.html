@@ -3,42 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLAMOURS | El Futuro de la Venta Inteligente</title>
-    <!-- Tailwind CSS (CDN for prototype) -->
+    <title>GLAMOURS | Editorial Tech Fashion</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
-    <!-- FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        brand: {
-                            orange: '#ff6b35',
-                            peach: '#ffb5a7',
-                            yellow: '#f4d35e',
-                            dark: '#2d3142',
-                            light: '#f8f9fa'
-                        }
-                    },
-                    backgroundImage: {
-                        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-                    }
-                }
-            }
-        }
-    </script>
     <style>
-        /* Minimalist Sail-like Styles */
         body {
             background: linear-gradient(180deg, #bae6fd 0%, #7dd3fc 100%);
             background-attachment: fixed;
@@ -49,148 +21,6 @@
             margin: 0;
         }
 
-        .image-frame {
-            position: relative;
-            border: 2px solid rgba(12, 28, 77, 0.1);
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 40px;
-            padding: 12px;
-            box-shadow: 0 20px 40px rgba(12, 28, 77, 0.1);
-            transition: all 0.4s ease;
-            overflow: hidden;
-        }
-
-        /* Efecto de fusión profunda con el fondo */
-        .image-frame::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: 40px;
-            /* Sombra interna para fundir la imagen */
-            box-shadow: inset 0 0 80px 40px #bae6fd; 
-            pointer-events: none;
-            z-index: 2;
-        }
-
-        .image-frame {
-            position: relative;
-            background: transparent !important;
-            border: none !important;
-            border-radius: 40px;
-            overflow: hidden;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(12, 28, 77, 0.1);
-            border-radius: 40px;
-            box-shadow: 0 20px 50px rgba(12, 28, 77, 0.05);
-        }
-
-        header {
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-            transition: all 0.3s ease;
-            background: rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-container {
-            position: relative;
-            width: 100%;
-            padding-top: 20px; /* Al límite superior */
-            padding-bottom: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            background: transparent !important;
-        }
-
-        .hero-badge {
-            background: rgba(12, 28, 77, 0.05);
-            color: #0c1c4d;
-            border: 1px solid rgba(12, 28, 77, 0.2);
-            padding: 8px 16px;
-            border-radius: 100px;
-            font-size: 10px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            display: inline-block;
-        }
-
-        .hero-title {
-            font-family: 'Inter', sans-serif;
-            font-weight: 900;
-            font-size: clamp(2.5rem, 8vw, 6rem);
-            line-height: 1.1;
-            letter-spacing: -0.04em;
-            color: #0c1c4d; /* Azul marino */
-            margin-bottom: 25px;
-            text-transform: none;
-        }
-
-        .hero-desc {
-            max-width: 700px;
-            font-size: 18px;
-            line-height: 1.5;
-            color: #4b5563; /* Gris oscuro legible */
-            margin-bottom: 40px;
-            text-transform: none;
-            letter-spacing: -0.01em;
-        }
-
-        /* Botón Estilo Lissr Light */
-        .lissr-button {
-            background: #0c1c4d;
-            color: white;
-            padding: 18px 40px;
-            border-radius: 100px;
-            font-weight: 600;
-            font-size: 16px;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(12, 28, 77, 0.3);
-        }
-
-        .lissr-button:hover {
-            transform: translateY(-5px);
-            background: #1e3a8a;
-        }
-
-        .lissr-button i {
-            font-size: 14px;
-        }
-
-        .hero-image-card {
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 60px;
-            border-radius: 40px;
-            overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
-            background: #f4f4f4;
-            transition: transform 0.5s ease;
-        }
-
-        .hero-image-card:hover {
-            transform: translateY(-10px);
-        }
-
-        #hero-bg {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        /* Animación de Esfera para el Logo */
         @keyframes rotateSphere {
             from { transform: rotateY(0deg); }
             to { transform: rotateY(360deg); }
@@ -206,613 +36,192 @@
             background: #0c1c4d !important;
             border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
             padding: 10px 0;
-            transition: top 0.3s ease; /* Para cuando aparece el banner */
-        }
-
-        /* Ajuste de Banner */
-        #top-banner-container:not(.hidden) + #main-header {
-            top: 32px; /* Altura aproximada del banner */
-        }
-        
-        .nav-link {
-            color: rgba(255, 255, 255, 0.8) !important;
-        }
-        .nav-link:hover {
-            color: #ffffff !important;
-        }
-
-        .category-card {
-            position: relative;
-            overflow: hidden;
-            aspect-ratio: 4/5;
-            cursor: pointer;
-            border-radius: 40px;
-            background: rgba(255,255,255,0.5);
-            border: 1px solid rgba(255,255,255,0.4);
-            transition: all 0.5s ease;
-        }
-        
-        .category-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            padding: 20px;
-        }
-
-        .category-card:hover img {
-            transform: scale(1.05);
-        }
-
-        .category-overlay {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
-            display: flex;
-            align-items: flex-end;
-            padding: 30px;
-            transition: background 0.3s ease;
-        }
-
-        .pill-button {
-            border-radius: 0px;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-size: 10px;
-            font-weight: 800;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .pill-button:hover {
-            background-color: #333;
-            letter-spacing: 5px;
+            transition: top 0.3s ease;
         }
 
         .nav-link {
-            position: relative;
+            color: rgba(255, 255, 255, 0.7) !important;
             text-transform: uppercase;
-            font-size: 10px;
+            font-size: 11px;
             letter-spacing: 2px;
-            font-weight: 700;
-        }
-        
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 1px;
-            bottom: -4px;
-            left: 0;
-            background-color: #000;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
-        .nav-link:hover::after {
-            width: 100%;
-        }
+        .nav-link:hover { color: #ffffff !important; }
 
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            font-size: 9px;
-            letter-spacing: 4px;
-            color: #ccc;
-            text-transform: uppercase;
-            animation: bounce 2s infinite;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
-            40% {transform: translateY(-5px) translateX(-50%);}
-            60% {transform: translateY(-3px) translateX(-50%);}
-        }
-
-        .fade-in-up {
-            animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        @keyframes fadeInUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px) scale(0.98);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        .hero-image-card {
-            width: 100%;
-            max-width: 1100px;
-            margin-top: 60px;
+        .image-frame {
+            position: relative;
+            background: transparent !important;
+            border: none !important;
             border-radius: 40px;
             overflow: hidden;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.1);
-            background: #f4f4f4;
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: translateY(0);
         }
 
-        .hero-image-card:hover {
-            transform: translateY(-15px) scale(1.01);
-            box-shadow: 0 50px 120px rgba(0,0,0,0.15);
-        }
-
-        .delay-100 { animation-delay: 0.1s; }
-        .delay-200 { animation-delay: 0.2s; }
-        .delay-300 { animation-delay: 0.3s; }
-        .delay-400 { animation-delay: 0.4s; }
-        .delay-500 { animation-delay: 0.5s; }
-        
-        /* Shine Animation for the Bar */
-        @keyframes shine {
-            0% { transform: translateX(-100%) skewX(-15deg); }
-            30%, 100% { transform: translateX(200%) skewX(-15deg); }
-        }
-        .animate-shine {
-            position: relative;
-            overflow: hidden;
-        }
-        .animate-shine::after {
+        .image-frame::after {
             content: '';
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 30%;
-            height: 100%;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.2), transparent);
-            animation: shine 4s infinite linear;
+            inset: 0;
+            border-radius: 40px;
+            box-shadow: inset 0 0 40px 20px #bae6fd; 
+            pointer-events: none;
+            z-index: 2;
         }
+
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+        .fade-in-up { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s forwards; }
+
+        @keyframes slide-left { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .animate-slide-left { animation: slide-left 0.3s ease-out; }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden relative">
+<body class="antialiased">
 
-    <!-- Top Dynamic Banner -->
-    <div id="top-banner-container" class="hidden bg-black text-white py-2.5 animate-shine relative z-[60]">
-        <p id="top-banner-text" class="text-[9px] md:text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
+    <div id="top-banner-container" class="hidden bg-[#0c1c4d] text-white py-2 relative z-[60]">
+        <p id="top-banner-text" class="text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
     </div>
 
-    <!-- Navbar -->
     <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-header px-6 md:px-16 flex items-center justify-between">
-        <!-- Logo Esférico 3D -->
         <div class="flex items-center gap-4">
             <div class="logo-sphere">
-                <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-20 w-20 rounded-full object-cover shadow-2xl border-2 border-white/50 bg-white">
+                <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-20 w-20 rounded-full object-cover border-2 border-white/50 bg-white">
             </div>
             <span class="font-serif font-bold text-3xl tracking-tight text-white">Glamour's</span>
         </div>
 
-        <!-- Navigation (Desktop) -->
-        <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-[11px] font-bold tracking-widest uppercase">
-            <a href="index.html" class="nav-link text-white">Home</a>
-            <a href="promociones.html" class="nav-link text-white/50 hover:text-white">Promociones</a>
-            <a href="novedades.html" class="nav-link text-white/50 hover:text-white">Novedades</a>
-            <a href="contacto.html" class="nav-link text-white/50 hover:text-white">Contacto</a>
+        <nav class="hidden md:flex px-8 py-3 items-center gap-8 text-white">
+            <a href="index.html" class="nav-link !text-white border-b border-white/30">Home</a>
+            <a href="promociones.html" class="nav-link">Promociones</a>
+            <a href="novedades.html" class="nav-link">Novedades</a>
+            <a href="contacto.html" class="nav-link">Contacto</a>
         </nav>
 
-        <!-- Icons -->
         <div class="flex items-center gap-6">
-            <div class="relative cursor-pointer group" onclick="toggleCart()">
-                <i class="fa-solid fa-cart-shopping text-[#00d2ff] text-xl group-hover:scale-110 transition"></i>
+            <div class="relative cursor-pointer" onclick="toggleCart()">
+                <i class="fa-solid fa-cart-shopping text-[#00d2ff] text-xl"></i>
                 <span id="cart-count" class="absolute -top-2 -right-2 bg-[#00d2ff] text-[#0c1c4d] text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center border-2 border-[#0c1c4d]">0</span>
             </div>
-            <div id="user-menu" class="flex items-center gap-4">
-                <button onclick="openAuthModal()" class="text-[#00d2ff] hover:text-white transition text-sm font-medium flex items-center gap-2">
-                    <i class="fa-solid fa-user"></i>
-                    <span class="hidden sm:inline">Login</span>
-                </button>
-            </div>
+            <button id="user-btn" onclick="openAuthModal()" class="text-[#00d2ff] text-sm font-medium flex items-center gap-2">
+                <i class="fa-solid fa-user"></i>
+                <span class="hidden sm:inline">Login</span>
+            </button>
         </div>
     </header>
 
-    <!-- Brands Infinite Carousel (Top Position) -->
-    <div class="pt-16"> <!-- Reducido al máximo -->
-        <section class="w-full py-1 overflow-hidden fade-in-up bg-white/5 border-b border-white/10">
-            <div class="brand-marquee-container">
-                <div class="brand-marquee-track">
-                    <div class="brand-block text-blue-900">SAIL</div>
-                    <div class="brand-block text-blue-900">47 STREET</div>
-                    <div class="brand-block text-blue-900">LEGACY</div>
-                    <div class="brand-block text-blue-900">OWOKO</div>
-                    <!-- Duplicados para el loop -->
-                    <div class="brand-block text-blue-900">SAIL</div>
-                    <div class="brand-block text-blue-900">47 STREET</div>
-                    <div class="brand-block text-blue-900">LEGACY</div>
-                    <div class="brand-block text-blue-900">OWOKO</div>
+    <!-- Main Content -->
+    <main class="pt-32 pb-20">
+        <!-- Hero Section -->
+        <section class="px-6 md:px-16 max-w-7xl mx-auto mb-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="fade-in-up">
+                    <span class="text-[10px] font-bold tracking-[0.4em] uppercase text-blue-900/40">Exclusividad 2026</span>
+                    <h1 class="font-serif text-6xl md:text-8xl font-bold mt-4 leading-[0.9]">Elegancia<br><span class="text-white">Absoluta</span></h1>
+                    <p class="mt-8 text-blue-900/60 max-w-md leading-relaxed">Moda multimarcas seleccionada para quienes buscan el equilibrio entre lo urbano y lo sofisticado.</p>
+                </div>
+                <div class="image-frame fade-in-up delay-300">
+                    <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" class="w-full h-[600px] object-cover rounded-[40px]">
                 </div>
             </div>
         </section>
-    </div>
 
-    <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 bg-black text-white z-[100] flex flex-col items-center justify-center gap-10 text-2xl font-serif font-bold transform translate-x-full transition-transform duration-500 md:hidden">
-        <button id="close-menu-btn" class="absolute top-8 right-8 text-4xl text-gray-400 hover:text-white transition">
-            <i class="fa-solid fa-xmark"></i>
-        </button>
-        <a href="index.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Home</a>
-        <a href="promociones.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Promociones</a>
-        <a href="novedades.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Novedades</a>
-        <a href="contacto.html" class="tracking-[0.2em] uppercase text-sm hover:text-gray-400 transition" onclick="toggleMenu()">Contacto</a>
-        
-        <!-- Social Icons in Mobile Menu -->
-        <div class="flex gap-8 mt-10">
-            <a href="https://www.instagram.com/glamoursok/" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-instagram"></i></a>
-            <a href="https://wa.me/5491122618116" target="_blank" class="text-xl text-gray-400"><i class="fa-brands fa-whatsapp"></i></a>
-        </div>
-    </div>
-
-    <!-- Hero Section: Editorial Impact -->
-    <main class="hero-container px-6 md:px-16">
-        <!-- Badge Superior con Glow -->
-        <div class="hero-badge fade-in-up bg-white/50 backdrop-blur-md border border-white/40 shadow-sm">Colección Exclusiva 2026</div>
-
-        <!-- Título Monumental -->
-        <h1 id="hero-title" class="hero-title fade-in-up delay-100">
-            Elegancia<br>Absoluta
-        </h1>
-
-        <!-- Descripción Centrada -->
-        <p id="hero-desc" class="hero-desc fade-in-up delay-200">
-            Explora una selección curada de las mejores marcas nacionales. Diseño atemporal para quienes buscan destacar con sofisticación.
-        </p>
-
-        <!-- Texto Editorial (Sin botones) -->
-        <div class="fade-in-up delay-300">
-            <span class="text-blue-900/40 font-bold tracking-[0.3em] uppercase text-[10px]">Colección Verano 2026</span>
-        </div>
-
-        <!-- Imagen Card con Glassmorphism -->
-        <div class="hero-image-card fade-in-up delay-500 image-frame">
-            <div class="rounded-[32px] overflow-hidden bg-white/20">
-                <img id="hero-bg" src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=1200&q=80" alt="Glamours Showcase" class="w-full h-auto">
+        <!-- Portada Products -->
+        <section class="px-6 md:px-16 max-w-7xl mx-auto">
+            <div class="flex flex-col items-center mb-16">
+                <h2 class="text-[10px] font-bold tracking-[0.5em] text-blue-900/40 uppercase mb-2">Selección</h2>
+                <h3 class="font-serif text-4xl text-blue-900">Destacados de Temporada</h3>
             </div>
-        </div>
+            <div id="grid-portada" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                <!-- Portada items -->
+            </div>
+        </section>
     </main>
 
-    <!-- Categories Grid (Visual Impact) -->
-    <section class="py-8 px-6 md:px-16 max-w-7xl mx-auto bg-transparent">
-        <div class="flex flex-col items-center mb-16">
-            <h2 class="text-[10px] font-bold tracking-[0.5em] text-blue-900/60 uppercase mb-2">Explorar</h2>
-            <h3 class="font-serif text-3xl md:text-4xl text-center text-blue-900">Nuestras Categorías</h3>
-        </div>
-        
-        <div id="grid-categorias" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <!-- Categoria 1 -->
-            <div class="category-card fade-in-up image-frame">
-                <img id="cat-img-1" src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?w=600&q=80" alt="Mujer">
-                <div class="category-overlay">
-                    <div>
-                        <h4 id="cat-name-1" class="text-white font-serif text-2xl mb-2">Mujer</h4>
-                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Categoria 2 -->
-            <div class="category-card fade-in-up delay-100 image-frame">
-                <img id="cat-img-2" src="https://images.unsplash.com/photo-1488161628813-04466f872be2?w=600&q=80" alt="Hombre">
-                <div class="category-overlay">
-                    <div>
-                        <h4 id="cat-name-2" class="text-white font-serif text-2xl mb-2">Hombre</h4>
-                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Categoria 3 -->
-            <div class="category-card fade-in-up delay-200 image-frame">
-                <img id="cat-img-3" src="https://images.unsplash.com/photo-1519234221762-f9e2786961ee?w=600&q=80" alt="Niños">
-                <div class="category-overlay">
-                    <div>
-                        <h4 id="cat-name-3" class="text-white font-serif text-2xl mb-2">Niños</h4>
-                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Categoria 4 -->
-            <div class="category-card fade-in-up delay-300 image-frame">
-                <img id="cat-img-4" src="https://images.unsplash.com/photo-1509319117193-57bab727e09d?w=600&q=80" alt="Accesorios">
-                <div class="category-overlay">
-                    <div>
-                        <h4 id="cat-name-4" class="text-white font-serif text-2xl mb-2">Accesorios</h4>
-                        <a href="novedades.html" class="text-white/70 text-[10px] tracking-[0.3em] uppercase hover:text-white transition">Comprar Ahora</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-
-    <style>
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-33.33%); }
-        }
-
-        .brand-marquee-container {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .brand-marquee-track {
-            display: inline-flex;
-            gap: 20px;
-            animation: scroll 40s linear infinite;
-        }
-
-        .brand-block {
-            flex: 0 0 auto;
-            min-width: 150px;
-            height: 40px; /* Más angosta */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 14px; /* Tamaño de letra */
-            font-weight: 800;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
-            border-radius: 100px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            padding: 0 20px;
-        }
-
-        .brand-block:hover {
-            background: rgba(255, 255, 255, 0.4);
-            transform: scale(1.05);
-            border-color: rgba(12, 28, 77, 0.2);
-        }
-
-        @keyframes scroll-line {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(100%); }
-        }
-    </style>
-
-    <!-- Manual Featured Products Section -->
-    <section id="featured-products" class="py-20 px-6 md:px-16 max-w-7xl mx-auto">
-        <div class="flex flex-col items-center mb-16">
-            <h2 class="text-[10px] font-bold tracking-[0.5em] text-gray-400 uppercase mb-2">Selección Exclusiva</h2>
-            <h3 class="font-serif text-3xl md:text-4xl text-center">Destacados de Temporada</h3>
-        </div>
-        <div id="grid-portada" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-4 gap-y-12">
-            <!-- Solo productos con 'portada: true' aparecerán aquí -->
-        </div>
-    </section>
-
-
-
-    <!-- Footer / Contact -->
-    <footer id="contacto" class="mt-20 border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="col-span-1 md:col-span-1">
-                <div class="flex items-center gap-3 mb-4">
-                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover shadow-md border-2 border-white/20 hover:scale-105 transition">
-                    <span class="font-serif font-bold text-2xl tracking-tight text-white">Glamour's</span>
-                </div>
-                <p class="text-sm text-white/70 leading-relaxed">
-                    Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana y looks para todos los días en Luján.
-                </p>
-            </div>
-            
-            <div class="md:col-span-1">
-                <h4 class="font-bold mb-4 font-serif text-lg text-white">Visítanos</h4>
-                <ul class="text-sm text-white/70 space-y-2 mb-4">
-                    <li class="flex gap-2"><i class="fa-solid fa-location-dot mt-1 text-white"></i> Italia 1037, Luján</li>
-                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-white"></i> Lun a Vie: 9–13 / 16:30–20:30</li>
-                    <li class="flex gap-2"><i class="fa-regular fa-clock mt-1 text-white opacity-0"></i> Sáb: 10–13 / 16–20</li>
-                </ul>
-                <div class="w-full h-32 rounded-lg overflow-hidden shadow-inner border border-black/5">
-                    <iframe src="https://maps.google.com/maps?width=100%25&amp;height=100%25&amp;hl=es&amp;q=Italia%201037,%20Luj%C3%A1n,%20Buenos%20Aires&amp;t=&amp;z=15&amp;ie=UTF8&amp;iwloc=B&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
-            </div>
-
-            <div class="md:col-span-1">
-                <h4 class="font-bold mb-4 font-serif text-lg">Contáctanos</h4>
-                <a href="https://wa.me/5491122618116" target="_blank" class="pill-button w-full bg-[#25D366] text-white px-4 py-3 text-sm font-semibold flex items-center justify-center gap-2 hover:bg-[#128C7E] shadow-lg shadow-[#25D366]/20 transition">
-                    <i class="fa-brands fa-whatsapp text-xl"></i> Consultas por WhatsApp
-                </a>
-                <div class="flex gap-4 mt-6">
-                    <a href="https://www.instagram.com/glamoursok/" target="_blank" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition">
-                        <i class="fa-brands fa-instagram text-lg"></i>
-                    </a>
-                    <a href="#" class="w-10 h-10 rounded-full glass-card flex items-center justify-center text-gray-700 hover:text-brand-orange hover:bg-white transition">
-                        <i class="fa-brands fa-facebook-f text-lg"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="text-center text-xs text-gray-500 mt-12 pt-8 border-t border-black/5">
-            &copy; 2026 GLAMOURS Multimarcas. Todos los derechos reservados.
+    <!-- Footer -->
+    <footer class="border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+            <div><span class="font-serif font-bold text-2xl">Glamour's</span><p class="text-white/40 text-sm mt-2">Italia 1037, Luján.</p></div>
+            <div><h4 class="font-bold mb-4">Secciones</h4><div class="flex flex-col gap-2 text-white/60 text-sm"><a href="novedades.html">Novedades</a><a href="promociones.html">Ofertas</a></div></div>
+            <div><h4 class="font-bold mb-4">Canales</h4><a href="https://wa.me/5491122618116" class="bg-[#25D366] text-white px-6 py-2 rounded-full inline-block font-bold">WhatsApp</a></div>
         </div>
     </footer>
 
-
-    <!-- App JS y lógica del Home -->
-    <script src="js/app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                // Load Portada Content
-                const res = await fetch('/api/config');
-                const config = await res.json();
-                
-                // Top Banner
-                if (config.topBanner) {
-                    document.getElementById('top-banner-text').innerText = config.topBanner;
-                    document.getElementById('top-banner-container').classList.remove('hidden');
-                }
-
-                if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
-                if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
-                if (config.heroImage) {
-                    document.getElementById('hero-bg').src = config.heroImage;
-                }
-
-                // Categories
-                if (config.cat1Name) document.getElementById('cat-name-1').innerText = config.cat1Name;
-                if (config.cat1Img) document.getElementById('cat-img-1').src = config.cat1Img;
-                if (config.cat2Name) document.getElementById('cat-name-2').innerText = config.cat2Name;
-                if (config.cat2Img) document.getElementById('cat-img-2').src = config.cat2Img;
-                if (config.cat3Name) document.getElementById('cat-name-3').innerText = config.cat3Name;
-                if (config.cat3Img) document.getElementById('cat-img-3').src = config.cat3Img;
-                if (config.cat4Name) document.getElementById('cat-name-4').innerText = config.cat4Name;
-                if (config.cat4Img) document.getElementById('cat-img-4').src = config.cat4Img;
-
-                // Featured Products
-                const resP = await fetch('/api/productos');
-                const allP = await resP.json();
-                const grid = document.getElementById('grid-portada');
-                const featured = allP.filter(p => p.portada === true);
-                
-                if (grid && featured.length > 0) {
-                    grid.innerHTML = featured.map(p => createProductCard(p)).join('');
-                } else if (document.getElementById('featured-products')) {
-                    document.getElementById('featured-products').classList.add('hidden');
-                }
-            } catch (e) { console.error("Error cargando Home:", e); }
-        });
-    </script>
+    <!-- Modals -->
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] flex items-center justify-end hidden">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col animate-slide-left">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h2 class="font-serif text-2xl font-bold text-[#0c1c4d]">Tu Carrito</h2>
+                <button onclick="closeCartView()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div id="cart-items-list" class="flex-1 overflow-y-auto p-6"></div>
+            <div class="p-8 bg-gray-50 border-t border-blue-900/10">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-blue-900/40 font-medium">Total Estimado</span>
+                    <span id="cart-total" class="text-2xl font-black text-[#00d2ff]">$0.00</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition shadow-xl">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Quick View Modal -->
-    <div id="quick-view-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] flex items-center justify-center hidden p-4">
-        <div class="glass-card bg-white/90 w-full max-w-2xl overflow-hidden shadow-2xl relative">
-            <button id="close-quick-view" onclick="closeModal()" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center rounded-full bg-black/5 text-gray-500 hover:bg-black hover:text-white transition z-10">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-            
+    <div id="quick-view-modal" class="fixed inset-0 bg-[#0c1c4d]/60 backdrop-blur-sm z-[200] flex items-center justify-center hidden p-4">
+        <div class="bg-white w-full max-w-4xl overflow-hidden rounded-[40px] shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-blue-50 text-[#0c1c4d] hover:bg-[#0c1c4d] hover:text-white transition-all z-50"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="grid grid-cols-1 md:grid-cols-2">
-                <!-- Image Side -->
-                <div class="h-64 md:h-[450px] bg-white">
-                    <img id="quick-view-image" src="" alt="Product" class="w-full h-full object-cover">
-                </div>
-                <!-- Content Side -->
-                <div class="p-8 flex flex-col justify-center">
-                    <p id="quick-view-brand" class="text-xs font-bold text-brand-orange uppercase tracking-widest mb-2">GLAMOURS</p>
-                    <h2 id="quick-view-name" class="font-serif text-3xl font-bold mb-4">Nombre del Producto</h2>
-                    <p id="quick-view-price" class="text-2xl font-bold text-gray-900 mb-6">$0.00</p>
-                    
-                    <div class="space-y-4 mb-8">
-                        <h4 class="text-xs font-bold uppercase text-gray-400">Descripción</h4>
-                        <p id="quick-view-description" class="text-gray-600 text-sm leading-relaxed">
-                            Cargando descripción...
-                        </p>
+                <div class="h-64 md:h-[600px] bg-white p-8"><img id="quick-view-image" src="" class="w-full h-full object-contain rounded-[30px]"></div>
+                <div class="p-10 flex flex-col justify-center bg-gray-50/50">
+                    <p id="quick-view-brand" class="text-[10px] font-bold text-[#0c1c4d]/40 uppercase tracking-[0.4em] mb-3">GLAMOURS</p>
+                    <h2 id="quick-view-name" class="font-serif text-4xl font-bold text-[#0c1c4d] mb-4Leading-tight">Producto</h2>
+                    <p id="quick-view-price" class="text-4xl font-black text-[#00d2ff] mb-8">$0.00</p>
+                    <div class="space-y-6 mb-8">
+                        <div id="quick-view-sizes-container"><p class="text-[10px] font-bold text-[#0c1c4d]/60 uppercase mb-2">Talles</p><div id="quick-view-sizes" class="flex flex-wrap gap-2"></div></div>
+                        <div id="quick-view-colors-container"><p class="text-[10px] font-bold text-[#0c1c4d]/60 uppercase mb-2">Colores</p><div id="quick-view-colors" class="flex flex-wrap gap-2"></div></div>
+                        <p id="quick-view-description" class="text-[#0c1c4d]/60 text-sm leading-relaxed"></p>
                     </div>
-
-                    <div id="quick-view-sizes-container" class="mb-6 hidden">
-                        <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Talles Disponibles</h4>
-                        <div id="quick-view-sizes" class="flex flex-wrap gap-2"></div>
-                    </div>
-
-                    <div id="quick-view-colors-container" class="mb-8 hidden">
-                        <h4 class="text-xs font-bold uppercase text-gray-400 mb-2">Colores</h4>
-                        <div id="quick-view-colors" class="flex flex-wrap gap-2"></div>
-                    </div>
-                    
-                    <div class="flex gap-4">
-                        <button class="flex-1 pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-lg shadow-black/10" onclick="addToCartFromModal()">
-                            Añadir al Carrito
-                        </button>
-                        <button class="w-14 h-14 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 hover:text-brand-orange hover:border-brand-orange transition" onclick="toggleWishlist(this)">
-                            <i class="fa-solid fa-heart"></i>
-                        </button>
-                    </div>
+                    <button class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition-all" onclick="addToCartFromModal()">Añadir al Carrito</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Auth Modal -->
-    <div id="auth-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[110] flex items-center justify-center hidden p-4">
-        <div class="glass-card bg-white/95 w-full max-w-md p-8 shadow-2xl relative">
-            <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-gray-400 hover:text-black">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            
-            <!-- Login Section -->
+    <div id="auth-modal" class="fixed inset-0 bg-[#0c1c4d]/90 backdrop-blur-md z-[300] flex items-center justify-center hidden p-4">
+        <div class="bg-white w-full max-w-md rounded-[40px] p-10 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div id="login-section">
-                <h2 class="font-serif text-3xl font-bold mb-2">Bienvenido</h2>
-                <p class="text-gray-500 mb-8 text-sm">Inicia sesión para continuar con tu compra.</p>
+                <h2 class="font-serif text-3xl font-bold text-[#0c1c4d] mb-6">Ingresar</h2>
                 <form id="login-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Contraseña</label>
-                        <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">
-                        Ingresar
-                    </button>
+                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <button type="submit" class="w-full bg-[#0c1c4d] text-white py-4 rounded-xl font-bold">Ingresar</button>
                 </form>
-                <p class="text-center mt-6 text-sm text-gray-500">
-                    ¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Regístrate</a>
-                </p>
+                <p class="text-center mt-6 text-sm">¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-[#00d2ff] font-bold">Regístrate</a></p>
             </div>
-            
-            <!-- Register Section -->
             <div id="register-section" class="hidden">
-                <h2 class="font-serif text-3xl font-bold mb-2">Crear Cuenta</h2>
-                <p class="text-gray-500 mb-8 text-sm">Únete a GLAMOURS y disfruta de beneficios exclusivos.</p>
+                <h2 class="font-serif text-3xl font-bold text-[#0c1c4d] mb-6">Crear Cuenta</h2>
                 <form id="register-form" class="space-y-4">
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Nombre Completo</label>
-                        <input type="text" name="nombre" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Email</label>
-                        <input type="email" name="email" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold uppercase text-gray-400 mb-1">Contraseña</label>
-                        <input type="password" name="password" required class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-brand-orange outline-none transition">
-                    </div>
-                    <button type="submit" class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition">
-                        Registrarse
-                    </button>
+                    <input type="text" name="nombre" placeholder="Nombre" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <button type="submit" class="w-full bg-[#0c1c4d] text-white py-4 rounded-xl font-bold">Registrarse</button>
                 </form>
-                <p class="text-center mt-6 text-sm text-gray-500">
-                    ¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-brand-orange font-bold hover:underline">Inicia sesión</a>
-                </p>
+                <p class="text-center mt-6 text-sm">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-[#00d2ff] font-bold">Inicia sesión</a></p>
             </div>
         </div>
     </div>
 
-    <!-- Cart Modal -->
-    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] flex items-center justify-end hidden">
-        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col animate-slide-left">
-            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
-                <h2 class="font-serif text-2xl font-bold">Tu Carrito</h2>
-                <button onclick="closeCartView()" class="text-gray-400 hover:text-black">
-                    <i class="fa-solid fa-xmark text-xl"></i>
-                </button>
-            </div>
-            
-            <div id="cart-items-list" class="flex-1 overflow-y-auto p-6">
-                <!-- Cart items will be injected here -->
-            </div>
-            
-            <div class="p-8 bg-gray-50 border-t border-gray-100">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="text-gray-500 font-medium">Total Estimado</span>
-                    <span id="cart-total" class="text-2xl font-bold text-brand-orange">$0.00</span>
-                </div>
-                <button class="w-full pill-button bg-black text-white py-4 font-bold hover:bg-brand-orange transition shadow-xl">
-                    Finalizar Compra
-                </button>
-            </div>
-        </div>
-    </div>
-
-
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('/api/productos').then(res => res.json()).then(products => {
+                window.allProducts = products;
+                const grid = document.getElementById('grid-portada');
+                if(grid) {
+                    const featured = products.filter(p => p.portada);
+                    grid.innerHTML = featured.map(p => createProductCard(p)).join('');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

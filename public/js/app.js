@@ -131,24 +131,10 @@ function updateUIForUser() {
             userBtn.innerHTML = `<i class="fa-solid fa-user-check text-[#00d2ff]"></i> <span class="hidden md:inline ml-1 text-white">${currentUser.nombre.split(' ')[0]}</span>`;
             userBtn.onclick = () => { if(confirm("¿Cerrar sesión?")) logoutUser(); };
         }
-        if (signupBtn) {
-            signupBtn.innerText = 'Logout';
-            signupBtn.onclick = logoutUser;
-            signupBtn.className = "hidden lg:block pill-button bg-red-500 text-white px-6 py-2.5 font-semibold hover:bg-red-600 transition cursor-pointer";
-        }
     } else {
         if (userBtn) {
             userBtn.innerHTML = `<i class="fa-solid fa-user text-[#00d2ff]"></i> <span class="hidden md:inline ml-1 text-white">Login</span>`;
             userBtn.onclick = openAuthModal;
-        }
-        if (signupBtn) {
-            signupBtn.innerText = 'Sign Up';
-            signupBtn.onclick = () => { 
-                openAuthModal(); 
-                const regSection = document.getElementById('register-section');
-                if(regSection && regSection.classList.contains('hidden')) toggleAuthMode(); 
-            };
-            signupBtn.className = "hidden lg:block pill-button bg-brand-orange text-white px-6 py-2.5 font-semibold hover:bg-orange-600 transition cursor-pointer";
         }
     }
 }
@@ -224,23 +210,25 @@ function openCartView() {
     let total = 0;
     
     if (cart.length === 0) {
-        listEl.innerHTML = '<p class="text-center py-12 text-gray-400">Carrito vacío</p>';
+        listEl.innerHTML = '<p class="text-center py-12 text-blue-900/40">Tu carrito está esperando ser llenado.</p>';
     } else {
         cart.forEach(item => {
             total += item.precio * item.cantidad;
             listEl.innerHTML += `
                 <div class="flex items-center gap-4 py-4 border-b border-blue-900/10">
-                    <img src="${item.imagenes[0]}" class="w-16 h-16 object-cover rounded-xl border border-blue-900/5">
+                    <div class="w-16 h-16 rounded-xl overflow-hidden bg-white border border-blue-900/5">
+                        <img src="${item.imagenes[0]}" class="w-full h-full object-contain">
+                    </div>
                     <div class="flex-1">
                         <h4 class="font-bold text-sm text-[#0c1c4d] leading-tight">${item.nombre}</h4>
                         <p class="text-[#00d2ff] font-black text-sm">$${item.precio}</p>
                         <div class="flex items-center gap-2 mt-2">
-                            <button onclick="updateQuantity('${item.id}', ${item.cantidad - 1})" class="w-6 h-6 rounded-full bg-[#0c1c4d] text-white hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition">-</button>
+                            <button onclick="updateQuantity('${item.id}', ${item.cantidad - 1})" class="w-6 h-6 rounded-full bg-[#0c1c4d] text-white hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition text-[10px]">-</button>
                             <span class="text-xs font-bold w-4 text-center text-[#0c1c4d]">${item.cantidad}</span>
-                            <button onclick="updateQuantity('${item.id}', ${item.cantidad + 1})" class="w-6 h-6 rounded-full bg-[#0c1c4d] text-white hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition">+</button>
+                            <button onclick="updateQuantity('${item.id}', ${item.cantidad + 1})" class="w-6 h-6 rounded-full bg-[#0c1c4d] text-white hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition text-[10px]">+</button>
                         </div>
                     </div>
-                    <button onclick="removeFromCart('${item.id}')" class="text-blue-900/30 hover:text-red-500 transition">
+                    <button onclick="removeFromCart('${item.id}')" class="text-blue-900/20 hover:text-red-500 transition">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
                 </div>`;
@@ -250,6 +238,9 @@ function openCartView() {
     modal.classList.remove('hidden');
     modal.style.display = 'flex';
 }
+
+// Alias para compatibilidad con botones de toggle
+window.toggleCart = openCartView;
 
 function closeCartView() { 
     const m = document.getElementById('cart-modal'); 
@@ -324,36 +315,41 @@ function showModal(product) {
     window.currentViewedId = product.id;
     const m = document.getElementById('quick-view-modal');
     if (!m) return;
+    
+    // Elementos básicos
     document.getElementById('quick-view-image').src = product.imagenes[0];
-    document.getElementById('quick-view-image').style.objectFit = 'contain';
-    document.getElementById('quick-view-image').style.backgroundColor = '#f9f9f9';
+    document.getElementById('quick-view-brand').innerText = product.marca || 'GLAMOURS';
     document.getElementById('quick-view-name').innerText = product.nombre;
     document.getElementById('quick-view-price').innerText = '$' + product.precio;
-    document.getElementById('quick-view-description').innerText = product.descripcion || 'Elegancia y estilo en cada detalle.';
+    document.getElementById('quick-view-description').innerText = product.descripcion || 'Diseño exclusivo de temporada.';
     
     // Talles
     const sizesContainer = document.getElementById('quick-view-sizes-container');
     const sizesList = document.getElementById('quick-view-sizes');
-    if (sizesContainer && sizesList) {
+    if (sizesList) {
         if (product.talles) {
             const talles = product.talles.split(',').map(t => t.trim());
-            sizesList.innerHTML = talles.map(t => `<span class="px-3 py-1 border rounded-md text-xs font-bold hover:bg-black hover:text-white transition cursor-pointer">${t}</span>`).join('');
-            sizesContainer.classList.remove('hidden');
+            sizesList.innerHTML = talles.map(t => `
+                <span class="px-4 py-2 border border-blue-900/10 rounded-xl text-xs font-bold text-[#0c1c4d] hover:bg-[#0c1c4d] hover:text-white transition cursor-pointer uppercase">${t}</span>
+            `).join('');
+            if(sizesContainer) sizesContainer.classList.remove('hidden');
         } else {
-            sizesContainer.classList.add('hidden');
+            if(sizesContainer) sizesContainer.classList.add('hidden');
         }
     }
 
     // Colores
     const colorsContainer = document.getElementById('quick-view-colors-container');
     const colorsList = document.getElementById('quick-view-colors');
-    if (colorsContainer && colorsList) {
+    if (colorsList) {
         if (product.colores) {
             const colores = product.colores.split(',').map(c => c.trim());
-            colorsList.innerHTML = colores.map(c => `<span class="px-3 py-1 border rounded-md text-xs font-bold hover:bg-black hover:text-white transition cursor-pointer">${c}</span>`).join('');
-            colorsContainer.classList.remove('hidden');
+            colorsList.innerHTML = colores.map(c => `
+                <span class="px-4 py-2 border border-blue-900/10 rounded-xl text-xs font-bold text-[#0c1c4d] hover:bg-[#00d2ff] transition cursor-pointer uppercase">${c}</span>
+            `).join('');
+            if(colorsContainer) colorsContainer.classList.remove('hidden');
         } else {
-            colorsContainer.classList.add('hidden');
+            if(colorsContainer) colorsContainer.classList.add('hidden');
         }
     }
 

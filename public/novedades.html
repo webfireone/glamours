@@ -49,24 +49,6 @@
         }
         .nav-link:hover { color: #ffffff !important; }
 
-        .brand-marquee-container {
-            width: 100%;
-            overflow: hidden;
-            white-space: nowrap;
-            position: relative;
-        }
-
-        .brand-marquee-track {
-            display: inline-flex;
-            gap: 20px;
-            animation: scroll 40s linear infinite;
-        }
-
-        @keyframes scroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-33.33%); }
-        }
-
         .brand-block {
             flex: 0 0 auto;
             min-width: 150px;
@@ -96,18 +78,10 @@
             position: absolute;
             inset: 0;
             border-radius: 40px;
-            /* Sombra interna reducida para páginas secundarias */
             box-shadow: inset 0 0 40px 15px #bae6fd; 
             pointer-events: none;
             z-index: 2;
         }
-
-        .fade-in-up {
-            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
         .filter-btn {
             border-radius: 100px;
@@ -118,16 +92,17 @@
             text-transform: uppercase;
             letter-spacing: 1px;
         }
+
+        @keyframes slide-left { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .animate-slide-left { animation: slide-left 0.3s ease-out; }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Top Dynamic Banner -->
-    <div id="top-banner-container" class="hidden bg-[#0c1c4d] text-white py-2 animate-shine relative z-[60]">
+    <div id="top-banner-container" class="hidden bg-[#0c1c4d] text-white py-2 relative z-[60]">
         <p id="top-banner-text" class="text-[10px] tracking-[0.3em] font-bold text-center uppercase"></p>
     </div>
 
-    <!-- Header -->
     <header id="main-header" class="fixed top-0 left-0 w-full z-50 glass-header px-6 md:px-16 flex items-center justify-between">
         <div class="flex items-center gap-4">
             <div class="logo-sphere">
@@ -148,102 +123,110 @@
                 <i class="fa-solid fa-cart-shopping text-[#00d2ff] text-xl"></i>
                 <span id="cart-count" class="absolute -top-2 -right-2 bg-[#00d2ff] text-[#0c1c4d] text-[10px] font-bold h-5 w-5 rounded-full flex items-center justify-center border-2 border-[#0c1c4d]">0</span>
             </div>
-            <button onclick="openAuthModal()" class="text-[#00d2ff] text-sm font-medium flex items-center gap-2">
+            <button id="user-btn" onclick="openAuthModal()" class="text-[#00d2ff] text-sm font-medium flex items-center gap-2">
                 <i class="fa-solid fa-user"></i>
                 <span class="hidden sm:inline">Login</span>
             </button>
         </div>
     </header>
 
-    <!-- Marquee -->
     <div class="pt-16">
         <section class="w-full py-1 overflow-hidden bg-white/5 border-b border-white/10">
-            <div class="brand-marquee-container">
-                <div class="brand-marquee-track">
-                    <div class="brand-block">SAIL</div>
-                    <div class="brand-block">47 STREET</div>
-                    <div class="brand-block">LEGACY</div>
-                    <div class="brand-block">OWOKO</div>
-                    <div class="brand-block">SAIL</div>
-                    <div class="brand-block">47 STREET</div>
-                    <div class="brand-block">LEGACY</div>
-                    <div class="brand-block">OWOKO</div>
+            <div class="brand-marquee-container overflow-hidden whitespace-nowrap">
+                <div class="flex gap-10 animate-[scroll_40s_linear_infinite]">
+                    <div class="brand-block">SAIL</div><div class="brand-block">47 STREET</div><div class="brand-block">LEGACY</div><div class="brand-block">OWOKO</div>
+                    <div class="brand-block">SAIL</div><div class="brand-block">47 STREET</div><div class="brand-block">LEGACY</div><div class="brand-block">OWOKO</div>
                 </div>
             </div>
         </section>
     </div>
 
     <main class="py-12 px-6 md:px-16 max-w-7xl mx-auto">
-        <div class="text-center mb-12 fade-in-up">
+        <div class="text-center mb-12">
             <h1 class="font-serif text-5xl font-bold mb-4">Nuevos Ingresos</h1>
-            <p class="text-blue-900/60 max-w-2xl mx-auto">Explora las últimas tendencias que acaban de llegar a nuestra tienda. Selección curada de nuestras mejores marcas.</p>
-        </div>
-
-        <!-- Filters -->
-        <div class="flex flex-wrap justify-center gap-3 mb-12 fade-in-up delay-200">
-            <button onclick="filterByMarca('all')" class="filter-btn bg-[#0c1c4d] text-white" data-marca="all">Todos</button>
-            <button onclick="filterByMarca('Sail')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="Sail">Sail</button>
-            <button onclick="filterByMarca('Legacy')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="Legacy">Legacy</button>
-            <button onclick="filterByMarca('47 Street')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="47 Street">47 Street</button>
-        </div>
-
-        <!-- Product Grid -->
-        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <div class="col-span-full py-20 text-center">
-                <i class="fa-solid fa-spinner fa-spin text-3xl mb-3 text-[#00d2ff]"></i>
-                <p>Sincronizando catálogo...</p>
+            <div class="flex flex-wrap justify-center gap-3 mt-8">
+                <button onclick="filterByMarca('all')" class="filter-btn bg-[#0c1c4d] text-white" data-marca="all">Todos</button>
+                <button onclick="filterByMarca('Sail')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="Sail">Sail</button>
+                <button onclick="filterByMarca('Legacy')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="Legacy">Legacy</button>
+                <button onclick="filterByMarca('47 Street')" class="filter-btn bg-white/30 text-[#0c1c4d] hover:bg-white/50" data-marca="47 Street">47 Street</button>
             </div>
+        </div>
+
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Products -->
         </div>
     </main>
 
     <!-- Footer -->
-    <footer id="contacto" class="border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10">
-            <div class="col-span-1">
-                <div class="flex items-center gap-3 mb-4">
-                    <img src="./logo.jpg" alt="GLAMOURS Logo" class="h-16 w-16 rounded-full object-cover border-2 border-white/20">
-                    <span class="font-serif font-bold text-2xl tracking-tight">Glamour's</span>
-                </div>
-                <p class="text-white/60 text-sm leading-relaxed">Multimarcas: Sail, Legacy, 47 Street, Owoko. Moda urbana en Luján.</p>
-            </div>
-            <div class="col-span-1">
-                <h4 class="font-bold mb-4 text-white">Visítanos</h4>
-                <ul class="text-sm text-white/60 space-y-2">
-                    <li><i class="fa-solid fa-location-dot mr-2"></i> Italia 1037, Luján</li>
-                    <li><i class="fa-regular fa-clock mr-2"></i> Lun a Sáb: 9–20:30</li>
-                </ul>
-            </div>
-            <div class="col-span-1">
-                <h4 class="font-bold mb-4 text-white">Contacto</h4>
-                <a href="https://wa.me/5491122618116" class="bg-[#25D366] text-white px-6 py-3 rounded-full flex items-center justify-center gap-2 font-bold hover:scale-105 transition">
-                    <i class="fa-brands fa-whatsapp"></i> WhatsApp
-                </a>
-            </div>
-        </div>
-        <div class="text-center text-white/40 text-[10px] mt-12 border-t border-white/5 pt-8">
-            &copy; 2026 GLAMOURS. Todos los derechos reservados.
+    <footer class="border-t border-white/10 bg-[#0c1c4d] text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6 md:px-16 grid grid-cols-1 md:grid-cols-3 gap-10 text-center md:text-left">
+            <div><span class="font-serif font-bold text-2xl">Glamour's</span><p class="text-white/40 text-sm mt-2">Moda urbana en Luján.</p></div>
+            <div><h4 class="font-bold mb-4">Visítanos</h4><p class="text-white/60 text-sm">Italia 1037, Luján</p></div>
+            <div><h4 class="font-bold mb-4">Contacto</h4><a href="https://wa.me/5491122618116" class="text-[#25D366] font-bold underline">WhatsApp</a></div>
         </div>
     </footer>
 
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[120] flex items-center justify-end hidden">
+        <div class="bg-white w-full max-w-md h-full shadow-2xl flex flex-col animate-slide-left">
+            <div class="p-6 border-b border-gray-100 flex justify-between items-center bg-gray-50">
+                <h2 class="font-serif text-2xl font-bold text-[#0c1c4d]">Tu Carrito</h2>
+                <button onclick="closeCartView()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div id="cart-items-list" class="flex-1 overflow-y-auto p-6"></div>
+            <div class="p-8 bg-gray-50 border-t border-blue-900/10">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-blue-900/40 font-medium">Total Estimado</span>
+                    <span id="cart-total" class="text-2xl font-black text-[#00d2ff]">$0.00</span>
+                </div>
+                <button onclick="checkout()" class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition shadow-xl">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Quick View Modal -->
     <div id="quick-view-modal" class="fixed inset-0 bg-[#0c1c4d]/60 backdrop-blur-sm z-[200] flex items-center justify-center hidden p-4">
-        <div class="bg-white w-full max-w-2xl overflow-hidden rounded-[40px] shadow-2xl relative">
-            <button onclick="closeModal()" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-blue-50 text-[#0c1c4d] hover:bg-[#0c1c4d] hover:text-white transition-all z-50">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
+        <div class="bg-white w-full max-w-4xl overflow-hidden rounded-[40px] shadow-2xl relative">
+            <button onclick="closeModal()" class="absolute top-6 right-6 w-12 h-12 flex items-center justify-center rounded-full bg-blue-50 text-[#0c1c4d] hover:bg-[#0c1c4d] hover:text-white transition-all z-50"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="grid grid-cols-1 md:grid-cols-2">
-                <div class="h-64 md:h-[500px] bg-white p-4">
-                    <img id="quick-view-image" src="" alt="Product" class="w-full h-full object-contain rounded-[30px]">
+                <div class="h-64 md:h-[600px] bg-white p-8"><img id="quick-view-image" src="" class="w-full h-full object-contain rounded-[30px]"></div>
+                <div class="p-10 flex flex-col justify-center bg-gray-50/50">
+                    <p id="quick-view-brand" class="text-[10px] font-bold text-[#0c1c4d]/40 uppercase tracking-[0.4em] mb-3">GLAMOURS</p>
+                    <h2 id="quick-view-name" class="font-serif text-4xl font-bold text-[#0c1c4d] mb-4Leading-tight">Producto</h2>
+                    <p id="quick-view-price" class="text-4xl font-black text-[#00d2ff] mb-8">$0.00</p>
+                    <div class="space-y-6 mb-8">
+                        <div id="quick-view-sizes-container"><p class="text-[10px] font-bold text-[#0c1c4d]/60 uppercase mb-2">Talles</p><div id="quick-view-sizes" class="flex flex-wrap gap-2"></div></div>
+                        <div id="quick-view-colors-container"><p class="text-[10px] font-bold text-[#0c1c4d]/60 uppercase mb-2">Colores</p><div id="quick-view-colors" class="flex flex-wrap gap-2"></div></div>
+                        <p id="quick-view-description" class="text-[#0c1c4d]/60 text-sm leading-relaxed"></p>
+                    </div>
+                    <button class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition-all" onclick="addToCartFromModal()">Añadir al Carrito</button>
                 </div>
-                <div class="p-10 flex flex-col justify-center">
-                    <p id="quick-view-brand" class="text-[10px] font-bold text-[#0c1c4d]/40 uppercase tracking-[0.3em] mb-2">GLAMOURS</p>
-                    <h2 id="quick-view-name" class="font-serif text-3xl font-bold text-[#0c1c4d] mb-4">Producto</h2>
-                    <p id="quick-view-price" class="text-3xl font-black text-[#00d2ff] mb-6">$0.00</p>
-                    <p id="quick-view-description" class="text-[#0c1c4d]/60 text-sm leading-relaxed mb-8">Diseño exclusivo de temporada.</p>
-                    <button class="w-full bg-[#0c1c4d] text-white py-4 rounded-full font-bold hover:bg-[#00d2ff] hover:text-[#0c1c4d] transition-all" onclick="addToCartFromModal()">
-                        Añadir al Carrito
-                    </button>
-                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div id="auth-modal" class="fixed inset-0 bg-[#0c1c4d]/90 backdrop-blur-md z-[300] flex items-center justify-center hidden p-4">
+        <div class="bg-white w-full max-w-md rounded-[40px] p-10 shadow-2xl relative">
+            <button onclick="closeAuthModal()" class="absolute top-6 right-6 text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div id="login-section">
+                <h2 class="font-serif text-3xl font-bold text-[#0c1c4d] mb-6">Ingresar</h2>
+                <form id="login-form" class="space-y-4">
+                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <button type="submit" class="w-full bg-[#0c1c4d] text-white py-4 rounded-xl font-bold">Ingresar</button>
+                </form>
+                <p class="text-center mt-6 text-sm">¿No tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-[#00d2ff] font-bold">Regístrate</a></p>
+            </div>
+            <div id="register-section" class="hidden">
+                <h2 class="font-serif text-3xl font-bold text-[#0c1c4d] mb-6">Crear Cuenta</h2>
+                <form id="register-form" class="space-y-4">
+                    <input type="text" name="nombre" placeholder="Nombre" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <input type="email" name="email" placeholder="Email" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <input type="password" name="password" placeholder="Contraseña" required class="w-full px-4 py-3 border border-gray-100 rounded-xl">
+                    <button type="submit" class="w-full bg-[#0c1c4d] text-white py-4 rounded-xl font-bold">Registrarse</button>
+                </form>
+                <p class="text-center mt-6 text-sm">¿Ya tienes cuenta? <a href="#" onclick="toggleAuthMode()" class="text-[#00d2ff] font-bold">Inicia sesión</a></p>
             </div>
         </div>
     </div>
@@ -251,14 +234,11 @@
     <script src="js/app.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('/api/productos')
-                .then(res => res.json())
-                .then(products => {
-                    window.allProducts = products;
-                    renderProducts(products);
-                });
+            fetch('/api/productos').then(res => res.json()).then(products => {
+                window.allProducts = products;
+                renderProducts(products);
+            });
         });
-
         function renderProducts(products) {
             const grid = document.getElementById('product-grid');
             if(!grid) return;
@@ -270,7 +250,6 @@
                 novedades.forEach(product => grid.insertAdjacentHTML('beforeend', createProductCard(product)));
             }
         }
-
         function filterByMarca(marca) {
             document.querySelectorAll('.filter-btn').forEach(btn => {
                 btn.classList.toggle('bg-[#0c1c4d]', btn.dataset.marca === marca);
