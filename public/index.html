@@ -34,6 +34,8 @@
     </script>
 </head>
 <body class="antialiased overflow-x-hidden relative">
+    <!-- Top Banner -->
+    <div id="top-banner" class="hidden"></div>
 
     <!-- Header -->
     <header class="fixed top-6 left-0 right-0 z-50 flex justify-between items-center px-8 md:px-16 max-w-7xl mx-auto fade-in-up">
@@ -114,6 +116,36 @@
             </div>
         </div>
     </main>
+
+    <!-- Categories Section -->
+    <section class="py-16 px-6 md:px-16 max-w-7xl mx-auto">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div id="cat1-container" class="category-card hidden">
+                <img id="cat1-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat1-name" class="font-serif text-2xl font-bold"></h3>
+                </div>
+            </div>
+            <div id="cat2-container" class="category-card hidden">
+                <img id="cat2-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat2-name" class="font-serif text-2xl font-bold"></h3>
+                </div>
+            </div>
+            <div id="cat3-container" class="category-card hidden">
+                <img id="cat3-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat3-name" class="font-serif text-2xl font-bold"></h3>
+                </div>
+            </div>
+            <div id="cat4-container" class="category-card hidden">
+                <img id="cat4-img" src="" alt="">
+                <div class="category-overlay">
+                    <h3 id="cat4-name" class="font-serif text-2xl font-bold"></h3>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Product Grid -->
     <section class="py-16 px-6 md:px-16 max-w-7xl mx-auto border-t border-black/5">
@@ -231,16 +263,5 @@
     </div>
 
     <script src="js/app.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            try {
-                const res = await fetch('/api/config');
-                const config = await res.json();
-                if (config.heroTitle) document.getElementById('hero-title').innerHTML = config.heroTitle;
-                if (config.heroDesc) document.getElementById('hero-desc').innerText = config.heroDesc;
-                if (config.heroImage) document.getElementById('hero-image').src = config.heroImage;
-            } catch (e) { console.error("Error cargando configuración:", e); }
-        });
-    </script>
 </body>
 </html>

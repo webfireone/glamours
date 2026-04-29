@@ -1,10 +1,53 @@
-
 // Global state
 window.allProducts = [];
+let cart = JSON.parse(localStorage.getItem('glamours_cart')) || [];
 let currentUser = JSON.parse(localStorage.getItem('glamours_user')) || null;
-let cart = JSON.parse(localStorage.getItem('glamours_cart')) || []; 
+let siteConfig = {};
+
+async function loadSiteConfig() {
+    try {
+        const res = await fetch('/api/config');
+        siteConfig = await res.json();
+        
+        // Populate Top Banner
+        const banner = document.getElementById('top-banner');
+        if (banner && siteConfig.topBanner) {
+            banner.innerText = siteConfig.topBanner;
+            banner.classList.remove('hidden');
+        } else if (banner) {
+            banner.classList.add('hidden');
+        }
+
+        // Home specific config (if on index.html)
+        if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/') {
+            if (siteConfig.heroTitle) document.getElementById('hero-title').innerHTML = siteConfig.heroTitle;
+            if (siteConfig.heroDesc) document.getElementById('hero-desc').innerText = siteConfig.heroDesc;
+            if (siteConfig.heroImage) document.getElementById('hero-image').src = siteConfig.heroImage;
+            
+            // Categories
+            for (let i = 1; i <= 4; i++) {
+                const name = siteConfig[`cat${i}Name`];
+                const img = siteConfig[`cat${i}Img`];
+                const elName = document.getElementById(`cat${i}-name`);
+                const elImg = document.getElementById(`cat${i}-img`);
+                const container = document.getElementById(`cat${i}-container`);
+                
+                if (name && img && elName && elImg) {
+                    elName.innerText = name;
+                    elImg.src = img;
+                    if(container) container.classList.remove('hidden');
+                } else if (container) {
+                    container.classList.add('hidden');
+                }
+            }
+        }
+    } catch (e) {
+        console.error("Error cargando configuración:", e);
+    }
+}
 
 document.addEventListener('DOMContentLoaded', () => {
+    loadSiteConfig();
     fetchProducts();
     updateCartCount();
     updateUIForUser();
@@ -254,25 +297,25 @@ window.toggleWishlist = function(btn) {
 
 // --- HELPERS ---
 function createProductCard(product, isPromo = false) {
-    const badge = product.descuento ? `<span class="absolute top-4 left-4 bg-[#0c1c4d] text-white text-[9px] font-bold px-3 py-1 z-20 rounded-full shadow-lg">-${product.descuento}%</span>` : '';
+    const badge = product.descuento ? `<span class="absolute top-4 left-4 bg-brand-orange text-white text-[9px] font-bold px-3 py-1 z-20 rounded-full shadow-lg">-${product.descuento}%</span>` : '';
     const imgUrl = product.imagenes && product.imagenes.length > 0 ? product.imagenes[0] : 'https://via.placeholder.com/400x500?text=Glamours';
     
     return `
         <div class="product-card group cursor-pointer fade-in-up" onclick="window.quickView('${product.id}')">
-            <div class="image-frame relative aspect-[3/4] mb-4">
+            <div class="image-frame relative aspect-[3/4] mb-4 overflow-hidden rounded-xl bg-white/50 border border-white/20 shadow-sm">
                 ${badge}
                 <img src="${imgUrl}" alt="${product.nombre}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"/>
-                <div class="absolute inset-0 bg-[#0c1c4d]/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-50">
-                    <button class="bg-white text-[#0c1c4d] text-[10px] font-bold py-3 px-6 uppercase rounded-full shadow-xl hover:scale-110 transition-transform" 
+                <div class="absolute inset-0 bg-brand-orange/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-50">
+                    <button class="bg-white text-brand-orange text-[10px] font-bold py-3 px-6 uppercase rounded-full shadow-xl hover:scale-110 transition-transform" 
                             onclick="event.stopPropagation(); window.quickView('${product.id}')">
                         Ver Detalle
                     </button>
                 </div>
             </div>
             <div class="text-center">
-                <p class="text-[9px] text-blue-900/40 uppercase tracking-widest font-bold mb-1">${product.marca || 'Glamours'}</p>
-                <h3 class="text-sm font-bold text-[#0c1c4d] mb-1 truncate">${product.nombre}</h3>
-                <p class="text-lg font-black text-[#0c1c4d]">$${product.precio}</p>
+                <p class="text-[9px] text-gray-500 uppercase tracking-widest font-bold mb-1">${product.marca || 'Glamours'}</p>
+                <h3 class="text-sm font-bold text-gray-900 mb-1 truncate">${product.nombre}</h3>
+                <p class="text-lg font-black text-brand-orange">$${product.precio}</p>
             </div>
         </div>
     `;

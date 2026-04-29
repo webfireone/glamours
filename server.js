@@ -273,9 +273,14 @@ app.post('/api/cart/remove', async (req, res) => {
 
 // --- CONFIG ---
 const DEFAULT_CONFIG = {
+    topBanner: "✨ Envíos GRATIS en compras superiores a $120.000 | 3 CUOTAS SIN INTERÉS ✨",
     heroTitle: "The Future of <br> <span class=\"italic font-light\">Intelligent</span> Fashion",
     heroDesc: "Descubre las últimas tendencias en moda urbana. Sail, Legacy, 47 Street y Owoko en un solo lugar. Eleva tu estilo con prendas seleccionadas para todos los días.",
-    heroImage: "/hero_model.png"
+    heroImage: "/hero_model.png",
+    cat1Name: "Sail", cat1Img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&q=80&w=800",
+    cat2Name: "Legacy", cat2Img: "https://images.unsplash.com/photo-1539109132381-3151b8a701d4?auto=format&fit=crop&q=80&w=800",
+    cat3Name: "47 Street", cat3Img: "https://images.unsplash.com/photo-1492707892479-7bc8d5a4ee93?auto=format&fit=crop&q=80&w=800",
+    cat4Name: "Owoko", cat4Img: "https://images.unsplash.com/photo-1519415943484-9fa1873496d4?auto=format&fit=crop&q=80&w=800"
 };
 
 app.get('/api/config', async (req, res) => {
