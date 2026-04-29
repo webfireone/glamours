@@ -272,7 +272,7 @@ app.post('/api/cart/remove', async (req, res) => {
 });
 
 // --- CONFIG ---
-const DEFAULT_CONFIG = {
+let siteConfigCache = {
     topBanner: "✨ Envíos GRATIS en compras superiores a $120.000 | 3 CUOTAS SIN INTERÉS ✨",
     heroTitle: "The Future of <br> <span class=\"italic font-light\">Intelligent</span> Fashion",
     heroDesc: "Descubre las últimas tendencias en moda urbana. Sail, Legacy, 47 Street y Owoko en un solo lugar. Eleva tu estilo con prendas seleccionadas para todos los días.",
@@ -287,20 +287,24 @@ app.get('/api/config', async (req, res) => {
     try {
         if (!firebaseOk || !db) {
             console.log("Firebase no disponible, devolviendo configuración por defecto");
-            return res.json(DEFAULT_CONFIG);
+            return res.json(siteConfigCache);
         }
         const configDoc = await db.collection('settings').doc('config').get();
-        if (!configDoc.exists) return res.json(DEFAULT_CONFIG);
+        if (!configDoc.exists) return res.json(siteConfigCache);
         res.json(configDoc.data());
     } catch (e) {
         console.error("Error en /api/config:", e);
-        res.json(DEFAULT_CONFIG);
+        res.json(siteConfigCache);
     }
 });
 
 app.put('/api/admin/config', async (req, res) => {
     try {
-        await db.collection('settings').doc('config').set(req.body, { merge: true });
+        if (db) {
+            await db.collection('settings').doc('config').set(req.body, { merge: true });
+        } else {
+            siteConfigCache = { ...siteConfigCache, ...req.body };
+        }
         res.json({ success: true, config: req.body });
     } catch (e) {
         res.status(500).json({ error: e.message });
