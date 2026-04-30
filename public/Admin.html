@@ -265,14 +265,30 @@
                 loadUsers();
             }
             
-            document.getElementById('admin-login-form').onsubmit = (e) => {
+            document.getElementById('admin-login-form').onsubmit = async (e) => {
                 e.preventDefault();
                 const u = document.getElementById('admin-user').value;
                 const p = document.getElementById('admin-pass').value;
                 if (u === 'SILVINA' && p === 'SILVINA') {
                     localStorage.setItem(AUTH_KEY, 'true');
+                    localStorage.setItem('admin_id', 'admin_silvina');
                     location.reload();
-                } else alert('Acceso denegado');
+                } else {
+                    // Try API login
+                    const res = await fetch('/api/auth/login', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email: u, password: p })
+                    });
+                    const data = await res.json();
+                    if (data.success && data.user.isAdmin) {
+                        localStorage.setItem(AUTH_KEY, 'true');
+                        localStorage.setItem('admin_id', data.user.id);
+                        location.reload();
+                    } else {
+                        alert('Acceso denegado');
+                    }
+                }
             };
 
             document.getElementById('productForm').onsubmit = async (e) => {
@@ -298,7 +314,7 @@
 
                 const res = await fetch(url, {
                     method,
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'x-admin-id': localStorage.getItem('admin_id') || '' },
                     body: JSON.stringify(p)
                 });
                 if (res.ok) { 
@@ -327,7 +343,7 @@
                 };
                 const res = await fetch('/api/admin/config', {
                     method: 'PUT',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'x-admin-id': localStorage.getItem('admin_id') || '' },
                     body: JSON.stringify(config)
                 });
                 if (res.ok) alert('Portada actualizada con éxito ✨');
@@ -342,7 +358,7 @@
                 
                 const res = await fetch('/api/admin/update-credentials', {
                     method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
+                    headers: { 'Content-Type': 'application/json', 'x-admin-id': localStorage.getItem('admin_id') || '' },
                     body: JSON.stringify({ user: newUser, pass: newPass })
                 });
                 
@@ -466,7 +482,10 @@
         async function deleteProduct(id) {
             if (!confirm('¿Estás segura de eliminar este producto?')) return;
             try {
-                const res = await fetch(`/api/admin/productos/${id}`, { method: 'DELETE' });
+                const res = await fetch(`/api/admin/productos/${id}`, { 
+                    method: 'DELETE',
+                    headers: { 'x-admin-id': localStorage.getItem('admin_id') || '' }
+                });
                 if (res.ok) {
                     loadProducts();
                 } else {
@@ -478,7 +497,9 @@
         }
 
         async function loadUsers() {
-            const res = await fetch('/api/admin/users');
+            const res = await fetch('/api/admin/users', {
+                headers: { 'x-admin-id': localStorage.getItem('admin_id') || '' }
+            });
             usersData = await res.json();
             document.getElementById('user-list-table').innerHTML = `
                 <table class="w-full text-left text-sm">
